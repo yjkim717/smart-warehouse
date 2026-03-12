@@ -1,0 +1,19 @@
+# Warehouse Environment Configuration
+
+env:
+  # rware preset: "tiny-2ag-v2" | "small-4ag-v2"
+  # tiny  = 2 robots, 11x10 grid  (debug)
+  # small = 4 robots, larger grid (presentation)
+  name: "rware-tiny-2ag-v2"
+  n_agents: 2
+
+  # Override rware defaults (optional)
+  # These match rware's internal kwargs — set null to use rware defaults
+  max_steps: 500          # max steps per episode
+  reward_type: "individual"  # "individual" | "global"
+
+  # GIF recording
+  record:
+    fps: 8
+    output_dir: "results/videos"
+    filename: "random_policy.gif"

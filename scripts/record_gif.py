@@ -1,0 +1,149 @@
+"""
+record_gif.py — Record environment rendering as a GIF
+
+What this script does:
+    1. Loads the warehouse environment from configs/env_config.yaml
+    2. Runs one episode using a semi-greedy random policy:
+         - Each agent moves randomly by default
+         - If an agent is empty-handed and standing on a shelf → picks it up (action 4)
+         - If an agent is carrying a shelf and standing on a packing station (P) → drops it (action 4)
+         - After dropping, the agent has no shelf (empty-handed) and resumes random movement
+    3. Captures an RGB frame after every step
+    4. Saves all frames as an animated GIF to results/videos/
+
+Usage:
+    # Random policy (default)
+    python scripts/record_gif.py
+
+    # Use a trained policy checkpoint
+    python scripts/record_gif.py --checkpoint results/checkpoints/best_model.pt
+
+    # Override config or step count
+    python scripts/record_gif.py --config configs/env_config.yaml --steps 200
+"""
+
+import argparse
+import os
+import sys
+import yaml
+import numpy as np
+
+sys.path.insert(0, ".")
+from src.env.warehouse_env import WarehouseEnv
+
+
+def load_config(path: str) -> dict:
+    with open(path) as f:
+        return yaml.safe_load(f)
+
+
+def random_policy(obs: list, action_dim: int, env: "WarehouseEnv" = None) -> list:
+    """
+    Random actions with two greedy overrides:
+      - Drop shelf (action 4) when carrying and standing on a packing station.
+      - Pick up shelf (action 4) when empty-handed and standing on a shelf.
+    """
+    ACTION_INTERACT = 4
+    actions = [np.random.randint(action_dim) for _ in obs]
+
+    if env is not None:
+        u = env._env.unwrapped
+        goal_set = set(u.goals)                          # (col, row) of packing stations
+        shelf_set = {(s.x, s.y) for s in u.shelfs}      # (col, row) of shelves
+
+        for i, agent in enumerate(u.agents):
+            pos = (agent.x, agent.y)
+            if agent.carrying_shelf and pos in goal_set:
+                actions[i] = ACTION_INTERACT             # drop at packing station
+            elif not agent.carrying_shelf and pos in shelf_set:
+                actions[i] = ACTION_INTERACT             # pick up shelf
+
+    return actions
+
+
+def load_trained_policy(checkpoint_path: str):
+    """
+    TODO (Team B): load MAPPO model and return a callable
+        policy(obs: List[np.ndarray]) -> List[int]
+    """
+    raise NotImplementedError(
+        f"Trained policy loading not yet implemented.\n"
+        f"Checkpoint: {checkpoint_path}\n"
+        "Team B: implement this once MAPPO is ready."
+    )
+
+
+def record(env: WarehouseEnv, policy_fn, n_steps: int) -> list:
+    """Run one episode and collect RGB frames."""
+    frames = []
+    obs = env.reset()
+
+    # Capture initial frame
+    frame = env.render()
+    if frame is not None:
+        frames.append(frame)
+
+    for _ in range(n_steps):
+        actions = policy_fn(obs, env.action_dim, env)
+        obs, rews, dones, _ = env.step(actions)
+
+        frame = env.render()
+        if frame is not None:
+            frames.append(frame)
+
+        if all(dones):
+            break
+
+    return frames
+
+
+def save_gif(frames: list, output_path: str, fps: int):
+    try:
+        import imageio
+    except ImportError:
+        print("[FAIL] imageio not found — run: pip install imageio")
+        sys.exit(1)
+
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    imageio.mimsave(output_path, frames, fps=fps, loop=0)
+    print(f"[OK] GIF saved → {output_path}  ({len(frames)} frames, {fps} fps)")
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", default="configs/env_config.yaml")
+    parser.add_argument("--checkpoint", default=None, help="Path to trained model checkpoint")
+    parser.add_argument("--steps", type=int, default=None, help="Override max steps for recording")
+    args = parser.parse_args()
+
+    config = load_config(args.config)
+    rec_cfg = config["env"]["record"]
+
+    n_steps = args.steps or config["env"].get("max_steps", 500)
+    fps = rec_cfg["fps"]
+    output_dir = rec_cfg["output_dir"]
+
+    # Pick policy
+    if args.checkpoint:
+        print(f"Loading trained policy from {args.checkpoint} ...")
+        policy_fn = load_trained_policy(args.checkpoint)
+        filename = "trained_policy.gif"
+    else:
+        print("Using random policy (no checkpoint provided)")
+        policy_fn = random_policy
+        filename = rec_cfg["filename"]
+
+    output_path = os.path.join(output_dir, filename)
+
+    # Run
+    env = WarehouseEnv(config)
+    print(f"Recording {n_steps} steps in {config['env']['name']} ...")
+    frames = record(env, policy_fn, n_steps)
+    env.close()
+
+    print(f"Captured {len(frames)} frames")
+    save_gif(frames, output_path, fps)
+
+
+if __name__ == "__main__":
+    main()
