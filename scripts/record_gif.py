@@ -55,6 +55,8 @@ def random_policy(obs: list, action_dim: int, env: "WarehouseEnv" = None) -> lis
             pos = (agent.x, agent.y)
             if agent.carrying_shelf and pos in goal_set:
                 actions[i] = ACTION_INTERACT             # drop shelf at packing station
+            elif agent.carrying_shelf:
+                actions[i] = np.random.randint(4)       # carrying but not at goal — move only, no accidental drop
             elif not agent.carrying_shelf and pos in goal_set:
                 actions[i] = np.random.randint(4)       # move away from packing station (actions 0-3 only, no INTERACT)
             elif not agent.carrying_shelf and pos in shelf_set:

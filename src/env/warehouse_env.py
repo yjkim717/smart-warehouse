@@ -9,6 +9,7 @@ Interface (what Team B needs):
     env.render()                             # returns RGB array (H x W x 3, uint8)
 """
 
+import random
 import rware  # registers rware envs with gymnasium
 import gymnasium as gym
 import numpy as np
@@ -46,6 +47,7 @@ class WarehouseEnv:
         self._n_agents: int = env_cfg["n_agents"]
         self._max_steps: int = env_cfg.get("max_steps", 500)
         self._step_count: int = 0
+        self._randomize_goals: bool = env_cfg.get("randomize_goals", False)
 
         obs_space = self._env.observation_space
         act_space = self._env.action_space
@@ -65,6 +67,8 @@ class WarehouseEnv:
         """Reset env, return list of per-agent observations."""
         self._step_count = 0
         obs, _ = self._env.reset()
+        if self._randomize_goals:
+            self._randomize_goal_positions()
         return self._unpack_obs(obs)
 
     def step(
@@ -197,6 +201,18 @@ class WarehouseEnv:
     # ------------------------------------------------------------------
     # Helpers
     # ------------------------------------------------------------------
+
+    def _randomize_goal_positions(self):
+        """Randomly relocate packing stations to positions not occupied by shelves."""
+        u = self._env.unwrapped
+        rows, cols = u.grid.shape[1], u.grid.shape[2]
+
+        shelf_positions = {(s.x, s.y) for s in u.shelfs}
+        valid = [(c, r) for c in range(cols) for r in range(rows)
+                 if (c, r) not in shelf_positions]
+
+        new_goals = random.sample(valid, len(u.goals))
+        u.goals[:] = new_goals
 
     def _unpack_obs(self, obs) -> List[np.ndarray]:
         if isinstance(obs, (list, tuple)):
