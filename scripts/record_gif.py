@@ -30,6 +30,7 @@ import numpy as np
 
 sys.path.insert(0, ".")
 from src.env.warehouse_env import WarehouseEnv
+from src.analytics import RewardTracker
 
 
 def load_config(path: str) -> dict:
@@ -77,10 +78,13 @@ def load_trained_policy(checkpoint_path: str):
     )
 
 
-def record(env: WarehouseEnv, policy_fn, n_steps: int) -> list:
-    """Run one episode and collect RGB frames."""
+def record(env: WarehouseEnv, policy_fn, n_steps: int, tracker: RewardTracker = None) -> list:
+    """Run one episode, collect RGB frames, and optionally track rewards."""
     frames = []
     obs = env.reset()
+
+    if tracker is not None:
+        tracker.start_episode()
 
     # Capture initial frame
     frame = env.render()
@@ -91,12 +95,24 @@ def record(env: WarehouseEnv, policy_fn, n_steps: int) -> list:
         actions = policy_fn(obs, env.action_dim, env)
         obs, rews, dones, _ = env.step(actions)
 
+        if tracker is not None:
+            tracker.record_step(rews)
+
         frame = env.render()
         if frame is not None:
             frames.append(frame)
 
         if all(dones):
             break
+
+    if tracker is not None:
+        tracker.end_episode()
+        ep = tracker.episodes[-1]
+        print(
+            f"[reward] episode total={ep['team_total_reward']:.3f}  "
+            f"steps={ep['n_steps']}  "
+            f"per_step={ep['team_reward_per_step']:.5f}"
+        )
 
     return frames
 
@@ -141,12 +157,20 @@ def main():
 
     # Run
     env = WarehouseEnv(config)
+    tracker = RewardTracker(n_agents=env.n_agents)
+
     print(f"Recording {n_steps} steps in {config['env']['name']} ...")
-    frames = record(env, policy_fn, n_steps)
+    frames = record(env, policy_fn, n_steps, tracker=tracker)
     env.close()
 
     print(f"Captured {len(frames)} frames")
     save_gif(frames, output_path, fps)
+
+    # Save reward log alongside the GIF
+    log_dir = "results/logs"
+    policy_tag = "trained" if args.checkpoint else "random"
+    tracker.save(os.path.join(log_dir, f"{policy_tag}_policy_rewards.json"))
+    tracker.save_csv(os.path.join(log_dir, f"{policy_tag}_policy_rewards.csv"))
 
 
 if __name__ == "__main__":

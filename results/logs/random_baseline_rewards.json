@@ -1,0 +1,79 @@
+{
+  "summary": {
+    "n_episodes": 5,
+    "n_agents": 2,
+    "team_total_reward": {
+      "mean": 0.4,
+      "std": 0.4899,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "episode_length": {
+      "mean": 500.0,
+      "std": 0.0,
+      "min": 500,
+      "max": 500
+    },
+    "per_agent_mean_total": [
+      0.4,
+      0.0
+    ]
+  },
+  "episodes": [
+    {
+      "episode": 0,
+      "n_steps": 500,
+      "duration_s": 0.301,
+      "agent_total_rewards": [
+        0.0,
+        0.0
+      ],
+      "team_total_reward": 0.0,
+      "team_reward_per_step": 0.0
+    },
+    {
+      "episode": 1,
+      "n_steps": 500,
+      "duration_s": 0.254,
+      "agent_total_rewards": [
+        0.0,
+        0.0
+      ],
+      "team_total_reward": 0.0,
+      "team_reward_per_step": 0.0
+    },
+    {
+      "episode": 2,
+      "n_steps": 500,
+      "duration_s": 0.261,
+      "agent_total_rewards": [
+        1.0,
+        0.0
+      ],
+      "team_total_reward": 1.0,
+      "team_reward_per_step": 0.002
+    },
+    {
+      "episode": 3,
+      "n_steps": 500,
+      "duration_s": 0.34,
+      "agent_total_rewards": [
+        0.0,
+        0.0
+      ],
+      "team_total_reward": 0.0,
+      "team_reward_per_step": 0.0
+    },
+    {
+      "episode": 4,
+      "n_steps": 500,
+      "duration_s": 0.29,
+      "agent_total_rewards": [
+        1.0,
+        0.0
+      ],
+      "team_total_reward": 1.0,
+      "team_reward_per_step": 0.002
+    }
+  ]
+}

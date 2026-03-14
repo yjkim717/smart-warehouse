@@ -11,7 +11,7 @@ env:
   # These match rware's internal kwargs — set null to use rware defaults
   max_steps: 500          # max steps per episode
   reward_type: "individual"  # "individual" | "global"
-  randomize_goals: false   # true = P positions randomized each episode (excludes shelf cells)
+  randomize_goals: true   # true = P positions randomized each episode (excludes shelf cells)
 
   # GIF recording
   record:
