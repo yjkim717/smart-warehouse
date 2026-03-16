@@ -13,6 +13,17 @@ env:
   reward_type: "individual"  # "individual" | "global"
   randomize_goals: true   # true = P positions randomized each episode (excludes shelf cells)
 
+  # Reward shaping (dense intermediate rewards for training)
+  reward_shaping:
+    enabled: true
+    pickup_reward: 0.5        # bonus for picking up a shelf
+    delivery_bonus: 2.0       # bonus on top of rware's +1 for delivery (total = 3.0)
+    step_penalty: -0.005      # small cost per step (encourages speed)
+    carry_toward_goal: 0.05   # bonus for moving closer to goal while carrying
+    move_toward_shelf: 0.05   # bonus for moving closer to shelf when empty-handed
+    bad_drop_penalty: -0.6    # penalty for dropping shelf away from goal (must exceed pickup_reward)
+    linger_penalty: -0.05     # mild penalty per step for carrying on goal without dropping
+
   # GIF recording
   record:
     fps: 8

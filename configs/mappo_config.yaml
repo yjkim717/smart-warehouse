@@ -1,0 +1,32 @@
+# MAPPO Training Configuration
+
+mappo:
+  # ---- Network architecture ----
+  hidden_dim: 128           # was 64 — more capacity for value function
+  n_layers: 2
+
+  # ---- PPO hyperparameters ----
+  lr_actor: 0.0003
+  lr_critic: 0.0005          # critic learns faster to bootstrap value signal
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_epsilon: 0.2
+  entropy_coef: 0.01          # lower = allow policy to commit to learned behaviors
+  value_loss_coef: 0.5
+  max_grad_norm: 0.5
+
+  # ---- Rollout ----
+  n_steps: 256                # was 128 — longer rollouts capture more episode structure
+  n_epochs: 4
+  minibatch_size: 128         # was 64 — proportional to larger rollout
+
+  # ---- Training schedule ----
+  total_timesteps: 2_000_000
+  eval_episodes: 10
+  eval_interval: 10000
+  save_interval: 50000
+  log_interval: 2000
+
+  # ---- Paths ----
+  checkpoint_dir: "results/checkpoints"
+  log_dir: "results/logs"

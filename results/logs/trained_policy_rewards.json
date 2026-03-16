@@ -1,0 +1,35 @@
+{
+  "summary": {
+    "n_episodes": 1,
+    "n_agents": 2,
+    "team_total_reward": {
+      "mean": 2.3,
+      "std": 0.0,
+      "min": 2.3,
+      "max": 2.3
+    },
+    "episode_length": {
+      "mean": 300.0,
+      "std": 0.0,
+      "min": 300,
+      "max": 300
+    },
+    "per_agent_mean_total": [
+      0.9,
+      1.4
+    ]
+  },
+  "episodes": [
+    {
+      "episode": 0,
+      "n_steps": 300,
+      "duration_s": 4.518,
+      "agent_total_rewards": [
+        0.9000000000000002,
+        1.4000000000000004
+      ],
+      "team_total_reward": 2.3,
+      "team_reward_per_step": 0.007667
+    }
+  ]
+}
