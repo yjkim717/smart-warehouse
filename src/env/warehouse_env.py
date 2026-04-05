@@ -130,7 +130,10 @@ class WarehouseEnv:
         done_base = self._unpack_bool(terminated)
         trunc_base = self._unpack_bool(truncated)
         timeout = self._step_count >= self._max_steps
-        dones = [d or t or timeout for d, t in zip(done_base, trunc_base)]
+        
+        # In multi-agent RL (QMIX/MAPPO), TimeLimit truncations must NOT act as true terminations 
+        # in the Bellman equation, otherwise value functions abruptly collapse to 0 at MAX_STEPS.
+        dones = done_base
 
         return obs_list, rew_list, dones, info
 

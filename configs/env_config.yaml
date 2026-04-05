@@ -20,7 +20,7 @@ env:
     step_penalty: -0.005
     carry_toward_goal: 0.02
     move_toward_shelf: 0.01
-    bad_drop_penalty: -0.2
+    bad_drop_penalty: -0.1
     linger_penalty: -0.1
 
   # GIF recording

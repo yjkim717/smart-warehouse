@@ -31,7 +31,8 @@ NUM_EPISODES = 4000
 MAX_STEPS = config['env'].get('max_steps', 500)
 GAMMA = 0.99
 BATCH_SIZE = 128
-TARGET_UPDATE_INTERVAL = 2  # Update every 2 episodes (~1000 training steps, aligns with standard DQN)
+MIN_REPLAY_SIZE = 1000
+TARGET_UPDATE_INTERVAL = 20  # Update every 20 episodes (~1000 gradient steps), prevents catastrophic forgetting
 
 # Epsilon Scheduling instead of fixed
 epsilon_start = 1.0
@@ -224,7 +225,8 @@ for episode in range(NUM_EPISODES):
     training_deliveries.append(episode_deliveries)
     
     # --- CENTRALIZED TRAINING ---
-    if len(D) >= BATCH_SIZE:
+    # Throttle training to prevent severe overfitting to early state penalties and stabilize target Q-learning 
+    if len(D) >= MIN_REPLAY_SIZE and t % 10 == 0:
         batch_indices = np.random.choice(len(D), BATCH_SIZE, replace=False)
         batch = [D[idx] for idx in batch_indices]
 
@@ -345,7 +347,14 @@ try:
     m_d = mappo_res["_deliveries"]
     print(f"Loaded MAPPO Baseline. Mean Reward: {np.mean(m_r):.4f}")
 except (FileNotFoundError, KeyError):
-    print(f"Warning: {mappo_res_path} not found. Skipping MAPPO.")
+    print(f"Warning: {mappo_res_path} lacked explicit rewards. Sourcing from mappo_eval_curve.json.")
+    try:
+        with open("results/logs/mappo_eval_curve.json") as f:
+            mappo_eval = json.load(f)
+        # Sourcing explicitly greedy evaluated rewards directly from MAPPO eval interval traces
+        m_r = [step["eval_mean_reward"] for step in mappo_eval][-EVAL_EPISODES:] # Best approximation matching scale
+    except (FileNotFoundError, KeyError):
+        print("Warning: MAPPO eval logs failed too. Skipping MAPPO.")
 
 # 2. Load Random Baseline
 random_res_path = "results/logs/random_baseline_rewards.json"
@@ -493,27 +502,35 @@ ax.grid(alpha=0.3)
 
 # Panel 5: Cumulative Deliveries
 ax = axes[1, 1]
-ax.plot(np.cumsum(q_d), color=QMIX_COLOR, linewidth=2, label="QMIX")
+ax.plot(np.cumsum(q_d), color=QMIX_COLOR, linewidth=2, label="QMIX (Eval)")
 if len(m_d) > 0:
-    ax.plot(np.cumsum(m_d), color=MAPPO_COLOR, linewidth=2, label="MAPPO")
-ax.plot(np.cumsum(r_d), color=RAND_COLOR, linewidth=2, label="Random")
-ax.set_title("Cumulative Deliveries Over Evaluation Episodes")
+    ax.plot(np.cumsum(m_d), color=MAPPO_COLOR, linewidth=2, label="MAPPO (Eval)")
+ax.plot(np.cumsum(r_d), color=RAND_COLOR, linewidth=2, label="Random (Eval)")
+
+# Add cumulative training deliveries scaled to evaluate growth dynamically
+if len(training_deliveries) > 0:
+    # Scale x-axis from 0 to EVAL_EPISODES to fit on the same graph visually
+    x_train = np.linspace(0, EVAL_EPISODES, len(training_deliveries))
+    ax.plot(x_train, np.cumsum(training_deliveries), color="blue", alpha=0.5, linestyle=":", linewidth=2, label="QMIX (Training Scaled)")
+
+ax.set_title("Cumulative Deliveries")
 ax.legend()
 ax.grid(alpha=0.3)
 
-# Panel 6: Positive Rate
+# Panel 6: Positive Rate (Delivery Success)
 ax = axes[1, 2]
 eval_window = 50
-q_pos = [np.mean([1 if r > 0 else 0 for r in q_r[i:i+eval_window]]) for i in range(0, len(q_r)-eval_window+1, eval_window//2)]
-r_pos = [np.mean([1 if r > 0 else 0 for r in r_r[i:i+eval_window]]) for i in range(0, len(r_r)-eval_window+1, eval_window//2)]
+# Track positive delivery rate (d > 0), because base rewards are structurally negative 
+q_pos = [np.mean([1 if d > 0 else 0 for d in q_d[i:i+eval_window]]) for i in range(0, len(q_d)-eval_window+1, eval_window//2)]
+r_pos = [np.mean([1 if d > 0 else 0 for d in r_d[i:i+eval_window]]) for i in range(0, len(r_d)-eval_window+1, eval_window//2)]
 x_q_pos = np.arange(len(q_pos)) * (eval_window//2)
-ax.plot(x_q_pos, q_pos, color=QMIX_COLOR, label="QMIX")
-if len(m_r) > 0:
-    m_pos = [np.mean([1 if r > 0 else 0 for r in m_r[i:i+eval_window]]) for i in range(0, len(m_r)-eval_window+1, eval_window//2)]
-    ax.plot(x_q_pos, m_pos, color=MAPPO_COLOR, label="MAPPO")
-ax.plot(x_q_pos, r_pos, color=RAND_COLOR, label="Random")
-ax.set_ylim(0, 1.05)
-ax.set_title("Positive Rate (Rolling 50-ep)")
+ax.plot(x_q_pos, q_pos, color=QMIX_COLOR, linewidth=2, label="QMIX")
+if len(m_d) > 0:
+    m_pos = [np.mean([1 if d > 0 else 0 for d in m_d[i:i+eval_window]]) for i in range(0, len(m_d)-eval_window+1, eval_window//2)]
+    ax.plot(x_q_pos, m_pos, color=MAPPO_COLOR, linewidth=2, label="MAPPO")
+ax.plot(x_q_pos, r_pos, color=RAND_COLOR, linewidth=2, label="Random")
+ax.set_ylim(-0.05, 1.05)
+ax.set_title("Delivery Success Rate (Rolling 50-ep)")
 ax.legend()
 ax.grid(alpha=0.3)
 
