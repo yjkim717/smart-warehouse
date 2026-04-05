@@ -1,0 +1,1802 @@
+[
+  {
+    "timestep": 10240,
+    "eval_mean_reward": -4.94,
+    "eval_std_reward": 0.0743,
+    "eval_max_reward": -4.8,
+    "policy_loss": -0.011483,
+    "value_loss": 0.013645,
+    "entropy": 1.346935
+  },
+  {
+    "timestep": 20224,
+    "eval_mean_reward": -4.6725,
+    "eval_std_reward": 0.2916,
+    "eval_max_reward": -4.325,
+    "policy_loss": -0.010325,
+    "value_loss": 0.026922,
+    "entropy": 1.007279
+  },
+  {
+    "timestep": 30208,
+    "eval_mean_reward": -4.9975,
+    "eval_std_reward": 0.0541,
+    "eval_max_reward": -4.9,
+    "policy_loss": -0.010318,
+    "value_loss": 0.015767,
+    "entropy": 0.905952
+  },
+  {
+    "timestep": 40192,
+    "eval_mean_reward": -4.9175,
+    "eval_std_reward": 0.1475,
+    "eval_max_reward": -4.5,
+    "policy_loss": -0.008852,
+    "value_loss": 0.013343,
+    "entropy": 0.861609
+  },
+  {
+    "timestep": 50176,
+    "eval_mean_reward": -4.31,
+    "eval_std_reward": 0.9067,
+    "eval_max_reward": -1.775,
+    "policy_loss": -0.005379,
+    "value_loss": 0.005021,
+    "entropy": 0.472946
+  },
+  {
+    "timestep": 60160,
+    "eval_mean_reward": -3.405,
+    "eval_std_reward": 0.7648,
+    "eval_max_reward": -2.2,
+    "policy_loss": -0.008561,
+    "value_loss": 0.007598,
+    "entropy": 0.569828
+  },
+  {
+    "timestep": 70144,
+    "eval_mean_reward": -4.5875,
+    "eval_std_reward": 0.3705,
+    "eval_max_reward": -3.85,
+    "policy_loss": -0.003683,
+    "value_loss": 0.007843,
+    "entropy": 0.606913
+  },
+  {
+    "timestep": 80128,
+    "eval_mean_reward": -3.955,
+    "eval_std_reward": 0.4239,
+    "eval_max_reward": -3.25,
+    "policy_loss": -0.004853,
+    "value_loss": 0.011275,
+    "entropy": 0.666721
+  },
+  {
+    "timestep": 90112,
+    "eval_mean_reward": -4.4575,
+    "eval_std_reward": 0.4495,
+    "eval_max_reward": -3.8,
+    "policy_loss": -0.004045,
+    "value_loss": 0.008822,
+    "entropy": 0.504432
+  },
+  {
+    "timestep": 100096,
+    "eval_mean_reward": -3.93,
+    "eval_std_reward": 1.6552,
+    "eval_max_reward": 0.85,
+    "policy_loss": -0.005877,
+    "value_loss": 0.008268,
+    "entropy": 0.457668
+  },
+  {
+    "timestep": 110080,
+    "eval_mean_reward": -4.275,
+    "eval_std_reward": 0.4414,
+    "eval_max_reward": -3.525,
+    "policy_loss": -0.00613,
+    "value_loss": 0.004376,
+    "entropy": 0.365435
+  },
+  {
+    "timestep": 120064,
+    "eval_mean_reward": -4.3775,
+    "eval_std_reward": 0.4202,
+    "eval_max_reward": -3.7,
+    "policy_loss": -0.009237,
+    "value_loss": 0.006234,
+    "entropy": 0.280955
+  },
+  {
+    "timestep": 130048,
+    "eval_mean_reward": -3.55,
+    "eval_std_reward": 1.6256,
+    "eval_max_reward": 1.25,
+    "policy_loss": -0.007713,
+    "value_loss": 0.009506,
+    "entropy": 0.383776
+  },
+  {
+    "timestep": 140032,
+    "eval_mean_reward": -2.4675,
+    "eval_std_reward": 2.9191,
+    "eval_max_reward": 3.3,
+    "policy_loss": -0.001753,
+    "value_loss": 0.006521,
+    "entropy": 0.225719
+  },
+  {
+    "timestep": 150016,
+    "eval_mean_reward": -3.495,
+    "eval_std_reward": 0.6382,
+    "eval_max_reward": -2.325,
+    "policy_loss": -0.002142,
+    "value_loss": 0.005893,
+    "entropy": 0.143349
+  },
+  {
+    "timestep": 160000,
+    "eval_mean_reward": -16.265,
+    "eval_std_reward": 37.0888,
+    "eval_max_reward": -3.15,
+    "policy_loss": -0.007713,
+    "value_loss": 0.006746,
+    "entropy": 0.190964
+  },
+  {
+    "timestep": 170240,
+    "eval_mean_reward": -4.11,
+    "eval_std_reward": 0.2986,
+    "eval_max_reward": -3.75,
+    "policy_loss": -0.006498,
+    "value_loss": 0.020462,
+    "entropy": 0.447862
+  },
+  {
+    "timestep": 180224,
+    "eval_mean_reward": -3.9875,
+    "eval_std_reward": 0.3107,
+    "eval_max_reward": -3.7,
+    "policy_loss": -0.006018,
+    "value_loss": 0.013279,
+    "entropy": 0.235578
+  },
+  {
+    "timestep": 190208,
+    "eval_mean_reward": -3.37,
+    "eval_std_reward": 2.2239,
+    "eval_max_reward": 0.975,
+    "policy_loss": -0.005781,
+    "value_loss": 0.087371,
+    "entropy": 0.287165
+  },
+  {
+    "timestep": 200192,
+    "eval_mean_reward": -4.37,
+    "eval_std_reward": 0.311,
+    "eval_max_reward": -3.8,
+    "policy_loss": -0.002513,
+    "value_loss": 0.00795,
+    "entropy": 0.227599
+  },
+  {
+    "timestep": 210176,
+    "eval_mean_reward": -3.9575,
+    "eval_std_reward": 0.2973,
+    "eval_max_reward": -3.65,
+    "policy_loss": -0.00378,
+    "value_loss": 0.009805,
+    "entropy": 0.414422
+  },
+  {
+    "timestep": 220160,
+    "eval_mean_reward": -3.8525,
+    "eval_std_reward": 1.6186,
+    "eval_max_reward": 0.875,
+    "policy_loss": -0.011929,
+    "value_loss": 0.007744,
+    "entropy": 0.306025
+  },
+  {
+    "timestep": 230144,
+    "eval_mean_reward": -2.2425,
+    "eval_std_reward": 2.5208,
+    "eval_max_reward": 1.4,
+    "policy_loss": -0.003753,
+    "value_loss": 0.011379,
+    "entropy": 0.18917
+  },
+  {
+    "timestep": 240128,
+    "eval_mean_reward": -2.7125,
+    "eval_std_reward": 2.7079,
+    "eval_max_reward": 4.475,
+    "policy_loss": -0.003872,
+    "value_loss": 0.006941,
+    "entropy": 0.164727
+  },
+  {
+    "timestep": 250112,
+    "eval_mean_reward": -1.91,
+    "eval_std_reward": 2.2986,
+    "eval_max_reward": 1.125,
+    "policy_loss": -0.004058,
+    "value_loss": 0.008373,
+    "entropy": 0.166413
+  },
+  {
+    "timestep": 260096,
+    "eval_mean_reward": -2.515,
+    "eval_std_reward": 3.0052,
+    "eval_max_reward": 4.55,
+    "policy_loss": -0.00625,
+    "value_loss": 0.008119,
+    "entropy": 0.254736
+  },
+  {
+    "timestep": 270080,
+    "eval_mean_reward": -1.09,
+    "eval_std_reward": 2.5125,
+    "eval_max_reward": 1.3,
+    "policy_loss": -0.003848,
+    "value_loss": 0.012738,
+    "entropy": 0.208941
+  },
+  {
+    "timestep": 280064,
+    "eval_mean_reward": -1.835,
+    "eval_std_reward": 3.4117,
+    "eval_max_reward": 6.2,
+    "policy_loss": -0.003701,
+    "value_loss": 0.007609,
+    "entropy": 0.14596
+  },
+  {
+    "timestep": 290048,
+    "eval_mean_reward": -2.55,
+    "eval_std_reward": 2.0342,
+    "eval_max_reward": 1.3,
+    "policy_loss": -0.009281,
+    "value_loss": 0.007849,
+    "entropy": 0.268721
+  },
+  {
+    "timestep": 300032,
+    "eval_mean_reward": -2.425,
+    "eval_std_reward": 2.3072,
+    "eval_max_reward": 1.275,
+    "policy_loss": -0.003437,
+    "value_loss": 0.004302,
+    "entropy": 0.142259
+  },
+  {
+    "timestep": 310016,
+    "eval_mean_reward": -1.99,
+    "eval_std_reward": 2.9863,
+    "eval_max_reward": 4.15,
+    "policy_loss": -0.004293,
+    "value_loss": 0.010378,
+    "entropy": 0.138687
+  },
+  {
+    "timestep": 320000,
+    "eval_mean_reward": -2.6325,
+    "eval_std_reward": 2.9985,
+    "eval_max_reward": 5.125,
+    "policy_loss": -0.004488,
+    "value_loss": 0.005807,
+    "entropy": 0.128597
+  },
+  {
+    "timestep": 330240,
+    "eval_mean_reward": -3.4175,
+    "eval_std_reward": 2.6799,
+    "eval_max_reward": 4.475,
+    "policy_loss": -0.002089,
+    "value_loss": 0.007079,
+    "entropy": 0.136191
+  },
+  {
+    "timestep": 340224,
+    "eval_mean_reward": -2.9125,
+    "eval_std_reward": 4.0245,
+    "eval_max_reward": 1.35,
+    "policy_loss": -0.005691,
+    "value_loss": 0.005493,
+    "entropy": 0.252782
+  },
+  {
+    "timestep": 350208,
+    "eval_mean_reward": 0.025,
+    "eval_std_reward": 3.2405,
+    "eval_max_reward": 6.125,
+    "policy_loss": -0.00433,
+    "value_loss": 0.00841,
+    "entropy": 0.14193
+  },
+  {
+    "timestep": 360192,
+    "eval_mean_reward": -0.66,
+    "eval_std_reward": 3.0857,
+    "eval_max_reward": 4.875,
+    "policy_loss": -0.00415,
+    "value_loss": 0.008498,
+    "entropy": 0.115468
+  },
+  {
+    "timestep": 370176,
+    "eval_mean_reward": -12.8575,
+    "eval_std_reward": 38.6754,
+    "eval_max_reward": 5.825,
+    "policy_loss": -0.004237,
+    "value_loss": 0.009148,
+    "entropy": 0.169785
+  },
+  {
+    "timestep": 380160,
+    "eval_mean_reward": -1.3,
+    "eval_std_reward": 3.6611,
+    "eval_max_reward": 6.75,
+    "policy_loss": -0.006026,
+    "value_loss": 1.168485,
+    "entropy": 0.131344
+  },
+  {
+    "timestep": 390144,
+    "eval_mean_reward": -3.0,
+    "eval_std_reward": 7.0981,
+    "eval_max_reward": 5.8,
+    "policy_loss": -0.003386,
+    "value_loss": 0.014137,
+    "entropy": 0.106191
+  },
+  {
+    "timestep": 400128,
+    "eval_mean_reward": -0.29,
+    "eval_std_reward": 3.1796,
+    "eval_max_reward": 5.5,
+    "policy_loss": -0.004731,
+    "value_loss": 0.00915,
+    "entropy": 0.255742
+  },
+  {
+    "timestep": 410112,
+    "eval_mean_reward": -6.09,
+    "eval_std_reward": 7.5374,
+    "eval_max_reward": 0.525,
+    "policy_loss": -0.006493,
+    "value_loss": 0.030817,
+    "entropy": 0.180295
+  },
+  {
+    "timestep": 420096,
+    "eval_mean_reward": -1.3575,
+    "eval_std_reward": 2.3826,
+    "eval_max_reward": 1.0,
+    "policy_loss": -0.007098,
+    "value_loss": 0.009418,
+    "entropy": 0.248601
+  },
+  {
+    "timestep": 430080,
+    "eval_mean_reward": -1.415,
+    "eval_std_reward": 4.5853,
+    "eval_max_reward": 6.2,
+    "policy_loss": -0.000106,
+    "value_loss": 0.006202,
+    "entropy": 0.123391
+  },
+  {
+    "timestep": 440064,
+    "eval_mean_reward": -2.7175,
+    "eval_std_reward": 5.0994,
+    "eval_max_reward": 3.525,
+    "policy_loss": -0.014512,
+    "value_loss": 0.004049,
+    "entropy": 0.249547
+  },
+  {
+    "timestep": 450048,
+    "eval_mean_reward": -3.1975,
+    "eval_std_reward": 1.9116,
+    "eval_max_reward": 0.925,
+    "policy_loss": -0.009606,
+    "value_loss": 0.003967,
+    "entropy": 0.168282
+  },
+  {
+    "timestep": 460032,
+    "eval_mean_reward": -0.8075,
+    "eval_std_reward": 2.9789,
+    "eval_max_reward": 6.1,
+    "policy_loss": -0.003084,
+    "value_loss": 0.004697,
+    "entropy": 0.081508
+  },
+  {
+    "timestep": 470016,
+    "eval_mean_reward": -2.7825,
+    "eval_std_reward": 7.0606,
+    "eval_max_reward": 5.925,
+    "policy_loss": -0.004677,
+    "value_loss": 0.006198,
+    "entropy": 0.070962
+  },
+  {
+    "timestep": 480000,
+    "eval_mean_reward": 3.1175,
+    "eval_std_reward": 3.5971,
+    "eval_max_reward": 6.275,
+    "policy_loss": -0.002371,
+    "value_loss": 0.007168,
+    "entropy": 0.057099
+  },
+  {
+    "timestep": 490240,
+    "eval_mean_reward": -0.465,
+    "eval_std_reward": 3.0112,
+    "eval_max_reward": 6.1,
+    "policy_loss": -0.005292,
+    "value_loss": 0.020227,
+    "entropy": 0.105131
+  },
+  {
+    "timestep": 500224,
+    "eval_mean_reward": 0.035,
+    "eval_std_reward": 4.3884,
+    "eval_max_reward": 5.95,
+    "policy_loss": -0.006239,
+    "value_loss": 0.015345,
+    "entropy": 0.210913
+  },
+  {
+    "timestep": 510208,
+    "eval_mean_reward": 0.5125,
+    "eval_std_reward": 3.8839,
+    "eval_max_reward": 6.3,
+    "policy_loss": -0.003243,
+    "value_loss": 0.005716,
+    "entropy": 0.089803
+  },
+  {
+    "timestep": 520192,
+    "eval_mean_reward": 1.2175,
+    "eval_std_reward": 2.3751,
+    "eval_max_reward": 5.225,
+    "policy_loss": -0.009803,
+    "value_loss": 0.011569,
+    "entropy": 0.32606
+  },
+  {
+    "timestep": 530176,
+    "eval_mean_reward": -1.31,
+    "eval_std_reward": 2.7496,
+    "eval_max_reward": 3.075,
+    "policy_loss": -0.003505,
+    "value_loss": 0.069785,
+    "entropy": 0.109862
+  },
+  {
+    "timestep": 540160,
+    "eval_mean_reward": -16.3725,
+    "eval_std_reward": 36.9783,
+    "eval_max_reward": -3.625,
+    "policy_loss": -0.006745,
+    "value_loss": 0.007639,
+    "entropy": 0.225494
+  },
+  {
+    "timestep": 550144,
+    "eval_mean_reward": -3.8625,
+    "eval_std_reward": 0.1811,
+    "eval_max_reward": -3.7,
+    "policy_loss": -0.005883,
+    "value_loss": 0.011752,
+    "entropy": 0.117902
+  },
+  {
+    "timestep": 560128,
+    "eval_mean_reward": -8.8375,
+    "eval_std_reward": 19.1198,
+    "eval_max_reward": 1.55,
+    "policy_loss": -0.010402,
+    "value_loss": 0.007277,
+    "entropy": 0.234059
+  },
+  {
+    "timestep": 570112,
+    "eval_mean_reward": -9.5525,
+    "eval_std_reward": 18.9266,
+    "eval_max_reward": 0.675,
+    "policy_loss": -0.004265,
+    "value_loss": 0.007171,
+    "entropy": 0.084927
+  },
+  {
+    "timestep": 580096,
+    "eval_mean_reward": -0.3375,
+    "eval_std_reward": 2.8747,
+    "eval_max_reward": 4.8,
+    "policy_loss": -0.002971,
+    "value_loss": 0.086694,
+    "entropy": 0.162459
+  },
+  {
+    "timestep": 590080,
+    "eval_mean_reward": -1.5925,
+    "eval_std_reward": 2.8163,
+    "eval_max_reward": 1.525,
+    "policy_loss": -0.003014,
+    "value_loss": 0.013819,
+    "entropy": 0.088413
+  },
+  {
+    "timestep": 600064,
+    "eval_mean_reward": -4.0125,
+    "eval_std_reward": 0.2886,
+    "eval_max_reward": -3.5,
+    "policy_loss": -0.005334,
+    "value_loss": 0.006646,
+    "entropy": 0.096099
+  },
+  {
+    "timestep": 610048,
+    "eval_mean_reward": -3.595,
+    "eval_std_reward": 1.3945,
+    "eval_max_reward": -0.0,
+    "policy_loss": -0.007847,
+    "value_loss": 0.020001,
+    "entropy": 0.106866
+  },
+  {
+    "timestep": 620032,
+    "eval_mean_reward": -2.0525,
+    "eval_std_reward": 3.1932,
+    "eval_max_reward": 5.55,
+    "policy_loss": -0.004227,
+    "value_loss": 0.006976,
+    "entropy": 0.093054
+  },
+  {
+    "timestep": 630016,
+    "eval_mean_reward": -1.47,
+    "eval_std_reward": 3.2293,
+    "eval_max_reward": 4.975,
+    "policy_loss": -0.001559,
+    "value_loss": 0.008221,
+    "entropy": 0.17201
+  },
+  {
+    "timestep": 640000,
+    "eval_mean_reward": -1.4975,
+    "eval_std_reward": 2.7963,
+    "eval_max_reward": 2.525,
+    "policy_loss": -0.001519,
+    "value_loss": 0.005368,
+    "entropy": 0.048397
+  },
+  {
+    "timestep": 650240,
+    "eval_mean_reward": -1.75,
+    "eval_std_reward": 2.6371,
+    "eval_max_reward": 1.55,
+    "policy_loss": -0.001721,
+    "value_loss": 0.011831,
+    "entropy": 0.057435
+  },
+  {
+    "timestep": 660224,
+    "eval_mean_reward": 1.8075,
+    "eval_std_reward": 4.1922,
+    "eval_max_reward": 6.15,
+    "policy_loss": -0.002279,
+    "value_loss": 0.00745,
+    "entropy": 0.066784
+  },
+  {
+    "timestep": 670208,
+    "eval_mean_reward": -3.1,
+    "eval_std_reward": 6.8191,
+    "eval_max_reward": 1.1,
+    "policy_loss": -0.001027,
+    "value_loss": 0.011825,
+    "entropy": 0.086353
+  },
+  {
+    "timestep": 680192,
+    "eval_mean_reward": -0.03,
+    "eval_std_reward": 3.013,
+    "eval_max_reward": 5.4,
+    "policy_loss": -0.002143,
+    "value_loss": 0.008134,
+    "entropy": 0.105878
+  },
+  {
+    "timestep": 690176,
+    "eval_mean_reward": -2.1825,
+    "eval_std_reward": 2.4827,
+    "eval_max_reward": 1.325,
+    "policy_loss": -0.007284,
+    "value_loss": 0.012203,
+    "entropy": 0.090885
+  },
+  {
+    "timestep": 700160,
+    "eval_mean_reward": -0.7,
+    "eval_std_reward": 4.0409,
+    "eval_max_reward": 9.1,
+    "policy_loss": -0.001513,
+    "value_loss": 0.007764,
+    "entropy": 0.061534
+  },
+  {
+    "timestep": 710144,
+    "eval_mean_reward": -15.715,
+    "eval_std_reward": 37.3643,
+    "eval_max_reward": 0.3,
+    "policy_loss": -0.001332,
+    "value_loss": 0.008073,
+    "entropy": 0.127056
+  },
+  {
+    "timestep": 720128,
+    "eval_mean_reward": -2.37,
+    "eval_std_reward": 2.2476,
+    "eval_max_reward": 1.45,
+    "policy_loss": -0.005872,
+    "value_loss": 0.020502,
+    "entropy": 0.158088
+  },
+  {
+    "timestep": 730112,
+    "eval_mean_reward": -0.3125,
+    "eval_std_reward": 3.9099,
+    "eval_max_reward": 6.1,
+    "policy_loss": -0.003854,
+    "value_loss": 0.004002,
+    "entropy": 0.207887
+  },
+  {
+    "timestep": 740096,
+    "eval_mean_reward": -0.4,
+    "eval_std_reward": 3.861,
+    "eval_max_reward": 5.9,
+    "policy_loss": -0.010393,
+    "value_loss": 0.010287,
+    "entropy": 0.129774
+  },
+  {
+    "timestep": 750080,
+    "eval_mean_reward": -3.2825,
+    "eval_std_reward": 2.2949,
+    "eval_max_reward": 1.425,
+    "policy_loss": -0.003567,
+    "value_loss": 0.006551,
+    "entropy": 0.142299
+  },
+  {
+    "timestep": 760064,
+    "eval_mean_reward": -3.585,
+    "eval_std_reward": 1.9554,
+    "eval_max_reward": 0.475,
+    "policy_loss": -0.004197,
+    "value_loss": 0.005882,
+    "entropy": 0.079986
+  },
+  {
+    "timestep": 770048,
+    "eval_mean_reward": -2.5925,
+    "eval_std_reward": 2.7144,
+    "eval_max_reward": 2.325,
+    "policy_loss": -0.003963,
+    "value_loss": 0.003731,
+    "entropy": 0.131019
+  },
+  {
+    "timestep": 780032,
+    "eval_mean_reward": -2.9125,
+    "eval_std_reward": 2.4021,
+    "eval_max_reward": 1.475,
+    "policy_loss": -0.001977,
+    "value_loss": 0.004801,
+    "entropy": 0.072746
+  },
+  {
+    "timestep": 790016,
+    "eval_mean_reward": -3.7425,
+    "eval_std_reward": 1.3226,
+    "eval_max_reward": 0.125,
+    "policy_loss": -0.007728,
+    "value_loss": 0.006509,
+    "entropy": 0.088749
+  },
+  {
+    "timestep": 800000,
+    "eval_mean_reward": -15.0,
+    "eval_std_reward": 35.9296,
+    "eval_max_reward": 1.55,
+    "policy_loss": -0.002045,
+    "value_loss": 0.005437,
+    "entropy": 0.110821
+  },
+  {
+    "timestep": 810240,
+    "eval_mean_reward": -0.1025,
+    "eval_std_reward": 3.7306,
+    "eval_max_reward": 6.2,
+    "policy_loss": -0.003362,
+    "value_loss": 0.009314,
+    "entropy": 0.08553
+  },
+  {
+    "timestep": 820224,
+    "eval_mean_reward": 0.4375,
+    "eval_std_reward": 3.5364,
+    "eval_max_reward": 6.4,
+    "policy_loss": -0.007296,
+    "value_loss": 0.026364,
+    "entropy": 0.184404
+  },
+  {
+    "timestep": 830208,
+    "eval_mean_reward": -1.4325,
+    "eval_std_reward": 2.2989,
+    "eval_max_reward": 1.275,
+    "policy_loss": -0.015149,
+    "value_loss": 0.00588,
+    "entropy": 0.287958
+  },
+  {
+    "timestep": 840192,
+    "eval_mean_reward": -14.185,
+    "eval_std_reward": 38.284,
+    "eval_max_reward": 5.325,
+    "policy_loss": -0.013435,
+    "value_loss": 0.102722,
+    "entropy": 0.323872
+  },
+  {
+    "timestep": 850176,
+    "eval_mean_reward": 0.1075,
+    "eval_std_reward": 3.4059,
+    "eval_max_reward": 5.4,
+    "policy_loss": -0.004934,
+    "value_loss": 0.006803,
+    "entropy": 0.166664
+  },
+  {
+    "timestep": 860160,
+    "eval_mean_reward": -10.9975,
+    "eval_std_reward": 38.6648,
+    "eval_max_reward": 6.2,
+    "policy_loss": -0.00443,
+    "value_loss": 0.016936,
+    "entropy": 0.297758
+  },
+  {
+    "timestep": 870144,
+    "eval_mean_reward": -2.495,
+    "eval_std_reward": 2.0976,
+    "eval_max_reward": 1.325,
+    "policy_loss": 0.000636,
+    "value_loss": 0.007432,
+    "entropy": 0.235978
+  },
+  {
+    "timestep": 880128,
+    "eval_mean_reward": -3.18,
+    "eval_std_reward": 7.576,
+    "eval_max_reward": 2.75,
+    "policy_loss": -0.009209,
+    "value_loss": 0.083428,
+    "entropy": 0.178658
+  },
+  {
+    "timestep": 890112,
+    "eval_mean_reward": -2.8,
+    "eval_std_reward": 2.4592,
+    "eval_max_reward": 1.225,
+    "policy_loss": -0.001759,
+    "value_loss": 0.008589,
+    "entropy": 0.155373
+  },
+  {
+    "timestep": 900096,
+    "eval_mean_reward": 2.025,
+    "eval_std_reward": 2.935,
+    "eval_max_reward": 6.45,
+    "policy_loss": -0.009128,
+    "value_loss": 0.012896,
+    "entropy": 0.163161
+  },
+  {
+    "timestep": 910080,
+    "eval_mean_reward": 0.39,
+    "eval_std_reward": 3.5625,
+    "eval_max_reward": 6.375,
+    "policy_loss": -0.004516,
+    "value_loss": 0.009215,
+    "entropy": 0.183087
+  },
+  {
+    "timestep": 920064,
+    "eval_mean_reward": -0.885,
+    "eval_std_reward": 3.195,
+    "eval_max_reward": 5.1,
+    "policy_loss": -0.008292,
+    "value_loss": 0.061558,
+    "entropy": 0.194094
+  },
+  {
+    "timestep": 930048,
+    "eval_mean_reward": -0.895,
+    "eval_std_reward": 3.9725,
+    "eval_max_reward": 6.35,
+    "policy_loss": -0.007637,
+    "value_loss": 0.00363,
+    "entropy": 0.157541
+  },
+  {
+    "timestep": 940032,
+    "eval_mean_reward": -0.8675,
+    "eval_std_reward": 4.3171,
+    "eval_max_reward": 6.425,
+    "policy_loss": -0.008453,
+    "value_loss": 0.022274,
+    "entropy": 0.159649
+  },
+  {
+    "timestep": 950016,
+    "eval_mean_reward": -0.01,
+    "eval_std_reward": 3.8064,
+    "eval_max_reward": 6.125,
+    "policy_loss": -0.003826,
+    "value_loss": 0.004554,
+    "entropy": 0.179686
+  },
+  {
+    "timestep": 960000,
+    "eval_mean_reward": -0.7175,
+    "eval_std_reward": 5.4682,
+    "eval_max_reward": 5.3,
+    "policy_loss": -0.002816,
+    "value_loss": 0.029228,
+    "entropy": 0.270436
+  },
+  {
+    "timestep": 970240,
+    "eval_mean_reward": -2.46,
+    "eval_std_reward": 2.1054,
+    "eval_max_reward": 0.35,
+    "policy_loss": -0.012087,
+    "value_loss": 0.007955,
+    "entropy": 0.266138
+  },
+  {
+    "timestep": 980224,
+    "eval_mean_reward": -1.6175,
+    "eval_std_reward": 3.3378,
+    "eval_max_reward": 5.475,
+    "policy_loss": -0.001985,
+    "value_loss": 0.008905,
+    "entropy": 0.132897
+  },
+  {
+    "timestep": 990208,
+    "eval_mean_reward": -0.0225,
+    "eval_std_reward": 4.7197,
+    "eval_max_reward": 9.025,
+    "policy_loss": -0.001504,
+    "value_loss": 0.006392,
+    "entropy": 0.145165
+  },
+  {
+    "timestep": 1000192,
+    "eval_mean_reward": -13.475,
+    "eval_std_reward": 38.3396,
+    "eval_max_reward": 1.75,
+    "policy_loss": -0.006283,
+    "value_loss": 0.007671,
+    "entropy": 0.201299
+  },
+  {
+    "timestep": 1010176,
+    "eval_mean_reward": 1.2975,
+    "eval_std_reward": 3.9015,
+    "eval_max_reward": 6.3,
+    "policy_loss": -0.006319,
+    "value_loss": 0.02363,
+    "entropy": 0.32553
+  },
+  {
+    "timestep": 1020160,
+    "eval_mean_reward": -14.395,
+    "eval_std_reward": 38.302,
+    "eval_max_reward": 4.9,
+    "policy_loss": -0.00442,
+    "value_loss": 0.011952,
+    "entropy": 0.240637
+  },
+  {
+    "timestep": 1030144,
+    "eval_mean_reward": -2.865,
+    "eval_std_reward": 3.1439,
+    "eval_max_reward": 1.25,
+    "policy_loss": -0.001106,
+    "value_loss": 0.009724,
+    "entropy": 0.079044
+  },
+  {
+    "timestep": 1040128,
+    "eval_mean_reward": -1.0775,
+    "eval_std_reward": 2.316,
+    "eval_max_reward": 1.35,
+    "policy_loss": -0.006501,
+    "value_loss": 0.008227,
+    "entropy": 0.17983
+  },
+  {
+    "timestep": 1050112,
+    "eval_mean_reward": -0.3225,
+    "eval_std_reward": 3.6711,
+    "eval_max_reward": 5.725,
+    "policy_loss": -0.004729,
+    "value_loss": 0.022842,
+    "entropy": 0.174063
+  },
+  {
+    "timestep": 1060096,
+    "eval_mean_reward": 1.065,
+    "eval_std_reward": 3.7922,
+    "eval_max_reward": 6.3,
+    "policy_loss": -0.003171,
+    "value_loss": 0.046739,
+    "entropy": 0.083329
+  },
+  {
+    "timestep": 1070080,
+    "eval_mean_reward": 1.125,
+    "eval_std_reward": 3.84,
+    "eval_max_reward": 6.5,
+    "policy_loss": -0.006635,
+    "value_loss": 0.011651,
+    "entropy": 0.242323
+  },
+  {
+    "timestep": 1080064,
+    "eval_mean_reward": 1.4075,
+    "eval_std_reward": 2.5383,
+    "eval_max_reward": 6.15,
+    "policy_loss": 6.9e-05,
+    "value_loss": 0.008156,
+    "entropy": 0.083114
+  },
+  {
+    "timestep": 1090048,
+    "eval_mean_reward": -0.085,
+    "eval_std_reward": 4.3989,
+    "eval_max_reward": 6.225,
+    "policy_loss": -0.00609,
+    "value_loss": 0.006589,
+    "entropy": 0.120431
+  },
+  {
+    "timestep": 1100032,
+    "eval_mean_reward": -0.5525,
+    "eval_std_reward": 3.5261,
+    "eval_max_reward": 5.425,
+    "policy_loss": -0.003145,
+    "value_loss": 0.006551,
+    "entropy": 0.139942
+  },
+  {
+    "timestep": 1110016,
+    "eval_mean_reward": 0.855,
+    "eval_std_reward": 4.0342,
+    "eval_max_reward": 6.175,
+    "policy_loss": -0.014019,
+    "value_loss": 0.011955,
+    "entropy": 0.327035
+  },
+  {
+    "timestep": 1120000,
+    "eval_mean_reward": 2.47,
+    "eval_std_reward": 3.6252,
+    "eval_max_reward": 6.625,
+    "policy_loss": -0.001062,
+    "value_loss": 0.009698,
+    "entropy": 0.129129
+  },
+  {
+    "timestep": 1130240,
+    "eval_mean_reward": -1.8925,
+    "eval_std_reward": 10.6192,
+    "eval_max_reward": 6.35,
+    "policy_loss": -0.002223,
+    "value_loss": 0.006951,
+    "entropy": 0.047522
+  },
+  {
+    "timestep": 1140224,
+    "eval_mean_reward": 0.0325,
+    "eval_std_reward": 3.6447,
+    "eval_max_reward": 6.275,
+    "policy_loss": -0.0006,
+    "value_loss": 0.007427,
+    "entropy": 0.033345
+  },
+  {
+    "timestep": 1150208,
+    "eval_mean_reward": 1.5325,
+    "eval_std_reward": 3.9101,
+    "eval_max_reward": 6.375,
+    "policy_loss": -0.008651,
+    "value_loss": 0.007708,
+    "entropy": 0.166507
+  },
+  {
+    "timestep": 1160192,
+    "eval_mean_reward": 2.6875,
+    "eval_std_reward": 3.4627,
+    "eval_max_reward": 6.35,
+    "policy_loss": -0.010546,
+    "value_loss": 0.012899,
+    "entropy": 0.139649
+  },
+  {
+    "timestep": 1170176,
+    "eval_mean_reward": -1.035,
+    "eval_std_reward": 2.2139,
+    "eval_max_reward": 1.3,
+    "policy_loss": -0.005869,
+    "value_loss": 0.009393,
+    "entropy": 0.135982
+  },
+  {
+    "timestep": 1180160,
+    "eval_mean_reward": 2.2375,
+    "eval_std_reward": 2.4795,
+    "eval_max_reward": 6.45,
+    "policy_loss": -0.003759,
+    "value_loss": 0.009321,
+    "entropy": 0.072573
+  },
+  {
+    "timestep": 1190144,
+    "eval_mean_reward": 0.53,
+    "eval_std_reward": 2.8144,
+    "eval_max_reward": 6.425,
+    "policy_loss": -0.003531,
+    "value_loss": 0.00625,
+    "entropy": 0.088101
+  },
+  {
+    "timestep": 1200128,
+    "eval_mean_reward": 0.5925,
+    "eval_std_reward": 3.4482,
+    "eval_max_reward": 6.6,
+    "policy_loss": -0.00551,
+    "value_loss": 0.011915,
+    "entropy": 0.114705
+  },
+  {
+    "timestep": 1210112,
+    "eval_mean_reward": 0.175,
+    "eval_std_reward": 2.7964,
+    "eval_max_reward": 6.325,
+    "policy_loss": -0.004324,
+    "value_loss": 0.008092,
+    "entropy": 0.10699
+  },
+  {
+    "timestep": 1220096,
+    "eval_mean_reward": 1.05,
+    "eval_std_reward": 3.338,
+    "eval_max_reward": 5.9,
+    "policy_loss": -0.007065,
+    "value_loss": 0.009069,
+    "entropy": 0.137837
+  },
+  {
+    "timestep": 1230080,
+    "eval_mean_reward": -0.76,
+    "eval_std_reward": 3.9387,
+    "eval_max_reward": 6.45,
+    "policy_loss": -0.008262,
+    "value_loss": 0.016759,
+    "entropy": 0.126944
+  },
+  {
+    "timestep": 1240064,
+    "eval_mean_reward": -0.6875,
+    "eval_std_reward": 3.0866,
+    "eval_max_reward": 5.675,
+    "policy_loss": -0.004988,
+    "value_loss": 0.009097,
+    "entropy": 0.0972
+  },
+  {
+    "timestep": 1250048,
+    "eval_mean_reward": -1.345,
+    "eval_std_reward": 2.514,
+    "eval_max_reward": 1.375,
+    "policy_loss": -0.005541,
+    "value_loss": 0.012249,
+    "entropy": 0.134451
+  },
+  {
+    "timestep": 1260032,
+    "eval_mean_reward": 1.04,
+    "eval_std_reward": 2.5121,
+    "eval_max_reward": 5.1,
+    "policy_loss": -0.002962,
+    "value_loss": 0.009757,
+    "entropy": 0.081171
+  },
+  {
+    "timestep": 1270016,
+    "eval_mean_reward": -1.2475,
+    "eval_std_reward": 2.8489,
+    "eval_max_reward": 5.175,
+    "policy_loss": -0.00848,
+    "value_loss": 0.019123,
+    "entropy": 0.132111
+  },
+  {
+    "timestep": 1280000,
+    "eval_mean_reward": 0.3125,
+    "eval_std_reward": 4.4059,
+    "eval_max_reward": 8.75,
+    "policy_loss": -0.008367,
+    "value_loss": 0.015547,
+    "entropy": 0.230195
+  },
+  {
+    "timestep": 1290240,
+    "eval_mean_reward": 0.5525,
+    "eval_std_reward": 1.9667,
+    "eval_max_reward": 3.075,
+    "policy_loss": -0.003535,
+    "value_loss": 0.007462,
+    "entropy": 0.054611
+  },
+  {
+    "timestep": 1300224,
+    "eval_mean_reward": -1.3175,
+    "eval_std_reward": 3.7078,
+    "eval_max_reward": 6.175,
+    "policy_loss": -0.012077,
+    "value_loss": 0.053208,
+    "entropy": 0.173167
+  },
+  {
+    "timestep": 1310208,
+    "eval_mean_reward": -0.9875,
+    "eval_std_reward": 3.306,
+    "eval_max_reward": 5.8,
+    "policy_loss": -0.00294,
+    "value_loss": 0.04984,
+    "entropy": 0.121403
+  },
+  {
+    "timestep": 1320192,
+    "eval_mean_reward": 3.56,
+    "eval_std_reward": 2.774,
+    "eval_max_reward": 6.25,
+    "policy_loss": -0.001762,
+    "value_loss": 0.009005,
+    "entropy": 0.053745
+  },
+  {
+    "timestep": 1330176,
+    "eval_mean_reward": -2.3275,
+    "eval_std_reward": 2.3869,
+    "eval_max_reward": 0.875,
+    "policy_loss": -0.000763,
+    "value_loss": 0.008174,
+    "entropy": 0.021413
+  },
+  {
+    "timestep": 1340160,
+    "eval_mean_reward": 1.405,
+    "eval_std_reward": 4.199,
+    "eval_max_reward": 6.45,
+    "policy_loss": -0.010834,
+    "value_loss": 0.012314,
+    "entropy": 0.263913
+  },
+  {
+    "timestep": 1350144,
+    "eval_mean_reward": 0.73,
+    "eval_std_reward": 4.6897,
+    "eval_max_reward": 6.475,
+    "policy_loss": -0.005263,
+    "value_loss": 0.031822,
+    "entropy": 0.169634
+  },
+  {
+    "timestep": 1360128,
+    "eval_mean_reward": 0.915,
+    "eval_std_reward": 3.6868,
+    "eval_max_reward": 6.1,
+    "policy_loss": -0.00413,
+    "value_loss": 0.008077,
+    "entropy": 0.089608
+  },
+  {
+    "timestep": 1370112,
+    "eval_mean_reward": -1.2675,
+    "eval_std_reward": 4.161,
+    "eval_max_reward": 6.35,
+    "policy_loss": -0.003008,
+    "value_loss": 0.010156,
+    "entropy": 0.114084
+  },
+  {
+    "timestep": 1380096,
+    "eval_mean_reward": 1.1125,
+    "eval_std_reward": 3.6217,
+    "eval_max_reward": 6.475,
+    "policy_loss": -0.008232,
+    "value_loss": 0.022763,
+    "entropy": 0.362821
+  },
+  {
+    "timestep": 1390080,
+    "eval_mean_reward": -1.2725,
+    "eval_std_reward": 3.2328,
+    "eval_max_reward": 5.925,
+    "policy_loss": -0.008712,
+    "value_loss": 0.00859,
+    "entropy": 0.204206
+  },
+  {
+    "timestep": 1400064,
+    "eval_mean_reward": 2.5,
+    "eval_std_reward": 3.6458,
+    "eval_max_reward": 5.85,
+    "policy_loss": -0.013275,
+    "value_loss": 0.045186,
+    "entropy": 0.385896
+  },
+  {
+    "timestep": 1410048,
+    "eval_mean_reward": 0.065,
+    "eval_std_reward": 4.0899,
+    "eval_max_reward": 6.0,
+    "policy_loss": -0.008169,
+    "value_loss": 0.008709,
+    "entropy": 0.180665
+  },
+  {
+    "timestep": 1420032,
+    "eval_mean_reward": -1.1275,
+    "eval_std_reward": 8.8511,
+    "eval_max_reward": 6.175,
+    "policy_loss": -0.007096,
+    "value_loss": 0.019714,
+    "entropy": 0.146399
+  },
+  {
+    "timestep": 1430016,
+    "eval_mean_reward": 1.7475,
+    "eval_std_reward": 3.6318,
+    "eval_max_reward": 6.275,
+    "policy_loss": -0.000853,
+    "value_loss": 0.008396,
+    "entropy": 0.096
+  },
+  {
+    "timestep": 1440000,
+    "eval_mean_reward": -2.78,
+    "eval_std_reward": 3.0166,
+    "eval_max_reward": 5.125,
+    "policy_loss": -0.00117,
+    "value_loss": 0.00852,
+    "entropy": 0.094624
+  },
+  {
+    "timestep": 1450240,
+    "eval_mean_reward": 1.7775,
+    "eval_std_reward": 3.6535,
+    "eval_max_reward": 6.125,
+    "policy_loss": -0.002375,
+    "value_loss": 0.008191,
+    "entropy": 0.119944
+  },
+  {
+    "timestep": 1460224,
+    "eval_mean_reward": 2.145,
+    "eval_std_reward": 3.9926,
+    "eval_max_reward": 6.625,
+    "policy_loss": -0.002308,
+    "value_loss": 0.035625,
+    "entropy": 0.079987
+  },
+  {
+    "timestep": 1470208,
+    "eval_mean_reward": -1.0225,
+    "eval_std_reward": 3.2316,
+    "eval_max_reward": 5.875,
+    "policy_loss": -0.006244,
+    "value_loss": 0.010837,
+    "entropy": 0.119999
+  },
+  {
+    "timestep": 1480192,
+    "eval_mean_reward": -0.92,
+    "eval_std_reward": 4.2399,
+    "eval_max_reward": 5.95,
+    "policy_loss": -0.002143,
+    "value_loss": 0.007294,
+    "entropy": 0.202496
+  },
+  {
+    "timestep": 1490176,
+    "eval_mean_reward": -1.825,
+    "eval_std_reward": 2.2484,
+    "eval_max_reward": 1.95,
+    "policy_loss": -0.005155,
+    "value_loss": 0.011189,
+    "entropy": 0.059109
+  },
+  {
+    "timestep": 1500160,
+    "eval_mean_reward": -0.43,
+    "eval_std_reward": 3.1095,
+    "eval_max_reward": 6.0,
+    "policy_loss": -0.003689,
+    "value_loss": 0.009495,
+    "entropy": 0.154979
+  },
+  {
+    "timestep": 1510144,
+    "eval_mean_reward": -0.9025,
+    "eval_std_reward": 2.6501,
+    "eval_max_reward": 2.55,
+    "policy_loss": -0.00315,
+    "value_loss": 0.012468,
+    "entropy": 0.138548
+  },
+  {
+    "timestep": 1520128,
+    "eval_mean_reward": -1.695,
+    "eval_std_reward": 3.3539,
+    "eval_max_reward": 4.825,
+    "policy_loss": -0.002122,
+    "value_loss": 0.01003,
+    "entropy": 0.090244
+  },
+  {
+    "timestep": 1530112,
+    "eval_mean_reward": -0.1425,
+    "eval_std_reward": 2.8578,
+    "eval_max_reward": 5.55,
+    "policy_loss": -0.003988,
+    "value_loss": 0.008457,
+    "entropy": 0.112189
+  },
+  {
+    "timestep": 1540096,
+    "eval_mean_reward": -2.75,
+    "eval_std_reward": 8.5903,
+    "eval_max_reward": 3.05,
+    "policy_loss": -0.005399,
+    "value_loss": 0.005232,
+    "entropy": 0.116142
+  },
+  {
+    "timestep": 1550080,
+    "eval_mean_reward": -0.0825,
+    "eval_std_reward": 2.5367,
+    "eval_max_reward": 4.825,
+    "policy_loss": -0.006231,
+    "value_loss": 0.007568,
+    "entropy": 0.139218
+  },
+  {
+    "timestep": 1560064,
+    "eval_mean_reward": 0.9275,
+    "eval_std_reward": 3.2876,
+    "eval_max_reward": 6.15,
+    "policy_loss": -0.003356,
+    "value_loss": 0.010465,
+    "entropy": 0.075547
+  },
+  {
+    "timestep": 1570048,
+    "eval_mean_reward": 0.025,
+    "eval_std_reward": 3.3766,
+    "eval_max_reward": 5.925,
+    "policy_loss": -0.003514,
+    "value_loss": 0.010269,
+    "entropy": 0.079328
+  },
+  {
+    "timestep": 1580032,
+    "eval_mean_reward": 1.3475,
+    "eval_std_reward": 3.3061,
+    "eval_max_reward": 6.275,
+    "policy_loss": -0.009525,
+    "value_loss": 0.028816,
+    "entropy": 0.098718
+  },
+  {
+    "timestep": 1590016,
+    "eval_mean_reward": -0.275,
+    "eval_std_reward": 3.3649,
+    "eval_max_reward": 5.975,
+    "policy_loss": -0.005535,
+    "value_loss": 0.013946,
+    "entropy": 0.276485
+  },
+  {
+    "timestep": 1600000,
+    "eval_mean_reward": -2.305,
+    "eval_std_reward": 3.8576,
+    "eval_max_reward": 4.575,
+    "policy_loss": -0.001918,
+    "value_loss": 0.007937,
+    "entropy": 0.136421
+  },
+  {
+    "timestep": 1610240,
+    "eval_mean_reward": -0.7775,
+    "eval_std_reward": 3.2953,
+    "eval_max_reward": 5.675,
+    "policy_loss": -0.006094,
+    "value_loss": 0.047503,
+    "entropy": 0.407281
+  },
+  {
+    "timestep": 1620224,
+    "eval_mean_reward": -3.57,
+    "eval_std_reward": 8.1082,
+    "eval_max_reward": 4.975,
+    "policy_loss": -0.000561,
+    "value_loss": 0.008757,
+    "entropy": 0.108158
+  },
+  {
+    "timestep": 1630208,
+    "eval_mean_reward": -0.355,
+    "eval_std_reward": 3.1875,
+    "eval_max_reward": 5.45,
+    "policy_loss": -0.010015,
+    "value_loss": 0.036901,
+    "entropy": 0.19731
+  },
+  {
+    "timestep": 1640192,
+    "eval_mean_reward": -0.0425,
+    "eval_std_reward": 5.081,
+    "eval_max_reward": 5.775,
+    "policy_loss": -0.004902,
+    "value_loss": 0.007634,
+    "entropy": 0.12642
+  },
+  {
+    "timestep": 1650176,
+    "eval_mean_reward": -3.745,
+    "eval_std_reward": 7.5919,
+    "eval_max_reward": 5.8,
+    "policy_loss": -0.008882,
+    "value_loss": 0.015573,
+    "entropy": 0.150609
+  },
+  {
+    "timestep": 1660160,
+    "eval_mean_reward": -3.08,
+    "eval_std_reward": 9.0467,
+    "eval_max_reward": 5.875,
+    "policy_loss": -0.005479,
+    "value_loss": 0.00917,
+    "entropy": 0.168131
+  },
+  {
+    "timestep": 1670144,
+    "eval_mean_reward": 0.99,
+    "eval_std_reward": 2.7546,
+    "eval_max_reward": 5.5,
+    "policy_loss": -0.009122,
+    "value_loss": 0.013223,
+    "entropy": 0.102984
+  },
+  {
+    "timestep": 1680128,
+    "eval_mean_reward": -2.95,
+    "eval_std_reward": 8.8289,
+    "eval_max_reward": 2.6,
+    "policy_loss": -0.00866,
+    "value_loss": 0.029812,
+    "entropy": 0.187097
+  },
+  {
+    "timestep": 1690112,
+    "eval_mean_reward": -0.07,
+    "eval_std_reward": 2.0203,
+    "eval_max_reward": 1.8,
+    "policy_loss": -0.002094,
+    "value_loss": 0.007459,
+    "entropy": 0.096658
+  },
+  {
+    "timestep": 1700096,
+    "eval_mean_reward": 0.365,
+    "eval_std_reward": 2.8644,
+    "eval_max_reward": 6.2,
+    "policy_loss": -0.005276,
+    "value_loss": 0.007706,
+    "entropy": 0.174682
+  },
+  {
+    "timestep": 1710080,
+    "eval_mean_reward": -0.4275,
+    "eval_std_reward": 3.2724,
+    "eval_max_reward": 6.125,
+    "policy_loss": -0.006359,
+    "value_loss": 0.014973,
+    "entropy": 0.213776
+  },
+  {
+    "timestep": 1720064,
+    "eval_mean_reward": -2.62,
+    "eval_std_reward": 2.0053,
+    "eval_max_reward": 1.375,
+    "policy_loss": -0.005541,
+    "value_loss": 0.006731,
+    "entropy": 0.216229
+  },
+  {
+    "timestep": 1730048,
+    "eval_mean_reward": 0.5125,
+    "eval_std_reward": 2.3624,
+    "eval_max_reward": 5.325,
+    "policy_loss": -0.001631,
+    "value_loss": 0.007907,
+    "entropy": 0.134736
+  },
+  {
+    "timestep": 1740032,
+    "eval_mean_reward": -1.18,
+    "eval_std_reward": 2.2651,
+    "eval_max_reward": 1.425,
+    "policy_loss": -0.002435,
+    "value_loss": 0.01716,
+    "entropy": 0.150942
+  },
+  {
+    "timestep": 1750016,
+    "eval_mean_reward": -2.4525,
+    "eval_std_reward": 2.097,
+    "eval_max_reward": 0.675,
+    "policy_loss": -0.002213,
+    "value_loss": 0.006243,
+    "entropy": 0.072521
+  },
+  {
+    "timestep": 1760000,
+    "eval_mean_reward": -1.7025,
+    "eval_std_reward": 9.5307,
+    "eval_max_reward": 6.025,
+    "policy_loss": -0.007282,
+    "value_loss": 0.093108,
+    "entropy": 0.305153
+  },
+  {
+    "timestep": 1770240,
+    "eval_mean_reward": -0.8775,
+    "eval_std_reward": 3.2754,
+    "eval_max_reward": 6.35,
+    "policy_loss": -0.00521,
+    "value_loss": 0.008509,
+    "entropy": 0.123138
+  },
+  {
+    "timestep": 1780224,
+    "eval_mean_reward": 0.355,
+    "eval_std_reward": 2.8375,
+    "eval_max_reward": 5.6,
+    "policy_loss": -0.004807,
+    "value_loss": 0.030059,
+    "entropy": 0.223894
+  },
+  {
+    "timestep": 1790208,
+    "eval_mean_reward": -1.6725,
+    "eval_std_reward": 3.184,
+    "eval_max_reward": 5.075,
+    "policy_loss": -0.006503,
+    "value_loss": 0.042225,
+    "entropy": 0.274515
+  },
+  {
+    "timestep": 1800192,
+    "eval_mean_reward": -2.62,
+    "eval_std_reward": 2.1704,
+    "eval_max_reward": 0.85,
+    "policy_loss": -0.006533,
+    "value_loss": 0.011975,
+    "entropy": 0.199312
+  },
+  {
+    "timestep": 1810176,
+    "eval_mean_reward": -0.0325,
+    "eval_std_reward": 3.8798,
+    "eval_max_reward": 6.425,
+    "policy_loss": -0.009466,
+    "value_loss": 0.048564,
+    "entropy": 0.330125
+  },
+  {
+    "timestep": 1820160,
+    "eval_mean_reward": -1.705,
+    "eval_std_reward": 2.3306,
+    "eval_max_reward": 0.95,
+    "policy_loss": -0.010429,
+    "value_loss": 0.030448,
+    "entropy": 0.121725
+  },
+  {
+    "timestep": 1830144,
+    "eval_mean_reward": 1.545,
+    "eval_std_reward": 4.2595,
+    "eval_max_reward": 6.525,
+    "policy_loss": -0.002057,
+    "value_loss": 0.011036,
+    "entropy": 0.080993
+  },
+  {
+    "timestep": 1840128,
+    "eval_mean_reward": -2.0275,
+    "eval_std_reward": 2.7089,
+    "eval_max_reward": 1.925,
+    "policy_loss": -0.010162,
+    "value_loss": 0.011545,
+    "entropy": 0.156098
+  },
+  {
+    "timestep": 1850112,
+    "eval_mean_reward": 1.5525,
+    "eval_std_reward": 3.3705,
+    "eval_max_reward": 6.2,
+    "policy_loss": -0.005946,
+    "value_loss": 0.01687,
+    "entropy": 0.201454
+  },
+  {
+    "timestep": 1860096,
+    "eval_mean_reward": 1.535,
+    "eval_std_reward": 4.1472,
+    "eval_max_reward": 6.5,
+    "policy_loss": -0.008833,
+    "value_loss": 0.012727,
+    "entropy": 0.215062
+  },
+  {
+    "timestep": 1870080,
+    "eval_mean_reward": 0.9175,
+    "eval_std_reward": 3.8719,
+    "eval_max_reward": 6.425,
+    "policy_loss": -0.013737,
+    "value_loss": 0.015808,
+    "entropy": 0.237123
+  },
+  {
+    "timestep": 1880064,
+    "eval_mean_reward": 1.175,
+    "eval_std_reward": 3.4711,
+    "eval_max_reward": 5.425,
+    "policy_loss": -0.002635,
+    "value_loss": 0.008088,
+    "entropy": 0.092935
+  },
+  {
+    "timestep": 1890048,
+    "eval_mean_reward": -3.84,
+    "eval_std_reward": 20.8452,
+    "eval_max_reward": 6.2,
+    "policy_loss": -0.004186,
+    "value_loss": 0.008013,
+    "entropy": 0.120726
+  },
+  {
+    "timestep": 1900032,
+    "eval_mean_reward": -0.1125,
+    "eval_std_reward": 3.6623,
+    "eval_max_reward": 6.425,
+    "policy_loss": -0.004055,
+    "value_loss": 0.011388,
+    "entropy": 0.109789
+  },
+  {
+    "timestep": 1910016,
+    "eval_mean_reward": 0.785,
+    "eval_std_reward": 4.468,
+    "eval_max_reward": 6.125,
+    "policy_loss": -0.002252,
+    "value_loss": 0.016137,
+    "entropy": 0.116635
+  },
+  {
+    "timestep": 1920000,
+    "eval_mean_reward": 2.5525,
+    "eval_std_reward": 3.2792,
+    "eval_max_reward": 7.425,
+    "policy_loss": -0.001059,
+    "value_loss": 0.013855,
+    "entropy": 0.094123
+  },
+  {
+    "timestep": 1930240,
+    "eval_mean_reward": -1.105,
+    "eval_std_reward": 2.2272,
+    "eval_max_reward": 0.9,
+    "policy_loss": -0.004416,
+    "value_loss": 0.012412,
+    "entropy": 0.316417
+  },
+  {
+    "timestep": 1940224,
+    "eval_mean_reward": -1.685,
+    "eval_std_reward": 2.1366,
+    "eval_max_reward": 1.4,
+    "policy_loss": -0.005428,
+    "value_loss": 0.068274,
+    "entropy": 0.254554
+  },
+  {
+    "timestep": 1950208,
+    "eval_mean_reward": -0.165,
+    "eval_std_reward": 4.3658,
+    "eval_max_reward": 6.075,
+    "policy_loss": -0.008362,
+    "value_loss": 0.039611,
+    "entropy": 0.227182
+  },
+  {
+    "timestep": 1960192,
+    "eval_mean_reward": -0.995,
+    "eval_std_reward": 2.3186,
+    "eval_max_reward": 0.975,
+    "policy_loss": -0.005017,
+    "value_loss": 0.039514,
+    "entropy": 0.167933
+  },
+  {
+    "timestep": 1970176,
+    "eval_mean_reward": -2.435,
+    "eval_std_reward": 1.672,
+    "eval_max_reward": 2.175,
+    "policy_loss": -0.010827,
+    "value_loss": 0.032198,
+    "entropy": 0.25865
+  },
+  {
+    "timestep": 1980160,
+    "eval_mean_reward": 0.84,
+    "eval_std_reward": 3.6683,
+    "eval_max_reward": 5.925,
+    "policy_loss": -0.004263,
+    "value_loss": 0.042407,
+    "entropy": 0.181948
+  },
+  {
+    "timestep": 1990144,
+    "eval_mean_reward": -3.0975,
+    "eval_std_reward": 2.0385,
+    "eval_max_reward": 1.35,
+    "policy_loss": -0.0035,
+    "value_loss": 0.005579,
+    "entropy": 0.095244
+  },
+  {
+    "timestep": 2000128,
+    "eval_mean_reward": -2.1675,
+    "eval_std_reward": 2.9942,
+    "eval_max_reward": 5.75,
+    "policy_loss": -0.003991,
+    "value_loss": 0.007251,
+    "entropy": 0.099522
+  }
+]

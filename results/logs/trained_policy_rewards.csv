@@ -1,0 +1,2 @@
+episode,n_steps,duration_s,team_total_reward,team_reward_per_step,agent_0_total,agent_1_total
+0,300,4.518,2.3,0.007667,0.9,1.4
