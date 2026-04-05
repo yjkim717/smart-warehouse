@@ -27,10 +27,11 @@ N_FEATURES = N_AGENTS + N_OBS_DIM + N_ACTIONS
 # Sync with MAPPO Hyperparameters
 HIDDEN_DIM = 128
 MIXER_HIDDEN_DIM = 128
-NUM_EPISODES = 4000
+NUM_EPISODES = 100
 MAX_STEPS = config['env'].get('max_steps', 500)
 GAMMA = 0.99
 BATCH_SIZE = 128
+MIN_REPLAY_SIZE = 1000
 TARGET_UPDATE_INTERVAL = 2  # Update every 2 episodes (~1000 training steps, aligns with standard DQN)
 
 # Epsilon Scheduling instead of fixed
@@ -224,7 +225,7 @@ for episode in range(NUM_EPISODES):
     training_deliveries.append(episode_deliveries)
     
     # --- CENTRALIZED TRAINING ---
-    if len(D) >= BATCH_SIZE:
+    if len(D) >= MIN_REPLAY_SIZE:
         batch_indices = np.random.choice(len(D), BATCH_SIZE, replace=False)
         batch = [D[idx] for idx in batch_indices]
 
@@ -296,7 +297,7 @@ import json
 import os
 import csv
 
-EVAL_EPISODES = 300
+EVAL_EPISODES = 5
 
 print(f"Evaluating QMIX for {EVAL_EPISODES} episodes...")
 
