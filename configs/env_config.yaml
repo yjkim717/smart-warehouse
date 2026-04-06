@@ -23,6 +23,7 @@ env:
     move_toward_shelf: 0.05   # bonus for moving closer to shelf when empty-handed
     bad_drop_penalty: -0.6    # penalty for dropping shelf away from goal (must exceed pickup_reward)
     linger_penalty: -0.05     # mild penalty per step for carrying on goal without dropping
+    collision_penalty: 0.0    # disabled — catastrophic in tiny shared grid where agents are adjacent constantly
 
   # GIF recording
   record:

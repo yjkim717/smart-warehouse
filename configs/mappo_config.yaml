@@ -4,25 +4,37 @@ mappo:
   # ---- Network architecture ----
   hidden_dim: 128           # was 64 — more capacity for value function
   n_layers: 2
+  use_gru: false            # GRU adds no value here — rware obs already encodes carrying state/direction
 
   # ---- PPO hyperparameters ----
   lr_actor: 0.0003
   lr_critic: 0.0005          # critic learns faster to bootstrap value signal
   gamma: 0.99
   gae_lambda: 0.95
-  clip_epsilon: 0.2
-  entropy_coef: 0.01          # lower = allow policy to commit to learned behaviors
+
+  # Clip epsilon — decay from start to end over full training
+  clip_epsilon_start: 0.2   # initial PPO clip range
+  clip_epsilon_end:   0.1   # final PPO clip range (tighter = smaller update steps late in training)
+
+  # Entropy — anneal from start to end (high early = explore, low late = commit)
+  entropy_coef_start: 0.01   # restored — 0.05 was 5× too high, buried reward signal
+  entropy_coef_end:   0.003  # gentle late-training convergence
+
   value_loss_coef: 0.5
   max_grad_norm: 0.5
 
+  # ---- LR decay (cosine schedule) ----
+  lr_decay: true
+  lr_min: 0.00001           # LR floor for cosine schedule
+
   # ---- Rollout ----
-  n_steps: 256                # was 128 — longer rollouts capture more episode structure
+  n_steps: 256                # restored — proven value from original working config
   n_epochs: 4
-  minibatch_size: 128         # was 64 — proportional to larger rollout
+  minibatch_size: 128         # proportional to n_steps (256/128 = 2x)
 
   # ---- Training schedule ----
-  total_timesteps: 2_000_000
-  eval_episodes: 10
+  total_timesteps: 3_000_000
+  eval_episodes: 20           # more episodes = stable checkpoint selection signal
   eval_interval: 10000
   save_interval: 50000
   log_interval: 2000

@@ -3,6 +3,10 @@ Rollout buffer for on-policy MAPPO training.
 
 Stores one rollout of (n_steps × n_agents) transitions, computes GAE
 advantages, and yields shuffled minibatches for PPO updates.
+
+When use_gru=True, also stores the GRU hidden state captured before each
+step so the PPO update can reconstruct the correct temporal context for
+every mini-batch item without needing to re-roll the full episode.
 """
 
 import numpy as np
@@ -11,9 +15,18 @@ import torch
 
 class RolloutBuffer:
 
-    def __init__(self, n_steps: int, n_agents: int, obs_dim: int, global_obs_dim: int):
+    def __init__(
+        self,
+        n_steps: int,
+        n_agents: int,
+        obs_dim: int,
+        global_obs_dim: int,
+        use_gru: bool = False,
+        hidden_dim: int = 0,
+    ):
         self.n_steps = n_steps
         self.n_agents = n_agents
+        self.use_gru = use_gru
         self.pos = 0
 
         self.obs = np.zeros((n_steps, n_agents, obs_dim), dtype=np.float32)
@@ -27,9 +40,16 @@ class RolloutBuffer:
         self.returns = np.zeros_like(self.rewards)
         self.advantages = np.zeros_like(self.rewards)
 
+        # GRU hidden states — shape (n_steps, n_agents, hidden_dim)
+        # Stores the hidden state BEFORE each step so the update can use it.
+        if use_gru and hidden_dim > 0:
+            self.hidden_states = np.zeros((n_steps, n_agents, hidden_dim), dtype=np.float32)
+        else:
+            self.hidden_states = None
+
     # ------------------------------------------------------------------
 
-    def insert(self, obs, global_obs, actions, log_probs, rewards, dones, values):
+    def insert(self, obs, global_obs, actions, log_probs, rewards, dones, values, hidden=None):
         self.obs[self.pos] = obs
         self.global_obs[self.pos] = global_obs
         self.actions[self.pos] = actions
@@ -37,6 +57,8 @@ class RolloutBuffer:
         self.rewards[self.pos] = rewards
         self.dones[self.pos] = dones
         self.values[self.pos] = values
+        if self.hidden_states is not None and hidden is not None:
+            self.hidden_states[self.pos] = hidden  # (n_agents, hidden_dim)
         self.pos += 1
 
     def compute_returns(self, next_values: np.ndarray, gamma: float, gae_lambda: float):
@@ -67,7 +89,14 @@ class RolloutBuffer:
             "old_log_probs": torch.tensor(self.log_probs.reshape(total), device=device),
             "returns": torch.tensor(self.returns.reshape(total), device=device),
             "advantages": torch.tensor(self.advantages.reshape(total), device=device),
+            "old_values": torch.tensor(self.values.reshape(total), device=device),
         }
+
+        if self.hidden_states is not None:
+            # hidden_states: (n_steps, n_agents, hidden_dim) → (total, 1, hidden_dim)
+            # The GRU expects (n_layers, batch, hidden_dim); we keep n_layers=1 dim here
+            h = self.hidden_states.reshape(total, -1)
+            flat["hidden_states"] = torch.tensor(h, device=device)
 
         indices = np.random.permutation(total)
         for start in range(0, total, minibatch_size):

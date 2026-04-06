@@ -30,7 +30,7 @@ def load_config(path: str) -> dict:
 # ------------------------------------------------------------------
 
 def evaluate(env: WarehouseEnv, mappo: MAPPO, n_episodes: int, max_steps: int) -> dict:
-    """Run evaluation episodes with greedy actions (argmax)."""
+    """Run evaluation episodes with greedy actions (argmax), GRU-aware."""
     import torch
 
     episode_rewards = []
@@ -38,6 +38,7 @@ def evaluate(env: WarehouseEnv, mappo: MAPPO, n_episodes: int, max_steps: int) -
 
     for _ in range(n_episodes):
         obs = env.reset()
+        mappo.reset_hidden()
         total_reward = 0.0
 
         for step in range(max_steps):
@@ -45,7 +46,10 @@ def evaluate(env: WarehouseEnv, mappo: MAPPO, n_episodes: int, max_steps: int) -
             norm_obs = mappo._normalize_obs(raw_obs, update=False)
             obs_t = torch.tensor(norm_obs, device=mappo.device)
             with torch.no_grad():
-                logits = mappo.actor(obs_t)
+                if mappo.use_gru:
+                    logits, mappo._gru_hidden = mappo.actor.forward(obs_t, mappo._gru_hidden)
+                else:
+                    logits = mappo.actor(obs_t)
                 actions = logits.argmax(dim=-1).cpu().numpy()
 
             obs, rews, dones, _ = env.step(actions.tolist())
@@ -155,14 +159,21 @@ def plot_training_curve(train_log: list, tracker, log_dir: str):
 
 
 def record_best_gif(checkpoint_path: str, env, env_config: dict):
-    """Record a GIF using the best trained policy."""
+    """Record a GIF using the best trained policy (MLP or GRU actor)."""
     import torch
-    from src.algorithms.networks import Actor
+    from src.algorithms.networks import Actor, GRUActor
 
     ckpt = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
     meta = ckpt["metadata"]
 
-    actor = Actor(meta["obs_dim"], meta["action_dim"], meta["hidden_dim"], meta["n_layers"])
+    use_gru = meta.get("use_gru", False)
+    if use_gru:
+        actor = GRUActor(meta["obs_dim"], meta["action_dim"], meta["hidden_dim"])
+        hidden = actor.init_hidden(meta["n_agents"], torch.device("cpu"))
+    else:
+        actor = Actor(meta["obs_dim"], meta["action_dim"], meta["hidden_dim"], meta["n_layers"])
+        hidden = None
+
     actor.load_state_dict(ckpt["actor"])
     actor.eval()
 
@@ -182,8 +193,21 @@ def record_best_gif(checkpoint_path: str, env, env_config: dict):
         norm = ((raw - obs_mean) / (np.sqrt(obs_var) + 1e-8)).astype(np.float32)
         obs_t = torch.tensor(norm)
         with torch.no_grad():
-            dist = torch.distributions.Categorical(logits=actor(obs_t))
-            actions = dist.sample().numpy().tolist()
+            if use_gru:
+                # GRU actor: each agent independently (batch=1 per agent)
+                actions = []
+                new_hiddens = []
+                for i in range(norm.shape[0]):
+                    obs_i = torch.tensor(norm[i:i+1])
+                    h_i = hidden[:, i:i+1, :]
+                    logits_i, new_h_i = actor.forward(obs_i, h_i)
+                    actions.append(logits_i.argmax(dim=-1).item())
+                    new_hiddens.append(new_h_i)
+                hidden = torch.cat(new_hiddens, dim=1)
+            else:
+                dist = torch.distributions.Categorical(logits=actor(obs_t))
+                actions = dist.sample().numpy().tolist()
+
         obs, _, dones, _ = env.step(actions)
         frame = env.render()
         if frame is not None:
@@ -221,7 +245,8 @@ def train(env_config: dict, mappo_config: dict, resume_path: str | None = None):
     env = WarehouseEnv(env_config)
     eval_env = WarehouseEnv(env_config)
 
-    mappo = MAPPO(mappo_config, env.obs_dim, env.action_dim, env.n_agents, device=device)
+    mappo = MAPPO(mappo_config, env.obs_dim, env.action_dim, env.n_agents, device=device,
+                  total_timesteps=total_timesteps)
     if resume_path:
         mappo.load(resume_path)
 
@@ -238,9 +263,14 @@ def train(env_config: dict, mappo_config: dict, resume_path: str | None = None):
     print(f"  Device         : {device}")
     print(f"  Total timesteps: {total_timesteps:,}")
     print(f"  Rollout length : {n_steps}")
+    print(f"  LR decay       : {mappo.lr_decay}")
+    print(f"  Entropy anneal : {mappo.entropy_coef_start:.3f} → {mappo.entropy_coef_end:.4f}")
+    print(f"  Clip eps decay : {mappo.clip_eps_start:.2f} → {mappo.clip_eps_end:.2f}")
+    print(f"  GRU actor      : {mappo.use_gru}")
     print("=" * 60)
 
     obs = env.reset()
+    mappo.reset_hidden()
     ep_rewards = np.zeros(env.n_agents, dtype=np.float64)
     ep_steps = 0
     ep_count = 0
@@ -254,11 +284,11 @@ def train(env_config: dict, mappo_config: dict, resume_path: str | None = None):
     while timestep < total_timesteps:
         # ---- Collect rollout ----
         for _ in range(n_steps):
-            actions, log_probs, values, global_obs, norm_obs = mappo.select_actions(obs)
+            actions, log_probs, values, global_obs, norm_obs, hidden_np = mappo.select_actions(obs)
             next_obs, rews, dones, _ = env.step(actions.tolist())
 
             mappo.buffer.insert(
-                norm_obs, global_obs, actions, log_probs, rews, dones, values,
+                norm_obs, global_obs, actions, log_probs, rews, dones, values, hidden_np,
             )
 
             ep_rewards += rews
@@ -267,6 +297,7 @@ def train(env_config: dict, mappo_config: dict, resume_path: str | None = None):
             obs = next_obs
 
             if all(dones):
+                mappo.reset_hidden()  # reset GRU state at episode boundary
                 tracker.start_episode()
                 # Retroactively log — we tracked rewards manually
                 tracker._ep_steps = [[0.0] * env.n_agents]
@@ -293,6 +324,9 @@ def train(env_config: dict, mappo_config: dict, resume_path: str | None = None):
         mappo.buffer.compute_returns(next_values, mappo.gamma, mappo.gae_lambda)
         losses = mappo.update()
 
+        # ---- Step all scheduled hyperparameters ----
+        mappo.step_schedulers(timestep)
+
         # ---- Logging ----
         if timestep % log_interval < n_steps and recent_ep_rewards:
             elapsed = time.time() - t_start
@@ -305,6 +339,9 @@ def train(env_config: dict, mappo_config: dict, resume_path: str | None = None):
                 f"p_loss={losses['policy_loss']:>7.4f}  "
                 f"v_loss={losses['value_loss']:>7.4f}  "
                 f"entropy={losses['entropy']:>.4f}  "
+                f"ent_coef={mappo.entropy_coef:.4f}  "
+                f"clip_eps={mappo.clip_eps:.3f}  "
+                f"lr={mappo.get_lr():.2e}  "
                 f"fps={fps:>6.0f}"
             )
 
@@ -326,6 +363,9 @@ def train(env_config: dict, mappo_config: dict, resume_path: str | None = None):
                 "policy_loss": round(losses["policy_loss"], 6),
                 "value_loss": round(losses["value_loss"], 6),
                 "entropy": round(losses["entropy"], 6),
+                "entropy_coef": round(mappo.entropy_coef, 6),
+                "clip_eps": round(mappo.clip_eps, 4),
+                "lr_actor": round(mappo.get_lr(), 8),
             })
 
             if eval_stats["mean_reward"] > best_eval_reward:

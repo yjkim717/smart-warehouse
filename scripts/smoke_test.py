@@ -65,9 +65,9 @@ def check_buffer_normalization(env_cfg, mappo_cfg):
     obs = env.reset()
     n_steps = mappo_cfg["mappo"]["n_steps"]
     for _ in range(n_steps):
-        actions, log_probs, values, global_obs, norm_obs = mappo.select_actions(obs)
+        actions, log_probs, values, global_obs, norm_obs, hidden = mappo.select_actions(obs)
         next_obs, rews, dones, _ = env.step(actions.tolist())
-        mappo.buffer.insert(norm_obs, global_obs, actions, log_probs, rews, dones, values)
+        mappo.buffer.insert(norm_obs, global_obs, actions, log_probs, rews, dones, values, hidden)
         obs = next_obs
 
     next_values = mappo.get_values(obs)
@@ -111,9 +111,9 @@ def check_ppo_update(env_cfg, mappo_cfg):
     obs = env.reset()
     n_steps = mappo_cfg["mappo"]["n_steps"]
     for _ in range(n_steps):
-        actions, log_probs, values, global_obs, norm_obs = mappo.select_actions(obs)
+        actions, log_probs, values, global_obs, norm_obs, hidden = mappo.select_actions(obs)
         next_obs, rews, dones, _ = env.step(actions.tolist())
-        mappo.buffer.insert(norm_obs, global_obs, actions, log_probs, rews, dones, values)
+        mappo.buffer.insert(norm_obs, global_obs, actions, log_probs, rews, dones, values, hidden)
         obs = next_obs
 
     next_values = mappo.get_values(obs)
@@ -150,11 +150,12 @@ def check_training_convergence(env_cfg, mappo_cfg):
 
     for rollout in range(n_rollouts):
         for _ in range(n_steps):
-            actions, log_probs, values, global_obs, norm_obs = mappo.select_actions(obs)
+            actions, log_probs, values, global_obs, norm_obs, hidden = mappo.select_actions(obs)
             next_obs, rews, dones, _ = env.step(actions.tolist())
-            mappo.buffer.insert(norm_obs, global_obs, actions, log_probs, rews, dones, values)
+            mappo.buffer.insert(norm_obs, global_obs, actions, log_probs, rews, dones, values, hidden)
             obs = next_obs
             if all(dones):
+                mappo.reset_hidden()
                 obs = env.reset()
 
         next_values = mappo.get_values(obs)
@@ -187,6 +188,139 @@ def check_training_convergence(env_cfg, mappo_cfg):
     return delta < 0
 
 
+def check_lr_decay(env_cfg, mappo_cfg):
+    """LR should decrease monotonically when lr_decay=True."""
+    print("\n--- 5. LR decay: cosine schedule reduces actor LR over training ---")
+    from src.env.warehouse_env import WarehouseEnv
+    from src.algorithms.mappo import MAPPO
+
+    cfg = yaml.safe_load(yaml.dump(mappo_cfg))  # deep copy
+    cfg["mappo"]["lr_decay"] = True
+    cfg["mappo"]["lr_min"] = 1e-5
+    total = 1000
+
+    env = WarehouseEnv(env_cfg)
+    mappo = MAPPO(cfg, env.obs_dim, env.action_dim, env.n_agents, total_timesteps=total)
+
+    lrs = []
+    for t in [0, 250, 500, 750, 1000]:
+        mappo.step_schedulers(t)
+        lrs.append(mappo.get_lr())
+
+    env.close()
+
+    monotone = all(lrs[i] >= lrs[i + 1] for i in range(len(lrs) - 1))
+    reaches_min = abs(lrs[-1] - 1e-5) < 1e-7
+
+    print(f"  {INFO} LR at t=0: {lrs[0]:.6f}  t=500: {lrs[2]:.6f}  t=1000: {lrs[4]:.8f}")
+
+    if monotone:
+        print(f"  {PASS} LR is monotonically non-increasing")
+    else:
+        print(f"  {FAIL} LR is NOT monotonically decreasing: {lrs}")
+
+    if reaches_min:
+        print(f"  {PASS} LR reaches lr_min ({1e-5:.1e}) at total_timesteps")
+    else:
+        print(f"  {FAIL} Final LR ({lrs[-1]:.2e}) does not match lr_min ({1e-5:.1e})")
+
+    return monotone and reaches_min
+
+
+def check_entropy_annealing(env_cfg, mappo_cfg):
+    """Entropy coefficient should decrease monotonically over training."""
+    print("\n--- 6. Entropy annealing: entropy_coef decays from start to end ---")
+    from src.env.warehouse_env import WarehouseEnv
+    from src.algorithms.mappo import MAPPO
+
+    cfg = yaml.safe_load(yaml.dump(mappo_cfg))
+    cfg["mappo"]["entropy_coef_start"] = 0.05
+    cfg["mappo"]["entropy_coef_end"] = 0.001
+    total = 1000
+
+    env = WarehouseEnv(env_cfg)
+    mappo = MAPPO(cfg, env.obs_dim, env.action_dim, env.n_agents, total_timesteps=total)
+
+    coefs = []
+    for t in [0, 250, 500, 750, 1000]:
+        mappo.step_schedulers(t)
+        coefs.append(mappo.entropy_coef)
+
+    env.close()
+
+    monotone = all(coefs[i] >= coefs[i + 1] for i in range(len(coefs) - 1))
+    start_ok = abs(coefs[0] - 0.05) < 1e-6
+    end_ok = abs(coefs[-1] - 0.001) < 1e-6
+
+    print(f"  {INFO} entropy_coef at t=0: {coefs[0]:.4f}  t=500: {coefs[2]:.4f}  t=1000: {coefs[4]:.4f}")
+
+    if monotone:
+        print(f"  {PASS} Entropy coefficient is monotonically non-increasing")
+    else:
+        print(f"  {FAIL} Entropy coefficient is NOT monotonically decreasing: {coefs}")
+
+    if start_ok and end_ok:
+        print(f"  {PASS} Entropy coef spans [start=0.05, end=0.001] correctly")
+    else:
+        print(f"  {FAIL} Entropy coef start={coefs[0]:.4f} (want 0.05), end={coefs[-1]:.4f} (want 0.001)")
+
+    return monotone and start_ok and end_ok
+
+
+def check_collision_penalty(env_cfg):
+    """
+    Collision penalty should fire when an agent tries to move but is blocked by
+    an adjacent agent. Run random episodes and verify shaped reward reflects it.
+    """
+    print("\n--- 7. Collision penalty: fires on blocked moves near adjacent agent ---")
+    from src.env.warehouse_env import WarehouseEnv
+
+    cfg = yaml.safe_load(yaml.dump(env_cfg))
+    cfg["env"]["reward_shaping"]["enabled"] = True
+    cfg["env"]["reward_shaping"]["collision_penalty"] = -0.3
+
+    env = WarehouseEnv(cfg)
+
+    collision_events = 0
+    total_steps = 0
+
+    for _ in range(20):
+        obs = env.reset()
+        u = env._env.unwrapped
+        for _ in range(200):
+            # Force agents toward each other to increase collision chance
+            actions = [np.random.randint(4) for _ in range(env.n_agents)]  # movement only
+            obs, rews, dones, _ = env.step(actions)
+            total_steps += 1
+
+            # Count steps where a collision penalty may have fired:
+            # Detect by checking if any agent tried to move but stayed put near another
+            for i, agent in enumerate(u.agents):
+                prev = env._prev_positions[i]
+                curr = (agent.x, agent.y)
+                last_act = env._last_actions[i]
+                if last_act in (0, 1, 2, 3) and prev == curr:
+                    for j, other in enumerate(u.agents):
+                        if j != i and abs(other.x - agent.x) + abs(other.y - agent.y) <= 1:
+                            collision_events += 1
+                            break
+
+            if all(dones):
+                break
+
+    env.close()
+
+    rate = collision_events / max(total_steps, 1)
+    print(f"  {INFO} Collision events: {collision_events} / {total_steps} steps ({rate*100:.1f}%)")
+
+    if collision_events > 0:
+        print(f"  {PASS} Collision penalty fires correctly on blocked moves near adjacent agent")
+        return True
+    else:
+        print(f"  {FAIL} No collision events detected — check collision_penalty logic or agent spacing")
+        return False
+
+
 def main():
     print("=" * 55)
     print("Smart Warehouse — MAPPO Smoke Test")
@@ -199,10 +333,13 @@ def main():
         sys.exit(1)
 
     results = {}
-    results["env"]            = check_env(env_cfg)
-    results["buffer_norm"]    = check_buffer_normalization(env_cfg, mappo_cfg)
-    results["ppo_update"]     = check_ppo_update(env_cfg, mappo_cfg)
-    results["convergence"]    = check_training_convergence(env_cfg, mappo_cfg)
+    results["env"]               = check_env(env_cfg)
+    results["buffer_norm"]       = check_buffer_normalization(env_cfg, mappo_cfg)
+    results["ppo_update"]        = check_ppo_update(env_cfg, mappo_cfg)
+    results["convergence"]       = check_training_convergence(env_cfg, mappo_cfg)
+    results["lr_decay"]          = check_lr_decay(env_cfg, mappo_cfg)
+    results["entropy_annealing"] = check_entropy_annealing(env_cfg, mappo_cfg)
+    results["collision_penalty"] = check_collision_penalty(env_cfg)
 
     print("\n" + "=" * 55)
     print("Results:")

@@ -65,11 +65,15 @@ def _delivery_count_from_raw(rews_per_step):
 def eval_mappo(env_cfg: dict, checkpoint_path: str, n_episodes: int, max_steps: int) -> dict:
     import torch
     from src.env.warehouse_env import WarehouseEnv
-    from src.algorithms.networks import Actor
+    from src.algorithms.networks import Actor, GRUActor
 
     ckpt = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
     meta = ckpt["metadata"]
-    actor = Actor(meta["obs_dim"], meta["action_dim"], meta["hidden_dim"], meta["n_layers"])
+    use_gru = meta.get("use_gru", False)
+    if use_gru:
+        actor = GRUActor(meta["obs_dim"], meta["action_dim"], meta["hidden_dim"])
+    else:
+        actor = Actor(meta["obs_dim"], meta["action_dim"], meta["hidden_dim"], meta["n_layers"])
     actor.load_state_dict(ckpt["actor"])
     actor.eval()
 
@@ -95,13 +99,26 @@ def eval_mappo(env_cfg: dict, checkpoint_path: str, n_episodes: int, max_steps: 
         deliveries    = 0
         pickups       = 0
         prev_carrying = [False] * env.n_agents
+        if use_gru:
+            hidden = actor.init_hidden(env.n_agents, torch.device("cpu"))
 
         for step in range(max_steps):
             raw = np.stack(obs).astype(np.float64)
             norm = ((raw - obs_mean) / (np.sqrt(obs_var) + 1e-8)).astype(np.float32)
             with torch.no_grad():
-                dist = torch.distributions.Categorical(logits=actor(torch.tensor(norm)))
-                actions = dist.sample().numpy().tolist()
+                if use_gru:
+                    new_hiddens = []
+                    actions = []
+                    for i in range(env.n_agents):
+                        obs_i = torch.tensor(norm[i:i+1])
+                        h_i = hidden[:, i:i+1, :]
+                        logits_i, new_h_i = actor.forward(obs_i, h_i)
+                        actions.append(torch.distributions.Categorical(logits=logits_i).sample().item())
+                        new_hiddens.append(new_h_i)
+                    hidden = torch.cat(new_hiddens, dim=1)
+                else:
+                    dist = torch.distributions.Categorical(logits=actor(torch.tensor(norm)))
+                    actions = dist.sample().numpy().tolist()
 
             obs, rews, dones, _ = env.step(actions)
 

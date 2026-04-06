@@ -60,12 +60,17 @@ class WarehouseEnv:
         self._bad_drop_penalty: float = rs.get("bad_drop_penalty", -0.2)
         self._linger_penalty: float = rs.get("linger_penalty", -0.1)
 
+        # Collision shaping
+        self._collision_penalty: float = rs.get("collision_penalty", 0.0)
+
         # Shaping state (tracked across steps within an episode)
         self._prev_carrying = [False] * self._n_agents
         self._prev_goal_dist = [float("inf")] * self._n_agents
         self._prev_shelf_dist = [float("inf")] * self._n_agents
         self._just_dropped = [False] * self._n_agents
         self._drop_cooldown = [0] * self._n_agents  # steps remaining to suppress pickup reward
+        self._prev_positions = [(0, 0)] * self._n_agents  # for collision detection
+        self._last_actions: list = []
 
         obs_space = self._env.observation_space
         act_space = self._env.action_space
@@ -94,6 +99,9 @@ class WarehouseEnv:
         self._prev_shelf_dist = [float("inf")] * self._n_agents
         self._just_dropped = [False] * self._n_agents
         self._drop_cooldown = [0] * self._n_agents
+        u0 = self._env.unwrapped
+        self._prev_positions = [(a.x, a.y) for a in u0.agents]
+        self._last_actions = [0] * self._n_agents
         if self._shaping_enabled:
             u = self._env.unwrapped
             shelf_positions = [(s.x, s.y) for s in u.shelfs]
@@ -119,6 +127,10 @@ class WarehouseEnv:
             info  : dict
         """
         self._step_count += 1
+        # Snapshot positions and actions before the physics step (used by collision shaping)
+        u_pre = self._env.unwrapped
+        self._prev_positions = [(a.x, a.y) for a in u_pre.agents]
+        self._last_actions = list(actions)
         obs, rews, terminated, truncated, info = self._env.step(actions)
 
         obs_list = self._unpack_obs(obs)
@@ -314,6 +326,22 @@ class WarehouseEnv:
             shaped[i] += self._step_penalty
 
             self._prev_carrying[i] = carrying_now
+
+        # Collision penalty: agent tried to move but was blocked by an adjacent agent
+        if self._collision_penalty != 0.0:
+            for i, agent in enumerate(u.agents):
+                curr_pos = (agent.x, agent.y)
+                prev_pos = self._prev_positions[i]
+                last_action = self._last_actions[i] if self._last_actions else -1
+                # Movement actions: 0=up, 1=right, 2=down, 3=left
+                if last_action in (0, 1, 2, 3) and curr_pos == prev_pos:
+                    # Agent tried to move but stayed — check for adjacent agent
+                    for j, other in enumerate(u.agents):
+                        if j != i:
+                            dist = abs(other.x - agent.x) + abs(other.y - agent.y)
+                            if dist <= 1:
+                                shaped[i] += self._collision_penalty
+                                break
 
         return shaped
 
