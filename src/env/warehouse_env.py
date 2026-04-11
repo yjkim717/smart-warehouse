@@ -49,6 +49,29 @@ class WarehouseEnv:
         self._step_count: int = 0
         self._randomize_goals: bool = env_cfg.get("randomize_goals", False)
 
+        # Reward shaping (dense intermediate rewards to guide learning)
+        rs = env_cfg.get("reward_shaping", {})
+        self._shaping_enabled: bool = rs.get("enabled", False)
+        self._pickup_reward: float = rs.get("pickup_reward", 0.1)
+        self._delivery_bonus: float = rs.get("delivery_bonus", 0.5)
+        self._step_penalty: float = rs.get("step_penalty", -0.005)
+        self._carry_toward_goal: float = rs.get("carry_toward_goal", 0.02)
+        self._move_toward_shelf: float = rs.get("move_toward_shelf", 0.01)
+        self._bad_drop_penalty: float = rs.get("bad_drop_penalty", -0.2)
+        self._linger_penalty: float = rs.get("linger_penalty", -0.1)
+
+        # Collision shaping
+        self._collision_penalty: float = rs.get("collision_penalty", 0.0)
+
+        # Shaping state (tracked across steps within an episode)
+        self._prev_carrying = [False] * self._n_agents
+        self._prev_goal_dist = [float("inf")] * self._n_agents
+        self._prev_shelf_dist = [float("inf")] * self._n_agents
+        self._just_dropped = [False] * self._n_agents
+        self._drop_cooldown = [0] * self._n_agents  # steps remaining to suppress pickup reward
+        self._prev_positions = [(0, 0)] * self._n_agents  # for collision detection
+        self._last_actions: list = []
+
         obs_space = self._env.observation_space
         act_space = self._env.action_space
 
@@ -69,6 +92,23 @@ class WarehouseEnv:
         obs, _ = self._env.reset()
         if self._randomize_goals:
             self._randomize_goal_positions()
+
+        # Initialize shaping state
+        self._prev_carrying = [False] * self._n_agents
+        self._prev_goal_dist = [float("inf")] * self._n_agents
+        self._prev_shelf_dist = [float("inf")] * self._n_agents
+        self._just_dropped = [False] * self._n_agents
+        self._drop_cooldown = [0] * self._n_agents
+        u0 = self._env.unwrapped
+        self._prev_positions = [(a.x, a.y) for a in u0.agents]
+        self._last_actions = [0] * self._n_agents
+        if self._shaping_enabled:
+            u = self._env.unwrapped
+            shelf_positions = [(s.x, s.y) for s in u.shelfs]
+            for i, agent in enumerate(u.agents):
+                self._prev_goal_dist[i] = self._min_goal_dist(agent.x, agent.y, u.goals)
+                self._prev_shelf_dist[i] = self._min_dist(agent.x, agent.y, shelf_positions)
+
         return self._unpack_obs(obs)
 
     def step(
@@ -87,10 +127,17 @@ class WarehouseEnv:
             info  : dict
         """
         self._step_count += 1
+        # Snapshot positions and actions before the physics step (used by collision shaping)
+        u_pre = self._env.unwrapped
+        self._prev_positions = [(a.x, a.y) for a in u_pre.agents]
+        self._last_actions = list(actions)
         obs, rews, terminated, truncated, info = self._env.step(actions)
 
         obs_list = self._unpack_obs(obs)
         rew_list = self._unpack_scalar(rews)
+
+        if self._shaping_enabled:
+            rew_list = self._apply_reward_shaping(rew_list)
 
         done_base = self._unpack_bool(terminated)
         trunc_base = self._unpack_bool(truncated)
@@ -197,6 +244,106 @@ class WarehouseEnv:
     @property
     def action_dim(self) -> int:
         return self._action_dim
+
+    # ------------------------------------------------------------------
+    # Reward shaping
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _min_dist(x: int, y: int, positions) -> float:
+        if not positions:
+            return float("inf")
+        return min(abs(x - px) + abs(y - py) for px, py in positions)
+
+    @staticmethod
+    def _min_goal_dist(x: int, y: int, goals) -> float:
+        if not goals:
+            return float("inf")
+        return min(abs(x - gc) + abs(y - gr) for gc, gr in goals)
+
+    def _apply_reward_shaping(self, base_rewards: List[float]) -> List[float]:
+        u = self._env.unwrapped
+        goal_set = {(gc, gr) for gc, gr in u.goals}
+        shaped = list(base_rewards)
+
+        for i, agent in enumerate(u.agents):
+            carrying_now = bool(agent.carrying_shelf)
+            was_carrying = self._prev_carrying[i]
+            pos = (agent.x, agent.y)
+
+            # Delivery happened (rware gave +1): add bonus
+            if base_rewards[i] > 0:
+                shaped[i] += self._delivery_bonus
+                self._just_dropped[i] = False
+
+            # Dropped shelf NOT at a packing station → penalty
+            elif was_carrying and not carrying_now:
+                if pos not in goal_set:
+                    shaped[i] += self._bad_drop_penalty
+                    self._drop_cooldown[i] = 5  # suppress pickup reward for next 5 steps
+                self._just_dropped[i] = True
+
+            # Picked up a shelf
+            elif carrying_now and not was_carrying:
+                if self._drop_cooldown[i] == 0:
+                    shaped[i] += self._pickup_reward  # normal pickup
+                # else: cooldown active — give 0 (block immediate re-pickup farming)
+                self._just_dropped[i] = False
+
+            # Tick down cooldown every step
+            if self._drop_cooldown[i] > 0:
+                self._drop_cooldown[i] -= 1
+
+            if carrying_now:
+                dist = self._min_goal_dist(agent.x, agent.y, u.goals)
+                prev = self._prev_goal_dist[i]
+
+                if dist == 0:
+                    # On a goal while carrying — linger penalty forces delivery
+                    shaped[i] += self._linger_penalty
+                else:
+                    # Asymmetric: approaching is rewarded more than retreating
+                    # is penalized, creating a value gradient toward the goal
+                    if dist < prev:
+                        shaped[i] += self._carry_toward_goal
+                    elif dist > prev:
+                        shaped[i] -= self._carry_toward_goal * 0.5
+
+                self._prev_goal_dist[i] = dist
+                self._prev_shelf_dist[i] = float("inf")
+            else:
+                shelf_positions = [(s.x, s.y) for s in u.shelfs]
+                dist = self._min_dist(agent.x, agent.y, shelf_positions)
+                prev = self._prev_shelf_dist[i]
+                if dist < prev:
+                    shaped[i] += self._move_toward_shelf
+                elif dist > prev:
+                    shaped[i] -= self._move_toward_shelf * 0.5
+                self._prev_shelf_dist[i] = dist
+                self._prev_goal_dist[i] = float("inf")
+
+            # Time penalty
+            shaped[i] += self._step_penalty
+
+            self._prev_carrying[i] = carrying_now
+
+        # Collision penalty: agent tried to move but was blocked by an adjacent agent
+        if self._collision_penalty != 0.0:
+            for i, agent in enumerate(u.agents):
+                curr_pos = (agent.x, agent.y)
+                prev_pos = self._prev_positions[i]
+                last_action = self._last_actions[i] if self._last_actions else -1
+                # Movement actions: 0=up, 1=right, 2=down, 3=left
+                if last_action in (0, 1, 2, 3) and curr_pos == prev_pos:
+                    # Agent tried to move but stayed — check for adjacent agent
+                    for j, other in enumerate(u.agents):
+                        if j != i:
+                            dist = abs(other.x - agent.x) + abs(other.y - agent.y)
+                            if dist <= 1:
+                                shaped[i] += self._collision_penalty
+                                break
+
+        return shaped
 
     # ------------------------------------------------------------------
     # Helpers

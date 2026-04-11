@@ -1,0 +1,25 @@
+# Warehouse Environment Configuration — 4 agents
+
+env:
+  name: "rware-tiny-4ag-v2"
+  n_agents: 4
+  max_steps: 500
+  reward_type: "individual"
+  randomize_goals: true
+
+  # Reward shaping
+  reward_shaping:
+    enabled: true
+    pickup_reward: 0.5
+    delivery_bonus: 2.0
+    step_penalty: -0.005
+    carry_toward_goal: 0.05
+    move_toward_shelf: 0.05
+    bad_drop_penalty: -0.6
+    linger_penalty: -0.05
+    collision_penalty: 0.0
+
+  record:
+    fps: 8
+    output_dir: "results/videos"
+    filename: "random_policy_4ag.gif"
