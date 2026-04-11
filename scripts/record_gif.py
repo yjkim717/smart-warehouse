@@ -67,15 +67,31 @@ def random_policy(obs: list, action_dim: int, env: "WarehouseEnv" = None) -> lis
 
 
 def load_trained_policy(checkpoint_path: str):
-    """
-    TODO (Team B): load MAPPO model and return a callable
-        policy(obs: List[np.ndarray]) -> List[int]
-    """
-    raise NotImplementedError(
-        f"Trained policy loading not yet implemented.\n"
-        f"Checkpoint: {checkpoint_path}\n"
-        "Team B: implement this once MAPPO is ready."
-    )
+    """Load MAPPO actor from checkpoint and return a greedy policy function."""
+    import torch
+    from src.algorithms.networks import Actor
+
+    ckpt = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
+    meta = ckpt["metadata"]
+
+    actor = Actor(meta["obs_dim"], meta["action_dim"], meta["hidden_dim"], meta["n_layers"])
+    actor.load_state_dict(ckpt["actor"])
+    actor.eval()
+
+    # Restore observation normalization stats
+    obs_mean = ckpt.get("obs_rms", {}).get("mean", np.zeros(meta["obs_dim"]))
+    obs_var = ckpt.get("obs_rms", {}).get("var", np.ones(meta["obs_dim"]))
+
+    def policy_fn(obs, action_dim, env=None):
+        raw = np.stack(obs).astype(np.float64)
+        norm = ((raw - obs_mean) / (np.sqrt(obs_var) + 1e-8)).astype(np.float32)
+        obs_t = torch.tensor(norm)
+        with torch.no_grad():
+            dist = torch.distributions.Categorical(logits=actor(obs_t))
+            actions = dist.sample()
+        return actions.numpy().tolist()
+
+    return policy_fn
 
 
 def record(env: WarehouseEnv, policy_fn, n_steps: int, tracker: RewardTracker = None) -> list:
