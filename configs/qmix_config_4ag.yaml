@@ -1,4 +1,4 @@
-# QMIX Training Configuration
+# QMIX Training Configuration — 4 agents
 
 qmix:
   # ---- Network architecture ----
@@ -14,12 +14,12 @@ qmix:
   # ---- Q-learning ----
   gamma: 0.99
   max_grad_norm: 0.5
-  target_update_interval: 200   # update target nets every N gradient steps
+  target_update_interval: 200
 
   # ---- Replay buffer ----
   buffer_size: 100_000
   batch_size: 128
-  train_start: 1000             # start training after this many steps in buffer
+  train_start: 1000
 
   # ---- Epsilon decay ----
   epsilon_start: 1.0
@@ -33,5 +33,5 @@ qmix:
   log_interval: 2000
 
   # ---- Paths ----
-  checkpoint_dir: "results/checkpoints"
-  log_dir: "results/logs"
+  checkpoint_dir: "results/checkpoints_4ag"
+  log_dir: "results/logs_4ag"

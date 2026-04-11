@@ -145,7 +145,7 @@ class QMIX:
             actions: np.ndarray of shape (n_agents,)
         """
         raw_obs = np.stack(obs_list)
-        norm_obs = self._normalize_obs(raw_obs)
+        norm_obs = self._normalize_obs(raw_obs, update=False)
 
         if explore and np.random.rand() < self.epsilon:
             return np.random.randint(0, self.action_dim, size=self.n_agents)
@@ -231,6 +231,7 @@ class QMIX:
         team_dones    = dones.max(dim=1).values                       # (B,)
 
         target = team_rewards + self.gamma * next_q_tot * (1.0 - team_dones)
+        target = target.clamp(-50.0, 50.0)
 
         # ---- Loss ----
         loss = nn.MSELoss()(q_tot, target)
