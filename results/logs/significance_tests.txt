@@ -1,0 +1,8 @@
+QMIX vs Baselines Statistical Significance Tests
+==================================================
+--- QMIX vs Random Statistical Significance ---
+T-statistic: -23.1841 | P-value: 0.0000 (Signif: YES)
+
+--- QMIX vs Greedy Statistical Significance ---
+T-statistic: -24.4133 | P-value: 0.0000 (Signif: YES)
+

@@ -1,0 +1,4 @@
+Policy,Mean Reward,Std Reward,Avg Deliveries,Max Deliveries,Delivery Rate (%),Positive Reward Rate (%)
+QMIX,-7.0755,5.3189,0.000,0,0.0,0.0
+Random,0.0633,0.2436,0.063,1,6.3,6.3
+Greedy,0.4767,0.5681,0.477,2,44.0,44.0
