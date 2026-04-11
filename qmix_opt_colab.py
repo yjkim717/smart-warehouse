@@ -96,12 +96,10 @@ TARGET_UPDATE_INTERVAL = 20
 NUM_EPISODES = TOTAL_TIMESTEPS // MAX_STEPS  # ~6,000 episodes
 
 # ==========================================
-# Early Stopping Configuration (adjusted for MAPPO-style evaluation)
+# Evaluation Configuration (MAPPO-style)
 # ==========================================
 EVAL_INTERVAL = 10000  # Match MAPPO eval_interval
 EVAL_EPISODES = 20     # Match MAPPO eval_episodes
-NO_IMPROVE_THRESHOLD = 10  # Stop after 10 evals with no improvement
-SUCCESS_RATE_TARGET = 0.25  # Target 25% delivery success rate
 
 # ==========================================
 # Epsilon Scheduling (adjusted for MAPPO-style annealing)
@@ -320,7 +318,7 @@ except:
 
 
 # ==========================================
-# 4. Streamlined Training Loop with Early Stopping
+# 4. Streamlined Training Loop (MAPPO-style)
 # ==========================================
 training_rewards = []
 training_deliveries = []
@@ -328,15 +326,8 @@ epsilon = epsilon_start
 
 start_time = time.time()
 
-# Early stopping tracking
-best_eval_success = 0.0
-no_improve_count = 0
-evaluation_history = []
-
-print(f"Starting training with early stopping...")
-print(f"  Eval interval: {EVAL_INTERVAL} episodes")
-print(f"  Max no-improve cycles: {NO_IMPROVE_THRESHOLD}")
-print(f"  Success rate target: {SUCCESS_RATE_TARGET:.2%}")
+# Best model tracking (like MAPPO)
+best_eval_reward = float('-inf')
 
 for episode in range(NUM_EPISODES):
     observations = env.reset()
@@ -432,77 +423,54 @@ for episode in range(NUM_EPISODES):
         target_mixer.set_weights(mixer_network.get_weights())
     
     # ==========================================
-    # EARLY STOPPING EVALUATION
+    # PERIODIC EVALUATION (MAPPO-style)
     # ==========================================
     if (episode + 1) % EVAL_INTERVAL == 0:
         print(f"\n--- Evaluation at Episode {episode+1} ---")
         eval_rewards = []
         eval_successes = []
-        
+
         for eval_ep in range(EVAL_EPISODES):
             obs = env.reset()
             prev_actions = np.zeros(N_AGENTS)
             ep_reward = 0
             ep_deliveries = 0
-            
+
             for eval_t in range(MAX_STEPS):
                 agent_id_oh = EYE_AGENTS
                 prev_act_oh = EYE_ACTIONS[np.array(prev_actions, dtype=np.int32)]
                 obs_array = np.array(obs, dtype=np.float32)
                 combined_input = np.concatenate([agent_id_oh, obs_array, prev_act_oh], axis=1)
-                
+
                 # Greedy action selection (no exploration during eval)
                 q_values_batch = agent_network(tf.convert_to_tensor(combined_input, dtype=tf.float32))
                 current_actions = tf.argmax(q_values_batch, axis=1).numpy().tolist()
-                
+
                 obs, rewards, dones, info = env.step(current_actions)
                 prev_actions = current_actions
                 ep_reward += sum(rewards)
                 ep_deliveries += sum(1 for r in rewards if r > 0.9)
-                
+
                 if all(dones):
                     break
-            
+
             eval_rewards.append(ep_reward)
             eval_successes.append(1 if ep_deliveries > 0 else 0)
-        
+
         eval_success_rate = np.mean(eval_successes)
         eval_mean_reward = np.mean(eval_rewards)
-        
-        evaluation_history.append({
-            'episode': episode + 1,
-            'success_rate': eval_success_rate,
-            'mean_reward': eval_mean_reward,
-            'no_improve_count': no_improve_count
-        })
-        
-        # Check for improvement
-        if eval_success_rate > best_eval_success:
-            best_eval_success = eval_success_rate
-            no_improve_count = 0
-            print(f"✓ New best success rate: {eval_success_rate:.2%}")
-            # Save best weights
+
+        print(f"Success Rate (eval): {eval_success_rate:.2%} | Mean Reward: {eval_mean_reward:.2f}")
+        print(f"Training Mean: {np.mean(training_rewards[-EVAL_INTERVAL:]) if len(training_rewards) >= EVAL_INTERVAL else np.mean(training_rewards):.2f}")
+
+        # Save best weights based on evaluation reward (like MAPPO)
+        if eval_mean_reward > best_eval_reward:
+            best_eval_reward = eval_mean_reward
             os.makedirs(CHECKPOINTS_DIR, exist_ok=True)
             agent_network.save_weights(os.path.join(CHECKPOINTS_DIR, f"qmix_best_agent.weights.h5"))
             mixer_network.save_weights(os.path.join(CHECKPOINTS_DIR, f"qmix_best_mixer.weights.h5"))
-        else:
-            no_improve_count += 1
-            print(f"✗ No improvement. Count: {no_improve_count}/{NO_IMPROVE_THRESHOLD}")
-        
-        print(f"Success Rate (eval): {eval_success_rate:.2%} | Mean Reward: {eval_mean_reward:.2f}")
-        print(f"Training Mean: {np.mean(training_rewards[-EVAL_INTERVAL:]) if len(training_rewards) >= EVAL_INTERVAL else np.mean(training_rewards):.2f}")
-        
-        # Early stopping condition 1: Reached target success rate
-        if eval_success_rate >= SUCCESS_RATE_TARGET:
-            print(f"\n🎉 Goal achieved! Success rate {eval_success_rate:.2%} >= target {SUCCESS_RATE_TARGET:.2%}")
-            break
-        
-        # Early stopping condition 2: No improvement for N evaluations
-        if no_improve_count >= NO_IMPROVE_THRESHOLD:
-            print(f"\n⏹ Early stopping: No improvement for {NO_IMPROVE_THRESHOLD} evaluations")
-            print(f"Best success rate reached: {best_eval_success:.2%}")
-            break
-        
+            print(f"✓ New best model saved (reward: {eval_mean_reward:.2f})")
+
         print()
         
     if (episode + 1) % 2000 == 0 and (episode + 1) % EVAL_INTERVAL != 0:  # Match MAPPO log_interval
@@ -568,12 +536,26 @@ def load_baseline(filepath):
             data = json.load(f)
         if "episodes" in data:
             r_list = [ep["team_total_reward"] for ep in data["episodes"]][:EVAL_EPISODES]
-            # Try to extract deliveries from episodes; fall back to team_total_reward if not available
-            d_list = [ep.get("deliveries", ep.get("team_total_reward", 0)) for ep in data["episodes"]][:EVAL_EPISODES]
+            # For warehouse env: count deliveries (rewards >= 0.9 indicate successful deliveries)
+            # If episodes have explicit deliveries field, use it; otherwise count from rewards
+            if "deliveries" in data["episodes"][0]:
+                d_list = [ep["deliveries"] for ep in data["episodes"]][:EVAL_EPISODES]
+            else:
+                # Count deliveries from agent rewards (warehouse gives ~1.0 per delivery)
+                d_list = []
+                for ep in data["episodes"][:EVAL_EPISODES]:
+                    if "agent_total_rewards" in ep:
+                        # Count rewards >= 0.9 as successful deliveries
+                        deliveries = sum(1 for r in ep["agent_total_rewards"] if r >= 0.9)
+                        d_list.append(deliveries)
+                    else:
+                        # Fallback: assume team_total_reward is delivery count (incorrect but better than nothing)
+                        d_list.append(int(ep["team_total_reward"]))
         else:
             r_list = data.get("_rewards", [])[:EVAL_EPISODES]
             d_list = data.get("_deliveries", [])[:EVAL_EPISODES]
-    except Exception:
+    except Exception as e:
+        print(f"Error loading {filepath}: {e}")
         pass
     return r_list, d_list
 
