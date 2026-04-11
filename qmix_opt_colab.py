@@ -11,10 +11,25 @@ import yaml
 from src.env.warehouse_env import WarehouseEnv
 
 # ==========================================
-# Directory Configuration
+# Colab Setup (uncomment when running on Colab)
 # ==========================================
-# Use current script directory as base (works both locally and in Colab)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# !git clone -b qmix https://github.com/yjkim717/smart-warehouse.git
+# !pip install rware gymnasium imageio pyyaml torch -q
+# import sys
+# sys.path.insert(0, '/content/smart-warehouse')
+
+# ==========================================
+# Directory Configuration (Colab-compatible)
+# ==========================================
+# Detect if running on Colab
+try:
+    import google.colab
+    IS_COLAB = True
+    BASE_DIR = '/content/smart-warehouse'
+except ImportError:
+    IS_COLAB = False
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 RESULTS_DIR = os.path.join(BASE_DIR, 'results')
 CHECKPOINTS_DIR = os.path.join(RESULTS_DIR, 'checkpoints')
 LOGS_DIR = os.path.join(RESULTS_DIR, 'logs')
@@ -47,7 +62,13 @@ if not os.path.exists(CONFIG_PATH):
 with open(CONFIG_PATH) as f:
     config = yaml.safe_load(f)
 
-# 2. Instantiate the environment
+# 2. Create necessary directories
+os.makedirs(RESULTS_DIR, exist_ok=True)
+os.makedirs(CHECKPOINTS_DIR, exist_ok=True)
+os.makedirs(LOGS_DIR, exist_ok=True)
+os.makedirs(PLOTS_DIR, exist_ok=True)
+
+# 3. Instantiate the environment
 env = WarehouseEnv(config)
 
 # 3. Pull the dynamic dimensions
@@ -64,25 +85,30 @@ EYE_ACTIONS = np.eye(N_ACTIONS, dtype=np.float32)
 # Sync with MAPPO Hyperparameters
 HIDDEN_DIM = 128
 MIXER_HIDDEN_DIM = 128
-NUM_EPISODES = 600000  # Max episodes (will stop early if converged)
+TOTAL_TIMESTEPS = 3_000_000  # Match MAPPO total_timesteps
 MAX_STEPS = config['env'].get('max_steps', 500)
 GAMMA = 0.99
-BATCH_SIZE = 128
+BATCH_SIZE = 128  # Match MAPPO minibatch_size
 MIN_REPLAY_SIZE = 1000
 TARGET_UPDATE_INTERVAL = 20
 
-# ==========================================
-# Early Stopping Configuration
-# ==========================================
-EVAL_INTERVAL = 25000  # Evaluate every 25k training episodes
-EVAL_EPISODES = 20  # Run 100 episodes per evaluation
-NO_IMPROVE_THRESHOLD = 10  # Stop after 5 evals with no improvement
-SUCCESS_RATE_TARGET = 0.25  # Target 25% delivery success rate  
+# Calculate episodes based on total timesteps (assuming ~500 steps per episode)
+NUM_EPISODES = TOTAL_TIMESTEPS // MAX_STEPS  # ~6,000 episodes
 
-# Epsilon Scheduling
-epsilon_start = 1.0
-epsilon_end = 0.05
-epsilon_decay_steps = int(NUM_EPISODES * 0.7)
+# ==========================================
+# Early Stopping Configuration (adjusted for MAPPO-style evaluation)
+# ==========================================
+EVAL_INTERVAL = 10000  # Match MAPPO eval_interval
+EVAL_EPISODES = 20     # Match MAPPO eval_episodes
+NO_IMPROVE_THRESHOLD = 10  # Stop after 10 evals with no improvement
+SUCCESS_RATE_TARGET = 0.25  # Target 25% delivery success rate
+
+# ==========================================
+# Epsilon Scheduling (adjusted for MAPPO-style annealing)
+# ==========================================
+epsilon_start = 0.2   # Match MAPPO clip_epsilon_start (exploration proxy)
+epsilon_end = 0.1     # Match MAPPO clip_epsilon_end
+epsilon_decay_steps = int(NUM_EPISODES * 0.7)  # Anneal over 70% of training
 
 
 # ==========================================
@@ -199,9 +225,17 @@ target_mixer.set_weights(mixer_network.get_weights())
 
 
 # ==========================================
-# 3. GPU-Accelerated Train Step
+# 3. GPU-Accelerated Train Step (with MAPPO-style gradient clipping)
 # ==========================================
-optimizer = tf.keras.optimizers.RMSprop(learning_rate=0.0005)
+optimizer = tf.keras.optimizers.RMSprop(learning_rate=0.0005)  # Match MAPPO lr_critic
+
+# Learning rate decay schedule (cosine annealing like MAPPO)
+lr_schedule = tf.keras.optimizers.schedules.CosineDecay(
+    initial_learning_rate=0.0005,
+    decay_steps=NUM_EPISODES,
+    alpha=0.00001 / 0.0005  # lr_min / initial_lr
+)
+optimizer = tf.keras.optimizers.RMSprop(learning_rate=lr_schedule)
 
 # Try to use XLA compilation; fall back if not supported on this GPU
 try:
@@ -240,7 +274,7 @@ try:
         
         vars_to_train = agent_network.trainable_variables + mixer_network.trainable_variables
         grads = tape.gradient(loss, vars_to_train)
-        grads, _ = tf.clip_by_global_norm(grads, 10.0)
+        grads, _ = tf.clip_by_global_norm(grads, 0.5)  # Match MAPPO max_grad_norm
         optimizer.apply_gradients(zip(grads, vars_to_train))
     print("XLA compilation enabled for train_step")
 except:
@@ -281,7 +315,7 @@ except:
         
         vars_to_train = agent_network.trainable_variables + mixer_network.trainable_variables
         grads = tape.gradient(loss, vars_to_train)
-        grads, _ = tf.clip_by_global_norm(grads, 10.0)
+        grads, _ = tf.clip_by_global_norm(grads, 0.5)  # Match MAPPO max_grad_norm
         optimizer.apply_gradients(zip(grads, vars_to_train))
 
 
@@ -360,38 +394,38 @@ for episode in range(NUM_EPISODES):
     training_rewards.append(episode_reward)
     training_deliveries.append(episode_deliveries)
     
-    # --- CENTRALIZED TRAINING (scaled with episode length) ---
-    if D_size >= MIN_REPLAY_SIZE:
-        # Scale training updates proportionally to episode length (1 update per ~10 steps)
-        num_updates = max(1, t // 10)
-        
-        for _ in range(num_updates):
-            batch_indices = np.random.randint(0, D_size, size=BATCH_SIZE)
-            
-            b_obs = D_obs[batch_indices]
-            b_actions = np.expand_dims(D_actions[batch_indices], -1) 
-            b_rewards = np.expand_dims(np.sum(D_rewards[batch_indices], axis=1), -1)
-            b_next_obs = D_next_obs[batch_indices]
-            b_states = D_states[batch_indices]
-            b_next_states = D_next_states[batch_indices]
-            b_dones = np.expand_dims(D_dones[batch_indices], -1)
-            b_prev_act = D_prev_act[batch_indices]
-            
-            b_agent_id_oh = np.broadcast_to(np.expand_dims(EYE_AGENTS, 0), (BATCH_SIZE, N_AGENTS, N_AGENTS))
-            b_prev_act_oh = EYE_ACTIONS[b_prev_act]
-            
-            # Pass raw tensors directly to the GPU graph
-            train_step(
-                tf.convert_to_tensor(b_obs, dtype=tf.float32), 
-                tf.convert_to_tensor(b_prev_act_oh, dtype=tf.float32),
-                tf.convert_to_tensor(b_actions, dtype=tf.int32), 
-                tf.convert_to_tensor(b_rewards, dtype=tf.float32), 
-                tf.convert_to_tensor(b_next_obs, dtype=tf.float32), 
-                tf.convert_to_tensor(b_states, dtype=tf.float32), 
-                tf.convert_to_tensor(b_next_states, dtype=tf.float32), 
-                tf.convert_to_tensor(b_dones, dtype=tf.float32),
-                tf.convert_to_tensor(b_agent_id_oh, dtype=tf.float32)
-            )
+    # --- CENTRALIZED TRAINING (MAPPO-style: train every ~256 steps with 4 epochs) ---
+    if D_size >= MIN_REPLAY_SIZE and episode % 4 == 0:  # Train every 4 episodes (~256*4 steps)
+        # Multiple epochs like MAPPO (n_epochs: 4)
+        for epoch in range(4):
+            # Sample multiple batches per epoch
+            for batch_idx in range(2):  # 2 batches * 128 = 256 samples like MAPPO n_steps
+                batch_indices = np.random.randint(0, D_size, size=BATCH_SIZE)
+                
+                b_obs = D_obs[batch_indices]
+                b_actions = np.expand_dims(D_actions[batch_indices], -1) 
+                b_rewards = np.expand_dims(np.sum(D_rewards[batch_indices], axis=1), -1)
+                b_next_obs = D_next_obs[batch_indices]
+                b_states = D_states[batch_indices]
+                b_next_states = D_next_states[batch_indices]
+                b_dones = np.expand_dims(D_dones[batch_indices], -1)
+                b_prev_act = D_prev_act[batch_indices]
+                
+                b_agent_id_oh = np.broadcast_to(np.expand_dims(EYE_AGENTS, 0), (BATCH_SIZE, N_AGENTS, N_AGENTS))
+                b_prev_act_oh = EYE_ACTIONS[b_prev_act]
+                
+                # Pass raw tensors directly to the GPU graph
+                train_step(
+                    tf.convert_to_tensor(b_obs, dtype=tf.float32), 
+                    tf.convert_to_tensor(b_prev_act_oh, dtype=tf.float32),
+                    tf.convert_to_tensor(b_actions, dtype=tf.int32), 
+                    tf.convert_to_tensor(b_rewards, dtype=tf.float32), 
+                    tf.convert_to_tensor(b_next_obs, dtype=tf.float32), 
+                    tf.convert_to_tensor(b_states, dtype=tf.float32), 
+                    tf.convert_to_tensor(b_next_states, dtype=tf.float32), 
+                    tf.convert_to_tensor(b_dones, dtype=tf.float32),
+                    tf.convert_to_tensor(b_agent_id_oh, dtype=tf.float32)
+                )
 
     if episode % TARGET_UPDATE_INTERVAL == 0:
         target_agent.set_weights(agent_network.get_weights())
@@ -471,10 +505,10 @@ for episode in range(NUM_EPISODES):
         
         print()
         
-    if (episode + 1) % 100 == 0 and (episode + 1) % EVAL_INTERVAL != 0:
+    if (episode + 1) % 2000 == 0 and (episode + 1) % EVAL_INTERVAL != 0:  # Match MAPPO log_interval
         print(f"Episode: {episode+1}/{NUM_EPISODES} | Reward: {episode_reward:.2f} | Epsilon: {epsilon:.2f} | Deliveries: {training_deliveries[-1]} | Time: {time.time()-start_time:.1f}s")
         
-    if (episode + 1) % 100000 == 0:
+    if (episode + 1) % 50000 == 0:  # Match MAPPO save_interval
         os.makedirs(CHECKPOINTS_DIR, exist_ok=True)
         agent_network.save_weights(os.path.join(CHECKPOINTS_DIR, f"qmix_tf_agent_ep{episode+1}.weights.h5"))
         mixer_network.save_weights(os.path.join(CHECKPOINTS_DIR, f"qmix_tf_mixer_ep{episode+1}.weights.h5"))
