@@ -30,7 +30,7 @@ EYE_ACTIONS = np.eye(N_ACTIONS, dtype=np.float32)
 # Sync with MAPPO Hyperparameters
 HIDDEN_DIM = 128
 MIXER_HIDDEN_DIM = 128
-NUM_EPISODES = 4000
+NUM_EPISODES = 3000000
 MAX_STEPS = config['env'].get('max_steps', 500)
 GAMMA = 0.99
 BATCH_SIZE = 128
@@ -254,7 +254,8 @@ for episode in range(NUM_EPISODES):
     # --- CENTRALIZED TRAINING ---
     # Throttle training to prevent severe overfitting to early state penalties and stabilize target Q-learning 
     if D_size >= MIN_REPLAY_SIZE and t % 10 == 0:
-        batch_indices = np.random.choice(D_size, BATCH_SIZE, replace=False)
+        # np.random.randint is O(1) compared to np.random.choice which allocates arrays taking O(N) 
+        batch_indices = np.random.randint(0, D_size, size=BATCH_SIZE)
         
         b_obs = D_obs[batch_indices]
         b_actions = np.expand_dims(D_actions[batch_indices], -1) 
@@ -290,6 +291,12 @@ for episode in range(NUM_EPISODES):
         
     if (episode + 1) % 100 == 0:
         print(f"Episode: {episode+1}/{NUM_EPISODES} | Reward: {episode_reward:.2f} | Epsilon: {epsilon:.2f} | Deliveries: {training_deliveries[-1]} | Time: {time.time()-start_time:.1f}s")
+        
+    if (episode + 1) % 100000 == 0:
+        os.makedirs("results/checkpoints", exist_ok=True)
+        agent_network.save_weights(f"results/checkpoints/qmix_tf_agent_ep{episode+1}.weights.h5")
+        mixer_network.save_weights(f"results/checkpoints/qmix_tf_mixer_ep{episode+1}.weights.h5")
+        print(f"--- Checkpoint saved at Episode {episode+1} ---")
 
 os.makedirs("results/checkpoints", exist_ok=True)
 agent_network.save_weights("results/checkpoints/qmix_tf_agent.weights.h5")
@@ -344,51 +351,33 @@ for ep in range(EVAL_EPISODES):
 qmix_mean_reward = np.mean(q_r)
 print(f"QMIX Mean Reward: {qmix_mean_reward:.4f}")
 
-# 1. Load MAPPO Baseline
-mappo_res_path = "results/logs/trained_policy_rewards.json"
-m_r = []
-m_d = []
-try:
-    with open(mappo_res_path) as f:
-        mappo_res = json.load(f)
-    m_r = mappo_res["_rewards"]
-    m_d = mappo_res["_deliveries"]
-    print(f"Loaded MAPPO Baseline. Mean Reward: {np.mean(m_r):.4f}")
-except (FileNotFoundError, KeyError):
-    print(f"Warning: {mappo_res_path} lacked explicit rewards. Sourcing from mappo_eval_curve.json.")
+def load_baseline(filepath):
+    r_list, d_list = [], []
     try:
-        with open("results/logs/mappo_eval_curve.json") as f:
-            mappo_eval = json.load(f)
-        # Sourcing explicitly greedy evaluated rewards directly from MAPPO eval interval traces
-        m_r = [step["eval_mean_reward"] for step in mappo_eval][-EVAL_EPISODES:] # Best approximation matching scale
-    except (FileNotFoundError, KeyError):
-        print("Warning: MAPPO eval logs failed too. Skipping MAPPO.")
+        with open(filepath) as f:
+            data = json.load(f)
+        if "episodes" in data:
+            r_list = [ep["team_total_reward"] for ep in data["episodes"]][:EVAL_EPISODES]
+            # Baselines unshaped rewards roughly equal discrete deliveries
+            d_list = [ep["team_total_reward"] for ep in data["episodes"]][:EVAL_EPISODES]
+        else:
+            r_list = data.get("_rewards", [])[:EVAL_EPISODES]
+            d_list = data.get("_deliveries", [])[:EVAL_EPISODES]
+    except Exception:
+        pass
+    return r_list, d_list
+
+# 1. Load MAPPO Baseline
+m_r, m_d = load_baseline("results/logs/trained_policy_rewards.json")
+if not m_r: print("Warning: MAPPO baseline failed to load.")
 
 # 2. Load Random Baseline
-random_res_path = "results/logs/random_baseline_rewards.json"
-r_r = []
-r_d = []
-try:
-    with open(random_res_path) as f:
-        random_res = json.load(f)
-    r_r = random_res["_rewards"]
-    r_d = random_res["_deliveries"]
-    print(f"Loaded Random Baseline. Mean Reward: {np.mean(r_r):.4f}")
-except (FileNotFoundError, KeyError):
-    print(f"Warning: {random_res_path} not found. Running ad-hoc random eval.")
-    for ep in range(EVAL_EPISODES):
-        env.reset()
-        episode_reward = 0
-        episode_deliveries = 0
-        for t in range(MAX_STEPS):
-            actions = [np.random.randint(0, N_ACTIONS) for _ in range(N_AGENTS)]
-            _, rewards, dones, _ = env.step(actions)
-            episode_reward += sum(rewards)
-            episode_deliveries += sum(1 for r in rewards if r > 0.9)
-            if all(dones):
-                break
-        r_r.append(episode_reward)
-        r_d.append(episode_deliveries)
+r_r, r_d = load_baseline("results/logs/random_baseline_rewards.json")
+if not r_r: print("Warning: Random baseline failed to load.")
+
+# 3. Load Greedy Baseline
+g_r, g_d = load_baseline("results/logs/greedy_baseline_rewards.json")
+if not g_r: print("Warning: Greedy baseline failed to load.")
 
 os.makedirs("results/logs", exist_ok=True)
 
@@ -406,18 +395,91 @@ with open("results/logs/qmix_reward.csv", "w", newline="") as f:
         
 print("Saved QMIX logs to results/logs/qmix_reward.json and .csv")
 
+# Save Evaluation Summary to CSV
+summary_csv_path = "results/logs/qmix_evaluation_summary.csv"
+with open(summary_csv_path, "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(["Policy", "Mean Reward", "Std Reward", "Avg Deliveries", "Max Deliveries", "Delivery Rate (%)", "Positive Reward Rate (%)"])
+    
+    q_d_any = sum(1 for d in q_d if d > 0)
+    q_pos = sum(1 for r in q_r if r > 0.0)
+    writer.writerow([
+        "QMIX", 
+        f"{np.mean(q_r):.4f}", 
+        f"{np.std(q_r):.4f}", 
+        f"{np.mean(q_d):.3f}", 
+        f"{np.max(q_d)}", 
+        f"{(q_d_any/EVAL_EPISODES)*100:.1f}", 
+        f"{(q_pos/EVAL_EPISODES)*100:.1f}"
+    ])
+    
+    if len(m_r) > 1 and len(m_d) > 1:
+        m_d_any = sum(1 for d in m_d if d > 0)
+        m_pos = sum(1 for r in m_r if r > 0.0)
+        writer.writerow([
+            "MAPPO", 
+            f"{np.mean(m_r):.4f}", 
+            f"{np.std(m_r):.4f}", 
+            f"{np.mean(m_d):.3f}", 
+            f"{np.max(m_d)}", 
+            f"{(m_d_any/len(m_d))*100:.1f}", 
+            f"{(m_pos/len(m_r))*100:.1f}"
+        ])
+        
+    if len(r_r) > 1 and len(r_d) > 1:
+        r_d_any = sum(1 for d in r_d if d > 0)
+        r_pos = sum(1 for r in r_r if r > 0.0)
+        writer.writerow([
+            "Random", 
+            f"{np.mean(r_r):.4f}", 
+            f"{np.std(r_r):.4f}", 
+            f"{np.mean(r_d):.3f}", 
+            f"{np.max(r_d)}", 
+            f"{(r_d_any/len(r_d))*100:.1f}", 
+            f"{(r_pos/len(r_r))*100:.1f}"
+        ])
+
+    if len(g_r) > 1 and len(g_d) > 1:
+        g_d_any = sum(1 for d in g_d if d > 0)
+        g_pos = sum(1 for r in g_r if r > 0.0)
+        writer.writerow([
+            "Greedy", 
+            f"{np.mean(g_r):.4f}", 
+            f"{np.std(g_r):.4f}", 
+            f"{np.mean(g_d):.3f}", 
+            f"{np.max(g_d)}", 
+            f"{(g_d_any/len(g_d))*100:.1f}", 
+            f"{(g_pos/len(g_r))*100:.1f}"
+        ])
+
+print(f"Saved QMIX Evaluation Summary to {summary_csv_path}")
+
 # Statistical comparison logic helper
 try:
     from scipy.stats import ttest_ind
-    if len(m_r) > 1:
-        t_stat, p_val = ttest_ind(q_r, m_r, equal_var=False)
-        print(f"--- QMIX vs MAPPO Statistical Significance ---")
-        print(f"T-statistic: {t_stat:.4f} | P-value: {p_val:.4f}")
-    t_stat2, p_val2 = ttest_ind(q_r, r_r, equal_var=False)
-    print(f"--- QMIX vs Random Statistical Significance ---")
-    print(f"T-statistic: {t_stat2:.4f} | P-value: {p_val2:.4f}")
+    with open("results/logs/significance_tests.txt", "w") as sig_f:
+        sig_f.write("QMIX vs Baselines Statistical Significance Tests\n")
+        sig_f.write("="*50 + "\n")
+        
+        if len(m_r) > 1:
+            t_stat, p_val = ttest_ind(q_r, m_r, equal_var=False)
+            res = f"--- QMIX vs MAPPO Statistical Significance ---\nT-statistic: {t_stat:.4f} | P-value: {p_val:.4f} (Signif: {'YES' if p_val < 0.05 else 'NO'})\n"
+            print(res); sig_f.write(res + "\n")
+        
+        if len(r_r) > 1:
+            t_stat2, p_val2 = ttest_ind(q_r, r_r, equal_var=False)
+            res2 = f"--- QMIX vs Random Statistical Significance ---\nT-statistic: {t_stat2:.4f} | P-value: {p_val2:.4f} (Signif: {'YES' if p_val2 < 0.05 else 'NO'})\n"
+            print(res2); sig_f.write(res2 + "\n")
+            
+        if len(g_r) > 1:
+            t_stat3, p_val3 = ttest_ind(q_r, g_r, equal_var=False)
+            res3 = f"--- QMIX vs Greedy Statistical Significance ---\nT-statistic: {t_stat3:.4f} | P-value: {p_val3:.4f} (Signif: {'YES' if p_val3 < 0.05 else 'NO'})\n"
+            print(res3); sig_f.write(res3 + "\n")
+            
+    print("Saved Statistical tests to results/logs/significance_tests.txt")
 except ImportError:
     pass
+
 
 # ==========================================
 # Tri-Model 6-Panel Visualization Dashboard
@@ -428,12 +490,15 @@ import matplotlib.pyplot as plt
 q_r = np.array(q_r)
 r_r = np.array(r_r)
 m_r = np.array(m_r) if len(m_r) > 0 else np.array([])
+g_r = np.array(g_r) if len(g_r) > 0 else np.array([])
 q_d = np.array(q_d)
 r_d = np.array(r_d)
 m_d = np.array(m_d) if len(m_d) > 0 else np.array([])
+g_d = np.array(g_d) if len(g_d) > 0 else np.array([])
 
 QMIX_COLOR = "#00BCD4"
 MAPPO_COLOR = "#AB47BC"
+GREEDY_COLOR = "#FF9800"
 RAND_COLOR = "#E0E0E0"
 
 fig, axes = plt.subplots(2, 3, figsize=(16, 10))
@@ -443,14 +508,19 @@ fig.suptitle("QMIX (TF) vs MAPPO vs Random Baseline Evaluation", fontsize=16, fo
 ax = axes[0, 0]
 all_vals = [q_r, r_r]
 if len(m_r) > 0: all_vals.append(m_r)
+if len(g_r) > 0: all_vals.append(g_r)
 bins = np.histogram_bin_edges(np.concatenate(all_vals), bins=20)
 ax.hist(q_r, bins=bins, alpha=0.6, color=QMIX_COLOR, label=f"QMIX (μ={q_r.mean():.2f})")
 if len(m_r) > 0:
     ax.hist(m_r, bins=bins, alpha=0.6, color=MAPPO_COLOR, label=f"MAPPO (μ={m_r.mean():.2f})")
+if len(g_r) > 0:
+    ax.hist(g_r, bins=bins, alpha=0.6, color=GREEDY_COLOR, label=f"Greedy (μ={g_r.mean():.2f})")
 ax.hist(r_r, bins=bins, alpha=0.6, color=RAND_COLOR, label=f"Random (μ={r_r.mean():.2f})")
 ax.axvline(q_r.mean(), color=QMIX_COLOR, linewidth=2, linestyle="--")
 if len(m_r) > 0:
     ax.axvline(m_r.mean(), color=MAPPO_COLOR, linewidth=2, linestyle="--")
+if len(g_r) > 0:
+    ax.axvline(g_r.mean(), color=GREEDY_COLOR, linewidth=2, linestyle="--")
 ax.axvline(r_r.mean(), color="grey", linewidth=2, linestyle="--")
 ax.set_title("Reward Distribution")
 ax.legend()
@@ -458,24 +528,30 @@ ax.grid(alpha=0.3)
 
 # Panel 2: Box Plot
 ax = axes[0, 1]
+bp_data = [q_r]
+bp_labels = ["QMIX"]
+bp_colors = [QMIX_COLOR]
 if len(m_r) > 0:
-    bp = ax.boxplot([q_r, m_r, r_r], labels=["QMIX", "MAPPO", "Random"], patch_artist=True)
-    bp["boxes"][0].set_facecolor(QMIX_COLOR)
-    bp["boxes"][1].set_facecolor(MAPPO_COLOR)
-    bp["boxes"][2].set_facecolor(RAND_COLOR)
-else:
-    bp = ax.boxplot([q_r, r_r], labels=["QMIX", "Random"], patch_artist=True)
-    bp["boxes"][0].set_facecolor(QMIX_COLOR)
-    bp["boxes"][1].set_facecolor(RAND_COLOR)
+    bp_data.append(m_r); bp_labels.append("MAPPO"); bp_colors.append(MAPPO_COLOR)
+if len(g_r) > 0:
+    bp_data.append(g_r); bp_labels.append("Greedy"); bp_colors.append(GREEDY_COLOR)
+bp_data.append(r_r); bp_labels.append("Random"); bp_colors.append(RAND_COLOR)
+
+bp = ax.boxplot(bp_data, labels=bp_labels, patch_artist=True)
+for patch, color in zip(bp["boxes"], bp_colors):
+    patch.set_facecolor(color)
 ax.set_title("Reward Box Plot")
 ax.grid(alpha=0.3)
 
 # Panel 3: Mean Deliveries
 ax = axes[0, 2]
+labels, means, stds, colors = ["QMIX"], [q_d.mean()], [q_d.std()], [QMIX_COLOR]
 if len(m_d) > 0:
-    labels, means, stds, colors = ["QMIX", "MAPPO", "Random"], [q_d.mean(), m_d.mean(), r_d.mean()], [q_d.std(), m_d.std(), r_d.std()], [QMIX_COLOR, MAPPO_COLOR, RAND_COLOR]
-else:
-    labels, means, stds, colors = ["QMIX", "Random"], [q_d.mean(), r_d.mean()], [q_d.std(), r_d.std()], [QMIX_COLOR, RAND_COLOR]
+    labels.append("MAPPO"); means.append(m_d.mean()); stds.append(m_d.std()); colors.append(MAPPO_COLOR)
+if len(g_d) > 0:
+    labels.append("Greedy"); means.append(g_d.mean()); stds.append(g_d.std()); colors.append(GREEDY_COLOR)
+labels.append("Random"); means.append(r_d.mean()); stds.append(r_d.std()); colors.append(RAND_COLOR)
+
 bars = ax.bar(labels, means, color=colors, alpha=0.8, yerr=stds, capsize=8)
 for bar, m in zip(bars, means):
     ax.text(bar.get_x() + bar.get_width()/2, m + max(stds)*0.05, f"{m:.2f}", ha="center", va="bottom")
@@ -484,14 +560,17 @@ ax.grid(alpha=0.3)
 
 # Panel 4: Training Curve Comparison
 ax = axes[1, 0]
-window = 100
+window = max(100, NUM_EPISODES // 100)
 if len(training_rewards) >= window:
-    smoothed_qmix = [np.mean(training_rewards[i:i+window]) for i in range(0, len(training_rewards)-window+1, window//2)]
-    x_q = np.arange(len(smoothed_qmix)) * (window//2)
+    step_size = max(1, window//2)
+    smoothed_qmix = [np.mean(training_rewards[i:i+window]) for i in range(0, len(training_rewards)-window+1, step_size)]
+    x_q = np.arange(len(smoothed_qmix)) * step_size
     ax.plot(x_q, smoothed_qmix, color=QMIX_COLOR, linewidth=2, label="QMIX Running Reward")
 ax.axhline(r_r.mean(), color=RAND_COLOR, linestyle="--", label="Random Mean")
 if len(m_r) > 0:
     ax.axhline(m_r.mean(), color=MAPPO_COLOR, linestyle="-.", label="MAPPO Mean (Eval)")
+if len(g_r) > 0:
+    ax.axhline(g_r.mean(), color=GREEDY_COLOR, linestyle=":", label="Greedy Mean (Eval)")
 
 # Check if MAPPO Eval Curve can be plotted
 mappo_curve_path = "results/logs/mappo_eval_curve.json"
@@ -513,6 +592,8 @@ ax = axes[1, 1]
 ax.plot(np.cumsum(q_d), color=QMIX_COLOR, linewidth=2, label="QMIX (Eval)")
 if len(m_d) > 0:
     ax.plot(np.cumsum(m_d), color=MAPPO_COLOR, linewidth=2, label="MAPPO (Eval)")
+if len(g_d) > 0:
+    ax.plot(np.cumsum(g_d), color=GREEDY_COLOR, linewidth=2, label="Greedy (Eval)")
 ax.plot(np.cumsum(r_d), color=RAND_COLOR, linewidth=2, label="Random (Eval)")
 
 # Add cumulative training deliveries scaled to evaluate growth dynamically
@@ -536,6 +617,9 @@ ax.plot(x_q_pos, q_pos, color=QMIX_COLOR, linewidth=2, label="QMIX")
 if len(m_d) > 0:
     m_pos = [np.mean([1 if d > 0 else 0 for d in m_d[i:i+eval_window]]) for i in range(0, len(m_d)-eval_window+1, eval_window//2)]
     ax.plot(x_q_pos, m_pos, color=MAPPO_COLOR, linewidth=2, label="MAPPO")
+if len(g_d) > 0:
+    g_pos_d = [np.mean([1 if d > 0 else 0 for d in g_d[i:i+eval_window]]) for i in range(0, len(g_d)-eval_window+1, eval_window//2)]
+    ax.plot(x_q_pos, g_pos_d, color=GREEDY_COLOR, linewidth=2, label="Greedy")
 ax.plot(x_q_pos, r_pos, color=RAND_COLOR, linewidth=2, label="Random")
 ax.set_ylim(-0.05, 1.05)
 ax.set_title("Delivery Success Rate (Rolling 50-ep)")

@@ -1,0 +1,133 @@
+{
+  "mappo": {
+    "policy": "MAPPO",
+    "n_episodes": 300,
+    "eval_time_s": 29.1,
+    "reward": {
+      "mean": 8.6851,
+      "std": 2.2746,
+      "median": 8.725,
+      "min": 0.175,
+      "max": 13.525,
+      "p25": 7.175,
+      "p75": 10.5312
+    },
+    "episode_length": {
+      "mean": 500.0,
+      "std": 0.0,
+      "median": 500.0,
+      "min": 500.0,
+      "max": 500.0,
+      "p25": 500.0,
+      "p75": 500.0
+    },
+    "deliveries_per_ep": {
+      "mean": 1.9367,
+      "std": 0.3992,
+      "median": 2.0,
+      "min": 0.0,
+      "max": 3.0,
+      "p25": 2.0,
+      "p75": 2.0
+    },
+    "pickups_per_ep": {
+      "mean": 2.0067,
+      "std": 0.0814,
+      "median": 2.0,
+      "min": 2.0,
+      "max": 3.0,
+      "p25": 2.0,
+      "p75": 2.0
+    },
+    "positive_rate": 1.0,
+    "positive_count": 300,
+    "per_agent_reward": [
+      {
+        "mean": 4.339,
+        "std": 1.59,
+        "median": 4.9625,
+        "min": -2.35,
+        "max": 7.75,
+        "p25": 3.7125,
+        "p75": 5.375
+      },
+      {
+        "mean": 4.3461,
+        "std": 1.5309,
+        "median": 4.975,
+        "min": -2.55,
+        "max": 8.35,
+        "p25": 3.075,
+        "p75": 5.425
+      }
+    ]
+  },
+  "random": {
+    "policy": "Random (semi-greedy)",
+    "n_episodes": 300,
+    "eval_time_s": 15.8,
+    "reward": {
+      "mean": 0.09,
+      "std": 0.2976,
+      "median": 0.0,
+      "min": 0.0,
+      "max": 2.0,
+      "p25": 0.0,
+      "p75": 0.0
+    },
+    "episode_length": {
+      "mean": 500.0,
+      "std": 0.0,
+      "median": 500.0,
+      "min": 500.0,
+      "max": 500.0,
+      "p25": 500.0,
+      "p75": 500.0
+    },
+    "deliveries_per_ep": {
+      "mean": 0.09,
+      "std": 0.2976,
+      "median": 0.0,
+      "min": 0.0,
+      "max": 2.0,
+      "p25": 0.0,
+      "p75": 0.0
+    },
+    "pickups_per_ep": {
+      "mean": 2.0,
+      "std": 0.0,
+      "median": 2.0,
+      "min": 2.0,
+      "max": 2.0,
+      "p25": 2.0,
+      "p75": 2.0
+    },
+    "positive_rate": 0.0867,
+    "positive_count": 26,
+    "per_agent_reward": [
+      {
+        "mean": 0.0433,
+        "std": 0.2036,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0,
+        "p25": 0.0,
+        "p75": 0.0
+      },
+      {
+        "mean": 0.0467,
+        "std": 0.2109,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0,
+        "p25": 0.0,
+        "p75": 0.0
+      }
+    ]
+  },
+  "statistics": {
+    "t": NaN,
+    "p": NaN,
+    "cohens_d": 5.2987
+  }
+}
