@@ -17,12 +17,12 @@ env:
   reward_shaping:
     enabled: true
     pickup_reward: 0.5
-    delivery_bonus: 2.0
-    step_penalty: -0.005
-    carry_toward_goal: 0.05
-    move_toward_shelf: 0.05
-    bad_drop_penalty: -0.6
-    linger_penalty: -0.05
+    delivery_bonus: 0.0
+    step_penalty: 0.0
+    carry_toward_goal: 0.0
+    move_toward_shelf: 0.0
+    bad_drop_penalty: 0.0
+    linger_penalty: 0.0
     collision_penalty: 0.0
 
   # GIF recording
