@@ -1,0 +1,46 @@
+# HAPPO Training Configuration — 2-Agent
+# Use with: python3 scripts/train_happo.py --env-config configs/env_config.yaml --happo-config configs/happo_config.yaml
+
+happo:
+  # ---- Network architecture ----
+  # Each agent gets an independent Actor with the same architecture
+  hidden_dim: 128
+  n_layers: 2
+
+  # ---- PPO hyperparameters ----
+  lr_actor: 0.0003
+  lr_critic: 0.0005          # critic learns faster to bootstrap value signal
+  gamma: 0.99
+  gae_lambda: 0.95
+
+  # Clip epsilon — decay from start to end over full training
+  clip_epsilon_start: 0.2
+  clip_epsilon_end:   0.1
+
+  # Entropy — anneal from start to end (high early = explore, low late = commit)
+  entropy_coef_start: 0.01
+  entropy_coef_end:   0.003
+
+  value_loss_coef: 0.5
+  max_grad_norm: 0.5
+
+  # ---- LR decay (cosine schedule) ----
+  lr_decay: true
+  lr_min: 0.00001
+
+  # ---- Rollout ----
+  # minibatch_size applies per-agent (each agent's PPO update draws over n_steps samples)
+  n_steps: 256
+  n_epochs: 4
+  minibatch_size: 128
+
+  # ---- Training schedule ----
+  total_timesteps: 3_000_000
+  eval_episodes: 20
+  eval_interval: 10000
+  save_interval: 50000
+  log_interval: 2000
+
+  # ---- Paths ----
+  checkpoint_dir: "results/checkpoints_happo"
+  log_dir: "results/logs_happo"
