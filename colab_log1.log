@@ -1,0 +1,55 @@
+--- Evaluation at Episode 2000/6000 | Time: 3254.1s | Epsilon: 0.47 ---
+Success Rate (eval): 30.00% | Mean Reward: 0.37
+Training Mean: 4.24
+
+--- Checkpoint saved at Episode 2000 ---
+Working... Episode 2100/6000 completed.
+Working... Episode 2200/6000 completed.
+Working... Episode 2300/6000 completed.
+Working... Episode 2400/6000 completed.
+Working... Episode 2500/6000 completed.
+Working... Episode 2600/6000 completed.
+Working... Episode 2700/6000 completed.
+Working... Episode 2800/6000 completed.
+Working... Episode 2900/6000 completed.
+
+--- Evaluation at Episode 3000/6000 | Time: 4894.1s | Epsilon: 0.21 ---
+Success Rate (eval): 0.00% | Mean Reward: 0.04
+Training Mean: 2.51
+
+--- Checkpoint saved at Episode 3000 ---
+Working... Episode 3100/6000 completed.
+Working... Episode 3200/6000 completed.
+Working... Episode 3300/6000 completed.
+Working... Episode 3400/6000 completed.
+Working... Episode 3500/6000 completed.
+Working... Episode 3600/6000 completed.
+Working... Episode 3700/6000 completed.
+Working... Episode 3800/6000 completed.
+Working... Episode 3900/6000 completed.
+
+--- Evaluation at Episode 4000/6000 | Time: 6536.0s | Epsilon: 0.05 ---
+Success Rate (eval): 0.00% | Mean Reward: -0.01
+Training Mean: 0.38
+
+--- Checkpoint saved at Episode 4000 ---
+Working... Episode 4100/6000 completed.
+Working... Episode 4200/6000 completed.
+Working... Episode 4300/6000 completed.
+
+---------------------------------------------------------------------------
+
+KeyboardInterrupt                         Traceback (most recent call last)
+
+/tmp/ipykernel_1435/2760629849.py in <cell line: 0>()
+    316 
+    317         # ---> UPDATED: Inference & Action Selection now passes and returns hidden states <---
+--> 318         q_values_batch, next_hidden_states = agent_network(
+    319             tf.convert_to_tensor(combined_input, dtype=tf.float32),
+    320             tf.convert_to_tensor(hidden_states, dtype=tf.float32)
+
+8 frames
+
+/usr/lib/python3.12/abc.py in __instancecheck__(cls, instance)
+
+KeyboardInterrupt: 
