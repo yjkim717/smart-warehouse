@@ -18,13 +18,13 @@ env:
     # --- Penalties (The "Fine-Tuning") ---
     step_penalty: -0.02        # Added small pressure to prevent "idling" or infinite loops
     bad_drop_penalty: -0.5     # Penalize dropping shelves in non-goal locations
-    collision_penalty: -1.0    # Essential for 4 agents to prevent aisle blocking
-    linger_penalty: -0.05      # Discourage agents from staying in one spot too long
+    collision_penalty: -0.2    # Essential for 4 agents to prevent aisle blocking
+    linger_penalty: 0      # Discourage agents from staying in one spot too long
 
     # --- Potential-based Shaping (Dense) ---
     # We keep these low so the agent doesn't "farm" them instead of delivering
-    carry_toward_goal: 0.05    
-    move_toward_shelf: 0.05    
+    carry_toward_goal: 0.1   # Encourages carrying towards their delivery points    
+    move_toward_shelf: 0.1   # Encourages moving shelves toward their deliver
 
   # GIF recording
   record:
