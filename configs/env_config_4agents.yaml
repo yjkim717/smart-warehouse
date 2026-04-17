@@ -12,19 +12,19 @@ env:
   reward_shaping:
     enabled: true
     # --- Primary Rewards ---
-    pickup_reward: 2.0         # Increased to provide a stronger intermediate gradient
-    delivery_bonus: 10.0       # Massive spike to make the "Success" signal stand out in the Mixer
+    pickup_reward: 10.0         # Increased to provide a stronger intermediate gradient
+    delivery_bonus: 15.0       # Massive spike to make the "Success" signal stand out in the Mixer
     
     # --- Penalties (The "Fine-Tuning") ---
     step_penalty: -0.02        # Added small pressure to prevent "idling" or infinite loops
     bad_drop_penalty: -0.5     # Penalize dropping shelves in non-goal locations
-    collision_penalty: -0.2    # Essential for 4 agents to prevent aisle blocking
+    collision_penalty: -0.05    # Essential for 4 agents to prevent aisle blocking
     linger_penalty: 0      # Discourage agents from staying in one spot too long
 
     # --- Potential-based Shaping (Dense) ---
     # We keep these low so the agent doesn't "farm" them instead of delivering
     carry_toward_goal: 0.1   # Encourages carrying towards their delivery points    
-    move_toward_shelf: 0.1   # Encourages moving shelves toward their deliver
+    move_toward_shelf: 0.8   # Encourages moving shelves toward their deliver
 
   # GIF recording
   record:

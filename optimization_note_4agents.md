@@ -34,3 +34,46 @@ Python
 clipped_rewards = [max(r, -0.5) for r in rewards]
 D_rewards[D_ptr] = clipped_rewards
 
+#####################################################################
+
+1. Final env_config_4agents.yaml Optimizations
+
+We will "magnetize" the shelves by significantly increasing positive shaping and virtually eliminating the "fear" of early collisions.
+
+# --- Penalties (Optimized for 4-Agent Exploration) ---
+    step_penalty: -0.02        # Constant pressure to move
+    collision_penalty: -0.05   # Low enough to allow "bumping" during discovery
+    linger_penalty: 0.0        # Disabled to allow agents to wait for clear paths
+    bad_drop_penalty: -0.5     # Keep high to ensure they only drop at goals
+
+2. Critical Script Changes (Cell 2 & 4)
+
+Replace these specific blocks in the notebook to maximize the L4's learning capacity.
+A. Hypernetworks & Orthogonal Initialization
+
+In the DRQNAgent, update the initialization to prevent vanishing gradients over 800 steps.
+
+
+# In DRQNAgent __init__
+self.fc1 = tf.keras.layers.Dense(hidden_dim, activation='relu', kernel_initializer='orthogonal')
+self.gru = tf.keras.layers.GRU(hidden_dim, return_state=True, kernel_initializer='orthogonal')
+
+B. Extended Epsilon Schedule
+
+For 4 agents, coordination is extremely rare. We must force exploration for 80% of the total run.
+
+
+# In Hyperparameters
+epsilon_decay_steps = int(NUM_EPISODES * 0.8) # Episode 10,000 for 12.5k run
+
+C. Reward Scaling for Mixer Stability
+
+To prevent the large +10.0 bonuses from exploding the Q-values and saturating the mixer, scale the rewards inside the train_step.
+
+
+# Inside your training loop batch preparation
+b_rewards = (D_rewards[batch_indices][:, 0:1]) / 10.0 # Scale to [0, 1] range
+
+3. Training Strategy: The "Intensive Update"
+
+Since the L4 can handle high throughput, we will increase the number of training updates per episode from 4 to 8. This forces the model to extract more knowledge from the few successful "stumbles" the agents make.
