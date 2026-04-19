@@ -21,6 +21,7 @@ def moving_average(a, n=100):
 # Load data for 5 Reward Methods
 methods_files = {
     'MAPPO': 'mappo_train_rewards.json',
+    'HAPPO': 'happo_train_rewards.json',
     'QMIX+PER': 'qmix_per_train_rewards.json',
     'QMIX': 'qmix_train_rewards.json',
     'Greedy Baseline': 'greedy_baseline_rewards.json',
@@ -29,6 +30,7 @@ methods_files = {
 
 # Load Eval data
 mappo_eval = pd.read_json('mappo_eval_curve.json')
+happo_eval = pd.read_json('happo_eval_curve.json')
 qmix_per_eval = pd.read_json('qmix_per_eval_curve.json')
 
 # 1. Reward Plot (5 Methods)
@@ -43,15 +45,16 @@ for name, file in methods_files.items():
 
 plt.xlabel('Episodes')
 plt.ylabel('Team Total Reward (Moving Avg 100)')
-plt.title('Training Reward Comparison (5 Methods)')
+plt.title('Training Reward Comparison')
 plt.legend()
 plt.grid(True, linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('reward_comparison_5.png')
+plt.savefig('reward_comparison.png')
 
 # 2. Evaluation Plot (3 Methods)
 plt.figure(figsize=(10, 6))
 plt.plot(mappo_eval['timestep'], mappo_eval['eval_mean_reward'], label='MAPPO')
+plt.plot(happo_eval['timestep'], happo_eval['eval_mean_reward'], label='HAPPO')
 plt.plot(qmix_per_eval['timestep'], qmix_per_eval['eval_mean_reward'], label='QMIX+PER')
 
 # Greedy mean as a reference baseline
@@ -60,8 +63,8 @@ plt.axhline(y=np.mean(greedy_rew), color='r', linestyle='--', label='Greedy Base
 
 plt.xlabel('Timesteps')
 plt.ylabel('Evaluation Mean Reward')
-plt.title('Evaluation Curve Comparison (3 Methods)')
+plt.title('Evaluation Curve Comparison')
 plt.legend()
 plt.grid(True, linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig('eval_curve_comparison_v2.png')
+plt.savefig('eval_curve_comparison.png')
