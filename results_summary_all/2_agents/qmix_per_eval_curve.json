@@ -1,0 +1,3002 @@
+[
+  {
+    "timestep": 10000,
+    "eval_mean_reward": 0.05,
+    "eval_std_reward": 0.2179,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.05,
+    "loss": 13.11773,
+    "epsilon": 0.9968,
+    "lr": 0.0001
+  },
+  {
+    "timestep": 20000,
+    "eval_mean_reward": 0.125,
+    "eval_std_reward": 0.2165,
+    "eval_max_reward": 0.5,
+    "positive_rate": 0.25,
+    "loss": 6.932407,
+    "epsilon": 0.9937,
+    "lr": 9.999e-05
+  },
+  {
+    "timestep": 30000,
+    "eval_mean_reward": 0.175,
+    "eval_std_reward": 0.2861,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.3,
+    "loss": 1.977136,
+    "epsilon": 0.9905,
+    "lr": 9.998e-05
+  },
+  {
+    "timestep": 40000,
+    "eval_mean_reward": 0.2,
+    "eval_std_reward": 0.2449,
+    "eval_max_reward": 0.5,
+    "positive_rate": 0.4,
+    "loss": 1.748485,
+    "epsilon": 0.9873,
+    "lr": 9.996e-05
+  },
+  {
+    "timestep": 50000,
+    "eval_mean_reward": 0.2,
+    "eval_std_reward": 0.2915,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.35,
+    "loss": 1.781295,
+    "epsilon": 0.9842,
+    "lr": 9.994e-05
+  },
+  {
+    "timestep": 60000,
+    "eval_mean_reward": 0.25,
+    "eval_std_reward": 0.3354,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.4,
+    "loss": 1.293984,
+    "epsilon": 0.981,
+    "lr": 9.991e-05
+  },
+  {
+    "timestep": 70000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.3905,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.5,
+    "loss": 12.647436,
+    "epsilon": 0.9778,
+    "lr": 9.988e-05
+  },
+  {
+    "timestep": 80000,
+    "eval_mean_reward": 0.325,
+    "eval_std_reward": 0.3269,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.55,
+    "loss": 7.586428,
+    "epsilon": 0.9747,
+    "lr": 9.984e-05
+  },
+  {
+    "timestep": 90000,
+    "eval_mean_reward": 0.3,
+    "eval_std_reward": 0.2915,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.55,
+    "loss": 8.530262,
+    "epsilon": 0.9715,
+    "lr": 9.98e-05
+  },
+  {
+    "timestep": 100000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.3202,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 0.829529,
+    "epsilon": 0.9683,
+    "lr": 9.975e-05
+  },
+  {
+    "timestep": 110000,
+    "eval_mean_reward": 0.15,
+    "eval_std_reward": 0.3202,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.2,
+    "loss": 1.169788,
+    "epsilon": 0.9652,
+    "lr": 9.97e-05
+  },
+  {
+    "timestep": 120000,
+    "eval_mean_reward": 0.325,
+    "eval_std_reward": 0.2861,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 1.226015,
+    "epsilon": 0.962,
+    "lr": 9.965e-05
+  },
+  {
+    "timestep": 130000,
+    "eval_mean_reward": 0.3,
+    "eval_std_reward": 0.3317,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.5,
+    "loss": 0.766932,
+    "epsilon": 0.9588,
+    "lr": 9.958e-05
+  },
+  {
+    "timestep": 140000,
+    "eval_mean_reward": 0.3,
+    "eval_std_reward": 0.3674,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.45,
+    "loss": 1.161586,
+    "epsilon": 0.9557,
+    "lr": 9.952e-05
+  },
+  {
+    "timestep": 150000,
+    "eval_mean_reward": 0.375,
+    "eval_std_reward": 0.3112,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 0.82181,
+    "epsilon": 0.9525,
+    "lr": 9.945e-05
+  },
+  {
+    "timestep": 160000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.3961,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 1.079169,
+    "epsilon": 0.9493,
+    "lr": 9.937e-05
+  },
+  {
+    "timestep": 170000,
+    "eval_mean_reward": 0.45,
+    "eval_std_reward": 0.35,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.7,
+    "loss": 7.723474,
+    "epsilon": 0.9462,
+    "lr": 9.929e-05
+  },
+  {
+    "timestep": 180000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.3202,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 0.750177,
+    "epsilon": 0.943,
+    "lr": 9.92e-05
+  },
+  {
+    "timestep": 190000,
+    "eval_mean_reward": 0.1,
+    "eval_std_reward": 0.2,
+    "eval_max_reward": 0.5,
+    "positive_rate": 0.2,
+    "loss": 0.943126,
+    "epsilon": 0.9398,
+    "lr": 9.911e-05
+  },
+  {
+    "timestep": 200000,
+    "eval_mean_reward": 0.3,
+    "eval_std_reward": 0.3674,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.45,
+    "loss": 8.206898,
+    "epsilon": 0.9367,
+    "lr": 9.902e-05
+  },
+  {
+    "timestep": 210000,
+    "eval_mean_reward": 1.925,
+    "eval_std_reward": 6.6788,
+    "eval_max_reward": 31.0,
+    "positive_rate": 0.65,
+    "loss": 0.643741,
+    "epsilon": 0.9335,
+    "lr": 9.892e-05
+  },
+  {
+    "timestep": 220000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.3391,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 6.700469,
+    "epsilon": 0.9303,
+    "lr": 9.881e-05
+  },
+  {
+    "timestep": 230000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.3742,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 0.697154,
+    "epsilon": 0.9272,
+    "lr": 9.87e-05
+  },
+  {
+    "timestep": 240000,
+    "eval_mean_reward": 1.6,
+    "eval_std_reward": 5.3796,
+    "eval_max_reward": 25.0,
+    "positive_rate": 0.6,
+    "loss": 6.875391,
+    "epsilon": 0.924,
+    "lr": 9.859e-05
+  },
+  {
+    "timestep": 250000,
+    "eval_mean_reward": 0.6,
+    "eval_std_reward": 0.3742,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.8,
+    "loss": 7.558016,
+    "epsilon": 0.9208,
+    "lr": 9.847e-05
+  },
+  {
+    "timestep": 260000,
+    "eval_mean_reward": 0.225,
+    "eval_std_reward": 0.3345,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.35,
+    "loss": 1.032694,
+    "epsilon": 0.9177,
+    "lr": 9.834e-05
+  },
+  {
+    "timestep": 270000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.3571,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.55,
+    "loss": 7.135689,
+    "epsilon": 0.9145,
+    "lr": 9.821e-05
+  },
+  {
+    "timestep": 280000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.3269,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.7,
+    "loss": 0.813778,
+    "epsilon": 0.9113,
+    "lr": 9.808e-05
+  },
+  {
+    "timestep": 290000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.3317,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.9,
+    "loss": 0.666754,
+    "epsilon": 0.9082,
+    "lr": 9.794e-05
+  },
+  {
+    "timestep": 300000,
+    "eval_mean_reward": 0.725,
+    "eval_std_reward": 0.37,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.85,
+    "loss": 0.478451,
+    "epsilon": 0.905,
+    "lr": 9.78e-05
+  },
+  {
+    "timestep": 310000,
+    "eval_mean_reward": 0.725,
+    "eval_std_reward": 0.2947,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.95,
+    "loss": 0.592202,
+    "epsilon": 0.9018,
+    "lr": 9.765e-05
+  },
+  {
+    "timestep": 320000,
+    "eval_mean_reward": 0.25,
+    "eval_std_reward": 0.2958,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.45,
+    "loss": 0.59324,
+    "epsilon": 0.8987,
+    "lr": 9.75e-05
+  },
+  {
+    "timestep": 330000,
+    "eval_mean_reward": 0.65,
+    "eval_std_reward": 0.2291,
+    "eval_max_reward": 1.0,
+    "positive_rate": 1.0,
+    "loss": 0.406648,
+    "epsilon": 0.8955,
+    "lr": 9.734e-05
+  },
+  {
+    "timestep": 340000,
+    "eval_mean_reward": 0.125,
+    "eval_std_reward": 0.2165,
+    "eval_max_reward": 0.5,
+    "positive_rate": 0.25,
+    "loss": 0.50775,
+    "epsilon": 0.8923,
+    "lr": 9.718e-05
+  },
+  {
+    "timestep": 350000,
+    "eval_mean_reward": 0.325,
+    "eval_std_reward": 0.3269,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.55,
+    "loss": 0.896855,
+    "epsilon": 0.8892,
+    "lr": 9.701e-05
+  },
+  {
+    "timestep": 360000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.3631,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 0.522554,
+    "epsilon": 0.886,
+    "lr": 9.684e-05
+  },
+  {
+    "timestep": 370000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.4815,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.75,
+    "loss": 0.499219,
+    "epsilon": 0.8828,
+    "lr": 9.666e-05
+  },
+  {
+    "timestep": 380000,
+    "eval_mean_reward": 2.625,
+    "eval_std_reward": 8.9245,
+    "eval_max_reward": 41.5,
+    "positive_rate": 0.85,
+    "loss": 0.650093,
+    "epsilon": 0.8797,
+    "lr": 9.648e-05
+  },
+  {
+    "timestep": 390000,
+    "eval_mean_reward": 0.375,
+    "eval_std_reward": 0.2681,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.7,
+    "loss": 14.837981,
+    "epsilon": 0.8765,
+    "lr": 9.63e-05
+  },
+  {
+    "timestep": 400000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.2784,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 6.199121,
+    "epsilon": 0.8733,
+    "lr": 9.611e-05
+  },
+  {
+    "timestep": 410000,
+    "eval_mean_reward": 0.5,
+    "eval_std_reward": 0.3536,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 0.733556,
+    "epsilon": 0.8702,
+    "lr": 9.592e-05
+  },
+  {
+    "timestep": 420000,
+    "eval_mean_reward": 6.475,
+    "eval_std_reward": 13.2519,
+    "eval_max_reward": 40.0,
+    "positive_rate": 0.65,
+    "loss": 0.500615,
+    "epsilon": 0.867,
+    "lr": 9.572e-05
+  },
+  {
+    "timestep": 430000,
+    "eval_mean_reward": 2.25,
+    "eval_std_reward": 4.3832,
+    "eval_max_reward": 13.0,
+    "positive_rate": 0.8,
+    "loss": 0.689471,
+    "epsilon": 0.8638,
+    "lr": 9.551e-05
+  },
+  {
+    "timestep": 440000,
+    "eval_mean_reward": 0.3,
+    "eval_std_reward": 0.3674,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.45,
+    "loss": 0.640665,
+    "epsilon": 0.8607,
+    "lr": 9.531e-05
+  },
+  {
+    "timestep": 450000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.3674,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.9,
+    "loss": 0.611272,
+    "epsilon": 0.8575,
+    "lr": 9.51e-05
+  },
+  {
+    "timestep": 460000,
+    "eval_mean_reward": 0.8,
+    "eval_std_reward": 0.4301,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.95,
+    "loss": 0.665563,
+    "epsilon": 0.8543,
+    "lr": 9.488e-05
+  },
+  {
+    "timestep": 470000,
+    "eval_mean_reward": 0.625,
+    "eval_std_reward": 0.3491,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.85,
+    "loss": 8.014076,
+    "epsilon": 0.8512,
+    "lr": 9.466e-05
+  },
+  {
+    "timestep": 480000,
+    "eval_mean_reward": 0.3,
+    "eval_std_reward": 0.3317,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.5,
+    "loss": 0.613483,
+    "epsilon": 0.848,
+    "lr": 9.443e-05
+  },
+  {
+    "timestep": 490000,
+    "eval_mean_reward": 0.65,
+    "eval_std_reward": 0.3905,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.85,
+    "loss": 0.399392,
+    "epsilon": 0.8448,
+    "lr": 9.42e-05
+  },
+  {
+    "timestep": 500000,
+    "eval_mean_reward": 2.725,
+    "eval_std_reward": 5.377,
+    "eval_max_reward": 15.5,
+    "positive_rate": 0.75,
+    "loss": 0.541308,
+    "epsilon": 0.8417,
+    "lr": 9.397e-05
+  },
+  {
+    "timestep": 510000,
+    "eval_mean_reward": 0.6,
+    "eval_std_reward": 0.3,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.9,
+    "loss": 0.805228,
+    "epsilon": 0.8385,
+    "lr": 9.373e-05
+  },
+  {
+    "timestep": 520000,
+    "eval_mean_reward": 0.55,
+    "eval_std_reward": 0.3841,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 0.667039,
+    "epsilon": 0.8353,
+    "lr": 9.349e-05
+  },
+  {
+    "timestep": 530000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.3269,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.7,
+    "loss": 6.465443,
+    "epsilon": 0.8322,
+    "lr": 9.325e-05
+  },
+  {
+    "timestep": 540000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.3202,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 0.671171,
+    "epsilon": 0.829,
+    "lr": 9.299e-05
+  },
+  {
+    "timestep": 550000,
+    "eval_mean_reward": 0.675,
+    "eval_std_reward": 0.3269,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.9,
+    "loss": 0.715524,
+    "epsilon": 0.8258,
+    "lr": 9.274e-05
+  },
+  {
+    "timestep": 560000,
+    "eval_mean_reward": 3.4,
+    "eval_std_reward": 8.43,
+    "eval_max_reward": 31.5,
+    "positive_rate": 0.85,
+    "loss": 0.628981,
+    "epsilon": 0.8227,
+    "lr": 9.248e-05
+  },
+  {
+    "timestep": 570000,
+    "eval_mean_reward": 3.925,
+    "eval_std_reward": 6.7348,
+    "eval_max_reward": 17.5,
+    "positive_rate": 0.8,
+    "loss": 6.765472,
+    "epsilon": 0.8195,
+    "lr": 9.222e-05
+  },
+  {
+    "timestep": 580000,
+    "eval_mean_reward": 0.375,
+    "eval_std_reward": 0.3491,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 0.701477,
+    "epsilon": 0.8163,
+    "lr": 9.195e-05
+  },
+  {
+    "timestep": 590000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.3631,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 0.755229,
+    "epsilon": 0.8132,
+    "lr": 9.168e-05
+  },
+  {
+    "timestep": 600000,
+    "eval_mean_reward": 0.55,
+    "eval_std_reward": 0.4153,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.7,
+    "loss": 0.655855,
+    "epsilon": 0.81,
+    "lr": 9.141e-05
+  },
+  {
+    "timestep": 610000,
+    "eval_mean_reward": 1.925,
+    "eval_std_reward": 5.769,
+    "eval_max_reward": 27.0,
+    "positive_rate": 0.8,
+    "loss": 13.064589,
+    "epsilon": 0.8068,
+    "lr": 9.113e-05
+  },
+  {
+    "timestep": 620000,
+    "eval_mean_reward": 0.6,
+    "eval_std_reward": 0.4062,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 5.713389,
+    "epsilon": 0.8037,
+    "lr": 9.084e-05
+  },
+  {
+    "timestep": 630000,
+    "eval_mean_reward": 0.6,
+    "eval_std_reward": 0.3,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.9,
+    "loss": 6.445853,
+    "epsilon": 0.8005,
+    "lr": 9.056e-05
+  },
+  {
+    "timestep": 640000,
+    "eval_mean_reward": 0.625,
+    "eval_std_reward": 0.3491,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.85,
+    "loss": 0.578903,
+    "epsilon": 0.7973,
+    "lr": 9.027e-05
+  },
+  {
+    "timestep": 650000,
+    "eval_mean_reward": 0.65,
+    "eval_std_reward": 0.3571,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.9,
+    "loss": 7.250041,
+    "epsilon": 0.7942,
+    "lr": 8.997e-05
+  },
+  {
+    "timestep": 660000,
+    "eval_mean_reward": 0.6,
+    "eval_std_reward": 0.3,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.9,
+    "loss": 0.956698,
+    "epsilon": 0.791,
+    "lr": 8.967e-05
+  },
+  {
+    "timestep": 670000,
+    "eval_mean_reward": 0.65,
+    "eval_std_reward": 0.3905,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.8,
+    "loss": 0.455272,
+    "epsilon": 0.7878,
+    "lr": 8.937e-05
+  },
+  {
+    "timestep": 680000,
+    "eval_mean_reward": 0.45,
+    "eval_std_reward": 0.3841,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 0.584102,
+    "epsilon": 0.7847,
+    "lr": 8.906e-05
+  },
+  {
+    "timestep": 690000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.3961,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 0.679599,
+    "epsilon": 0.7815,
+    "lr": 8.875e-05
+  },
+  {
+    "timestep": 700000,
+    "eval_mean_reward": 0.6,
+    "eval_std_reward": 0.4359,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.75,
+    "loss": 6.431743,
+    "epsilon": 0.7783,
+    "lr": 8.844e-05
+  },
+  {
+    "timestep": 710000,
+    "eval_mean_reward": 2.5,
+    "eval_std_reward": 8.9527,
+    "eval_max_reward": 41.5,
+    "positive_rate": 0.75,
+    "loss": 2.835179,
+    "epsilon": 0.7752,
+    "lr": 8.812e-05
+  },
+  {
+    "timestep": 720000,
+    "eval_mean_reward": 1.95,
+    "eval_std_reward": 6.5611,
+    "eval_max_reward": 30.5,
+    "positive_rate": 0.65,
+    "loss": 5.372001,
+    "epsilon": 0.772,
+    "lr": 8.78e-05
+  },
+  {
+    "timestep": 730000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.3674,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.9,
+    "loss": 4.566953,
+    "epsilon": 0.7688,
+    "lr": 8.748e-05
+  },
+  {
+    "timestep": 740000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.3631,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 8.392103,
+    "epsilon": 0.7657,
+    "lr": 8.715e-05
+  },
+  {
+    "timestep": 750000,
+    "eval_mean_reward": 0.45,
+    "eval_std_reward": 0.3841,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 4.962121,
+    "epsilon": 0.7625,
+    "lr": 8.682e-05
+  },
+  {
+    "timestep": 760000,
+    "eval_mean_reward": 2.1,
+    "eval_std_reward": 7.4408,
+    "eval_max_reward": 34.5,
+    "positive_rate": 0.65,
+    "loss": 0.762627,
+    "epsilon": 0.7593,
+    "lr": 8.648e-05
+  },
+  {
+    "timestep": 770000,
+    "eval_mean_reward": 0.675,
+    "eval_std_reward": 0.2861,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.95,
+    "loss": 0.514934,
+    "epsilon": 0.7562,
+    "lr": 8.615e-05
+  },
+  {
+    "timestep": 780000,
+    "eval_mean_reward": 0.525,
+    "eval_std_reward": 0.37,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 10.254462,
+    "epsilon": 0.753,
+    "lr": 8.58e-05
+  },
+  {
+    "timestep": 790000,
+    "eval_mean_reward": 0.675,
+    "eval_std_reward": 0.3269,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.95,
+    "loss": 5.158376,
+    "epsilon": 0.7498,
+    "lr": 8.546e-05
+  },
+  {
+    "timestep": 800000,
+    "eval_mean_reward": 2.275,
+    "eval_std_reward": 6.7258,
+    "eval_max_reward": 31.5,
+    "positive_rate": 0.85,
+    "loss": 0.694705,
+    "epsilon": 0.7467,
+    "lr": 8.511e-05
+  },
+  {
+    "timestep": 810000,
+    "eval_mean_reward": 0.6,
+    "eval_std_reward": 0.3391,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.85,
+    "loss": 3.149929,
+    "epsilon": 0.7435,
+    "lr": 8.476e-05
+  },
+  {
+    "timestep": 820000,
+    "eval_mean_reward": 0.55,
+    "eval_std_reward": 0.35,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.8,
+    "loss": 4.927167,
+    "epsilon": 0.7403,
+    "lr": 8.44e-05
+  },
+  {
+    "timestep": 830000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.3674,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.9,
+    "loss": 0.73311,
+    "epsilon": 0.7372,
+    "lr": 8.405e-05
+  },
+  {
+    "timestep": 840000,
+    "eval_mean_reward": 2.025,
+    "eval_std_reward": 5.9843,
+    "eval_max_reward": 28.0,
+    "positive_rate": 0.8,
+    "loss": 0.417795,
+    "epsilon": 0.734,
+    "lr": 8.368e-05
+  },
+  {
+    "timestep": 850000,
+    "eval_mean_reward": 0.5,
+    "eval_std_reward": 0.3162,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.8,
+    "loss": 4.100522,
+    "epsilon": 0.7308,
+    "lr": 8.332e-05
+  },
+  {
+    "timestep": 860000,
+    "eval_mean_reward": 0.75,
+    "eval_std_reward": 0.4873,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.85,
+    "loss": 0.494245,
+    "epsilon": 0.7277,
+    "lr": 8.295e-05
+  },
+  {
+    "timestep": 870000,
+    "eval_mean_reward": 0.825,
+    "eval_std_reward": 0.2385,
+    "eval_max_reward": 1.0,
+    "positive_rate": 1.0,
+    "loss": 8.949758,
+    "epsilon": 0.7245,
+    "lr": 8.258e-05
+  },
+  {
+    "timestep": 880000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.4815,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.75,
+    "loss": 4.470886,
+    "epsilon": 0.7213,
+    "lr": 8.221e-05
+  },
+  {
+    "timestep": 890000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.3674,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.85,
+    "loss": 9.538013,
+    "epsilon": 0.7182,
+    "lr": 8.183e-05
+  },
+  {
+    "timestep": 900000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.4265,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.7,
+    "loss": 5.11623,
+    "epsilon": 0.715,
+    "lr": 8.145e-05
+  },
+  {
+    "timestep": 910000,
+    "eval_mean_reward": 0.65,
+    "eval_std_reward": 0.3905,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.85,
+    "loss": 4.839076,
+    "epsilon": 0.7118,
+    "lr": 8.107e-05
+  },
+  {
+    "timestep": 920000,
+    "eval_mean_reward": 0.325,
+    "eval_std_reward": 0.2861,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 0.424204,
+    "epsilon": 0.7087,
+    "lr": 8.068e-05
+  },
+  {
+    "timestep": 930000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.3961,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.8,
+    "loss": 3.999995,
+    "epsilon": 0.7055,
+    "lr": 8.029e-05
+  },
+  {
+    "timestep": 940000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 1.0416,
+    "eval_max_reward": 5.0,
+    "positive_rate": 0.75,
+    "loss": 0.532084,
+    "epsilon": 0.7023,
+    "lr": 7.99e-05
+  },
+  {
+    "timestep": 950000,
+    "eval_mean_reward": 0.475,
+    "eval_std_reward": 0.37,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.75,
+    "loss": 9.047966,
+    "epsilon": 0.6992,
+    "lr": 7.951e-05
+  },
+  {
+    "timestep": 960000,
+    "eval_mean_reward": 0.45,
+    "eval_std_reward": 0.3841,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 11.252718,
+    "epsilon": 0.696,
+    "lr": 7.911e-05
+  },
+  {
+    "timestep": 970000,
+    "eval_mean_reward": 0.55,
+    "eval_std_reward": 0.4444,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.75,
+    "loss": 0.445209,
+    "epsilon": 0.6928,
+    "lr": 7.871e-05
+  },
+  {
+    "timestep": 980000,
+    "eval_mean_reward": 0.55,
+    "eval_std_reward": 0.4444,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.7,
+    "loss": 9.023055,
+    "epsilon": 0.6897,
+    "lr": 7.831e-05
+  },
+  {
+    "timestep": 990000,
+    "eval_mean_reward": 0.625,
+    "eval_std_reward": 0.3832,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.85,
+    "loss": 0.349961,
+    "epsilon": 0.6865,
+    "lr": 7.791e-05
+  },
+  {
+    "timestep": 1000000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.4301,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.8,
+    "loss": 0.654442,
+    "epsilon": 0.6833,
+    "lr": 7.75e-05
+  },
+  {
+    "timestep": 1010000,
+    "eval_mean_reward": 2.5,
+    "eval_std_reward": 8.9554,
+    "eval_max_reward": 41.5,
+    "positive_rate": 0.7,
+    "loss": 0.566012,
+    "epsilon": 0.6802,
+    "lr": 7.709e-05
+  },
+  {
+    "timestep": 1020000,
+    "eval_mean_reward": 0.325,
+    "eval_std_reward": 0.3631,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.5,
+    "loss": 0.556604,
+    "epsilon": 0.677,
+    "lr": 7.668e-05
+  },
+  {
+    "timestep": 1030000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.4265,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.85,
+    "loss": 3.71257,
+    "epsilon": 0.6738,
+    "lr": 7.626e-05
+  },
+  {
+    "timestep": 1040000,
+    "eval_mean_reward": 0.45,
+    "eval_std_reward": 0.3122,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 1.088149,
+    "epsilon": 0.6707,
+    "lr": 7.585e-05
+  },
+  {
+    "timestep": 1050000,
+    "eval_mean_reward": 0.675,
+    "eval_std_reward": 0.554,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.85,
+    "loss": 5.719526,
+    "epsilon": 0.6675,
+    "lr": 7.543e-05
+  },
+  {
+    "timestep": 1060000,
+    "eval_mean_reward": 0.325,
+    "eval_std_reward": 0.2861,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 6.213966,
+    "epsilon": 0.6643,
+    "lr": 7.501e-05
+  },
+  {
+    "timestep": 1070000,
+    "eval_mean_reward": 0.625,
+    "eval_std_reward": 0.3491,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.85,
+    "loss": 8.942955,
+    "epsilon": 0.6612,
+    "lr": 7.459e-05
+  },
+  {
+    "timestep": 1080000,
+    "eval_mean_reward": 1.65,
+    "eval_std_reward": 5.3598,
+    "eval_max_reward": 25.0,
+    "positive_rate": 0.85,
+    "loss": 7.250954,
+    "epsilon": 0.658,
+    "lr": 7.416e-05
+  },
+  {
+    "timestep": 1090000,
+    "eval_mean_reward": 0.475,
+    "eval_std_reward": 0.3345,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 0.430583,
+    "epsilon": 0.6548,
+    "lr": 7.373e-05
+  },
+  {
+    "timestep": 1100000,
+    "eval_mean_reward": 0.525,
+    "eval_std_reward": 0.3345,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.8,
+    "loss": 2.845284,
+    "epsilon": 0.6517,
+    "lr": 7.33e-05
+  },
+  {
+    "timestep": 1110000,
+    "eval_mean_reward": 0.675,
+    "eval_std_reward": 0.3269,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.9,
+    "loss": 7.225323,
+    "epsilon": 0.6485,
+    "lr": 7.287e-05
+  },
+  {
+    "timestep": 1120000,
+    "eval_mean_reward": 0.775,
+    "eval_std_reward": 0.2947,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.95,
+    "loss": 4.758871,
+    "epsilon": 0.6453,
+    "lr": 7.244e-05
+  },
+  {
+    "timestep": 1130000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.3202,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 0.452235,
+    "epsilon": 0.6422,
+    "lr": 7.2e-05
+  },
+  {
+    "timestep": 1140000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.4815,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.8,
+    "loss": 1.066856,
+    "epsilon": 0.639,
+    "lr": 7.157e-05
+  },
+  {
+    "timestep": 1150000,
+    "eval_mean_reward": 1.25,
+    "eval_std_reward": 3.2806,
+    "eval_max_reward": 15.5,
+    "positive_rate": 0.85,
+    "loss": 0.800115,
+    "epsilon": 0.6358,
+    "lr": 7.113e-05
+  },
+  {
+    "timestep": 1160000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.4548,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.65,
+    "loss": 0.617212,
+    "epsilon": 0.6327,
+    "lr": 7.069e-05
+  },
+  {
+    "timestep": 1170000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.3631,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.8,
+    "loss": 3.262466,
+    "epsilon": 0.6295,
+    "lr": 7.024e-05
+  },
+  {
+    "timestep": 1180000,
+    "eval_mean_reward": 0.525,
+    "eval_std_reward": 0.37,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.8,
+    "loss": 3.22427,
+    "epsilon": 0.6263,
+    "lr": 6.98e-05
+  },
+  {
+    "timestep": 1190000,
+    "eval_mean_reward": 0.3,
+    "eval_std_reward": 0.2915,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.55,
+    "loss": 3.723643,
+    "epsilon": 0.6232,
+    "lr": 6.935e-05
+  },
+  {
+    "timestep": 1200000,
+    "eval_mean_reward": 0.725,
+    "eval_std_reward": 0.2947,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.95,
+    "loss": 0.625298,
+    "epsilon": 0.62,
+    "lr": 6.891e-05
+  },
+  {
+    "timestep": 1210000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.5309,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.7,
+    "loss": 0.999418,
+    "epsilon": 0.6168,
+    "lr": 6.846e-05
+  },
+  {
+    "timestep": 1220000,
+    "eval_mean_reward": 0.525,
+    "eval_std_reward": 0.4867,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.7,
+    "loss": 0.747801,
+    "epsilon": 0.6137,
+    "lr": 6.801e-05
+  },
+  {
+    "timestep": 1230000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.4815,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.6,
+    "loss": 0.454865,
+    "epsilon": 0.6105,
+    "lr": 6.755e-05
+  },
+  {
+    "timestep": 1240000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.3391,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 3.150162,
+    "epsilon": 0.6073,
+    "lr": 6.71e-05
+  },
+  {
+    "timestep": 1250000,
+    "eval_mean_reward": 2.075,
+    "eval_std_reward": 5.3928,
+    "eval_max_reward": 25.5,
+    "positive_rate": 0.9,
+    "loss": 3.395608,
+    "epsilon": 0.6042,
+    "lr": 6.665e-05
+  },
+  {
+    "timestep": 1260000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.4548,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.75,
+    "loss": 3.18615,
+    "epsilon": 0.601,
+    "lr": 6.619e-05
+  },
+  {
+    "timestep": 1270000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.4815,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.7,
+    "loss": 0.749599,
+    "epsilon": 0.5978,
+    "lr": 6.573e-05
+  },
+  {
+    "timestep": 1280000,
+    "eval_mean_reward": 0.675,
+    "eval_std_reward": 0.712,
+    "eval_max_reward": 2.5,
+    "positive_rate": 0.7,
+    "loss": 0.647303,
+    "epsilon": 0.5947,
+    "lr": 6.528e-05
+  },
+  {
+    "timestep": 1290000,
+    "eval_mean_reward": 0.725,
+    "eval_std_reward": 0.37,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.9,
+    "loss": 2.913855,
+    "epsilon": 0.5915,
+    "lr": 6.482e-05
+  },
+  {
+    "timestep": 1300000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.4265,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.6,
+    "loss": 0.56988,
+    "epsilon": 0.5883,
+    "lr": 6.436e-05
+  },
+  {
+    "timestep": 1310000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.2861,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 0.704519,
+    "epsilon": 0.5852,
+    "lr": 6.389e-05
+  },
+  {
+    "timestep": 1320000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.4265,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.55,
+    "loss": 6.614597,
+    "epsilon": 0.582,
+    "lr": 6.343e-05
+  },
+  {
+    "timestep": 1330000,
+    "eval_mean_reward": 0.55,
+    "eval_std_reward": 0.4153,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.75,
+    "loss": 4.964248,
+    "epsilon": 0.5788,
+    "lr": 6.297e-05
+  },
+  {
+    "timestep": 1340000,
+    "eval_mean_reward": 0.5,
+    "eval_std_reward": 0.4472,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 0.911137,
+    "epsilon": 0.5757,
+    "lr": 6.25e-05
+  },
+  {
+    "timestep": 1350000,
+    "eval_mean_reward": 0.725,
+    "eval_std_reward": 0.2487,
+    "eval_max_reward": 1.0,
+    "positive_rate": 1.0,
+    "loss": 0.587864,
+    "epsilon": 0.5725,
+    "lr": 6.204e-05
+  },
+  {
+    "timestep": 1360000,
+    "eval_mean_reward": 1.775,
+    "eval_std_reward": 4.7762,
+    "eval_max_reward": 22.5,
+    "positive_rate": 0.75,
+    "loss": 0.771462,
+    "epsilon": 0.5693,
+    "lr": 6.157e-05
+  },
+  {
+    "timestep": 1370000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.2915,
+    "eval_max_reward": 1.5,
+    "positive_rate": 1.0,
+    "loss": 0.500591,
+    "epsilon": 0.5662,
+    "lr": 6.111e-05
+  },
+  {
+    "timestep": 1380000,
+    "eval_mean_reward": 0.85,
+    "eval_std_reward": 0.4213,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.9,
+    "loss": 5.303809,
+    "epsilon": 0.563,
+    "lr": 6.064e-05
+  },
+  {
+    "timestep": 1390000,
+    "eval_mean_reward": 2.425,
+    "eval_std_reward": 7.1489,
+    "eval_max_reward": 33.5,
+    "positive_rate": 0.85,
+    "loss": 2.772649,
+    "epsilon": 0.5598,
+    "lr": 6.017e-05
+  },
+  {
+    "timestep": 1400000,
+    "eval_mean_reward": 0.5,
+    "eval_std_reward": 0.3873,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.75,
+    "loss": 5.976063,
+    "epsilon": 0.5567,
+    "lr": 5.97e-05
+  },
+  {
+    "timestep": 1410000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.4301,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.9,
+    "loss": 1.998609,
+    "epsilon": 0.5535,
+    "lr": 5.923e-05
+  },
+  {
+    "timestep": 1420000,
+    "eval_mean_reward": 0.75,
+    "eval_std_reward": 0.6021,
+    "eval_max_reward": 2.5,
+    "positive_rate": 0.75,
+    "loss": 1.044869,
+    "epsilon": 0.5503,
+    "lr": 5.877e-05
+  },
+  {
+    "timestep": 1430000,
+    "eval_mean_reward": 1.1,
+    "eval_std_reward": 2.7505,
+    "eval_max_reward": 13.0,
+    "positive_rate": 0.75,
+    "loss": 3.293081,
+    "epsilon": 0.5472,
+    "lr": 5.83e-05
+  },
+  {
+    "timestep": 1440000,
+    "eval_mean_reward": 0.725,
+    "eval_std_reward": 0.37,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.9,
+    "loss": 0.756194,
+    "epsilon": 0.544,
+    "lr": 5.783e-05
+  },
+  {
+    "timestep": 1450000,
+    "eval_mean_reward": 1.675,
+    "eval_std_reward": 3.8706,
+    "eval_max_reward": 18.5,
+    "positive_rate": 1.0,
+    "loss": 0.6659,
+    "epsilon": 0.5408,
+    "lr": 5.736e-05
+  },
+  {
+    "timestep": 1460000,
+    "eval_mean_reward": 2.1,
+    "eval_std_reward": 5.8494,
+    "eval_max_reward": 27.5,
+    "positive_rate": 0.85,
+    "loss": 2.755268,
+    "epsilon": 0.5377,
+    "lr": 5.688e-05
+  },
+  {
+    "timestep": 1470000,
+    "eval_mean_reward": 0.65,
+    "eval_std_reward": 0.5025,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.75,
+    "loss": 1.045386,
+    "epsilon": 0.5345,
+    "lr": 5.641e-05
+  },
+  {
+    "timestep": 1480000,
+    "eval_mean_reward": 0.175,
+    "eval_std_reward": 0.2385,
+    "eval_max_reward": 0.5,
+    "positive_rate": 0.35,
+    "loss": 0.412172,
+    "epsilon": 0.5313,
+    "lr": 5.594e-05
+  },
+  {
+    "timestep": 1490000,
+    "eval_mean_reward": 0.6,
+    "eval_std_reward": 0.4062,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.8,
+    "loss": 0.934365,
+    "epsilon": 0.5282,
+    "lr": 5.547e-05
+  },
+  {
+    "timestep": 1500000,
+    "eval_mean_reward": 0.625,
+    "eval_std_reward": 0.3832,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.85,
+    "loss": 2.021974,
+    "epsilon": 0.525,
+    "lr": 5.5e-05
+  },
+  {
+    "timestep": 1510000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.3905,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.55,
+    "loss": 4.51794,
+    "epsilon": 0.5218,
+    "lr": 5.453e-05
+  },
+  {
+    "timestep": 1520000,
+    "eval_mean_reward": 0.625,
+    "eval_std_reward": 0.4146,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.85,
+    "loss": 0.91048,
+    "epsilon": 0.5187,
+    "lr": 5.406e-05
+  },
+  {
+    "timestep": 1530000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.4265,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.75,
+    "loss": 2.293668,
+    "epsilon": 0.5155,
+    "lr": 5.359e-05
+  },
+  {
+    "timestep": 1540000,
+    "eval_mean_reward": 0.625,
+    "eval_std_reward": 0.3832,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.85,
+    "loss": 3.263767,
+    "epsilon": 0.5123,
+    "lr": 5.312e-05
+  },
+  {
+    "timestep": 1550000,
+    "eval_mean_reward": 0.65,
+    "eval_std_reward": 0.3905,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.85,
+    "loss": 4.605079,
+    "epsilon": 0.5092,
+    "lr": 5.264e-05
+  },
+  {
+    "timestep": 1560000,
+    "eval_mean_reward": 0.325,
+    "eval_std_reward": 0.3631,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.5,
+    "loss": 2.346285,
+    "epsilon": 0.506,
+    "lr": 5.217e-05
+  },
+  {
+    "timestep": 1570000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.4301,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.85,
+    "loss": 0.808434,
+    "epsilon": 0.5028,
+    "lr": 5.17e-05
+  },
+  {
+    "timestep": 1580000,
+    "eval_mean_reward": 0.55,
+    "eval_std_reward": 0.4444,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.75,
+    "loss": 0.671459,
+    "epsilon": 0.4997,
+    "lr": 5.123e-05
+  },
+  {
+    "timestep": 1590000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.4213,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.5,
+    "loss": 2.950236,
+    "epsilon": 0.4965,
+    "lr": 5.077e-05
+  },
+  {
+    "timestep": 1600000,
+    "eval_mean_reward": 1.625,
+    "eval_std_reward": 5.3802,
+    "eval_max_reward": 25.0,
+    "positive_rate": 0.55,
+    "loss": 0.665556,
+    "epsilon": 0.4933,
+    "lr": 5.03e-05
+  },
+  {
+    "timestep": 1610000,
+    "eval_mean_reward": 0.375,
+    "eval_std_reward": 0.4437,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.5,
+    "loss": 0.939733,
+    "epsilon": 0.4902,
+    "lr": 4.983e-05
+  },
+  {
+    "timestep": 1620000,
+    "eval_mean_reward": 0.5,
+    "eval_std_reward": 0.4472,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.75,
+    "loss": 3.003057,
+    "epsilon": 0.487,
+    "lr": 4.936e-05
+  },
+  {
+    "timestep": 1630000,
+    "eval_mean_reward": 0.3,
+    "eval_std_reward": 0.2915,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.55,
+    "loss": 0.493333,
+    "epsilon": 0.4838,
+    "lr": 4.889e-05
+  },
+  {
+    "timestep": 1640000,
+    "eval_mean_reward": 0.525,
+    "eval_std_reward": 0.4323,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.7,
+    "loss": 0.412958,
+    "epsilon": 0.4807,
+    "lr": 4.843e-05
+  },
+  {
+    "timestep": 1650000,
+    "eval_mean_reward": 0.625,
+    "eval_std_reward": 0.3112,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.9,
+    "loss": 2.091304,
+    "epsilon": 0.4775,
+    "lr": 4.796e-05
+  },
+  {
+    "timestep": 1660000,
+    "eval_mean_reward": 1.4,
+    "eval_std_reward": 4.1701,
+    "eval_max_reward": 19.5,
+    "positive_rate": 0.7,
+    "loss": 0.888263,
+    "epsilon": 0.4743,
+    "lr": 4.75e-05
+  },
+  {
+    "timestep": 1670000,
+    "eval_mean_reward": 0.325,
+    "eval_std_reward": 0.3269,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.55,
+    "loss": 0.835658,
+    "epsilon": 0.4712,
+    "lr": 4.703e-05
+  },
+  {
+    "timestep": 1680000,
+    "eval_mean_reward": 0.5,
+    "eval_std_reward": 0.3162,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.8,
+    "loss": 2.492973,
+    "epsilon": 0.468,
+    "lr": 4.657e-05
+  },
+  {
+    "timestep": 1690000,
+    "eval_mean_reward": 0.725,
+    "eval_std_reward": 0.4023,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.85,
+    "loss": 0.490633,
+    "epsilon": 0.4648,
+    "lr": 4.611e-05
+  },
+  {
+    "timestep": 1700000,
+    "eval_mean_reward": 1.5,
+    "eval_std_reward": 2.8983,
+    "eval_max_reward": 14.0,
+    "positive_rate": 0.9,
+    "loss": 3.688857,
+    "epsilon": 0.4617,
+    "lr": 4.564e-05
+  },
+  {
+    "timestep": 1710000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.3391,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 0.608349,
+    "epsilon": 0.4585,
+    "lr": 4.518e-05
+  },
+  {
+    "timestep": 1720000,
+    "eval_mean_reward": 0.45,
+    "eval_std_reward": 0.35,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.7,
+    "loss": 2.21326,
+    "epsilon": 0.4553,
+    "lr": 4.472e-05
+  },
+  {
+    "timestep": 1730000,
+    "eval_mean_reward": 0.725,
+    "eval_std_reward": 0.2947,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.95,
+    "loss": 3.536844,
+    "epsilon": 0.4522,
+    "lr": 4.427e-05
+  },
+  {
+    "timestep": 1740000,
+    "eval_mean_reward": 0.675,
+    "eval_std_reward": 0.3631,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.9,
+    "loss": 6.779105,
+    "epsilon": 0.449,
+    "lr": 4.381e-05
+  },
+  {
+    "timestep": 1750000,
+    "eval_mean_reward": 0.775,
+    "eval_std_reward": 0.4323,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.95,
+    "loss": 1.791629,
+    "epsilon": 0.4458,
+    "lr": 4.335e-05
+  },
+  {
+    "timestep": 1760000,
+    "eval_mean_reward": 2.025,
+    "eval_std_reward": 6.6586,
+    "eval_max_reward": 31.0,
+    "positive_rate": 0.7,
+    "loss": 3.258229,
+    "epsilon": 0.4427,
+    "lr": 4.29e-05
+  },
+  {
+    "timestep": 1770000,
+    "eval_mean_reward": 0.525,
+    "eval_std_reward": 0.5117,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.7,
+    "loss": 0.848431,
+    "epsilon": 0.4395,
+    "lr": 4.245e-05
+  },
+  {
+    "timestep": 1780000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.4,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.85,
+    "loss": 0.375319,
+    "epsilon": 0.4363,
+    "lr": 4.199e-05
+  },
+  {
+    "timestep": 1790000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.3674,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.9,
+    "loss": 0.402427,
+    "epsilon": 0.4332,
+    "lr": 4.154e-05
+  },
+  {
+    "timestep": 1800000,
+    "eval_mean_reward": 1.65,
+    "eval_std_reward": 3.8926,
+    "eval_max_reward": 18.5,
+    "positive_rate": 0.9,
+    "loss": 1.893382,
+    "epsilon": 0.43,
+    "lr": 4.109e-05
+  },
+  {
+    "timestep": 1810000,
+    "eval_mean_reward": 0.475,
+    "eval_std_reward": 0.4023,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 2.252081,
+    "epsilon": 0.4268,
+    "lr": 4.065e-05
+  },
+  {
+    "timestep": 1820000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.3391,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 0.734528,
+    "epsilon": 0.4237,
+    "lr": 4.02e-05
+  },
+  {
+    "timestep": 1830000,
+    "eval_mean_reward": 0.6,
+    "eval_std_reward": 0.4637,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.8,
+    "loss": 1.151875,
+    "epsilon": 0.4205,
+    "lr": 3.976e-05
+  },
+  {
+    "timestep": 1840000,
+    "eval_mean_reward": 1.65,
+    "eval_std_reward": 5.3691,
+    "eval_max_reward": 25.0,
+    "positive_rate": 0.65,
+    "loss": 2.031792,
+    "epsilon": 0.4173,
+    "lr": 3.931e-05
+  },
+  {
+    "timestep": 1850000,
+    "eval_mean_reward": 0.6,
+    "eval_std_reward": 0.3391,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.85,
+    "loss": 1.285547,
+    "epsilon": 0.4142,
+    "lr": 3.887e-05
+  },
+  {
+    "timestep": 1860000,
+    "eval_mean_reward": 1.275,
+    "eval_std_reward": 3.3929,
+    "eval_max_reward": 16.0,
+    "positive_rate": 0.8,
+    "loss": 0.791007,
+    "epsilon": 0.411,
+    "lr": 3.843e-05
+  },
+  {
+    "timestep": 1870000,
+    "eval_mean_reward": 1.675,
+    "eval_std_reward": 5.4801,
+    "eval_max_reward": 25.5,
+    "positive_rate": 0.65,
+    "loss": 2.082664,
+    "epsilon": 0.4078,
+    "lr": 3.8e-05
+  },
+  {
+    "timestep": 1880000,
+    "eval_mean_reward": 0.725,
+    "eval_std_reward": 0.4023,
+    "eval_max_reward": 2.0,
+    "positive_rate": 1.0,
+    "loss": 0.83144,
+    "epsilon": 0.4047,
+    "lr": 3.756e-05
+  },
+  {
+    "timestep": 1890000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.4815,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.7,
+    "loss": 0.570982,
+    "epsilon": 0.4015,
+    "lr": 3.713e-05
+  },
+  {
+    "timestep": 1900000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.3202,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 1.162381,
+    "epsilon": 0.3983,
+    "lr": 3.67e-05
+  },
+  {
+    "timestep": 1910000,
+    "eval_mean_reward": 0.65,
+    "eval_std_reward": 0.4213,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.8,
+    "loss": 0.677856,
+    "epsilon": 0.3952,
+    "lr": 3.627e-05
+  },
+  {
+    "timestep": 1920000,
+    "eval_mean_reward": 0.55,
+    "eval_std_reward": 0.3841,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.8,
+    "loss": 0.632585,
+    "epsilon": 0.392,
+    "lr": 3.584e-05
+  },
+  {
+    "timestep": 1930000,
+    "eval_mean_reward": 0.525,
+    "eval_std_reward": 0.4323,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 4.552213,
+    "epsilon": 0.3888,
+    "lr": 3.541e-05
+  },
+  {
+    "timestep": 1940000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.3391,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 6.453801,
+    "epsilon": 0.3857,
+    "lr": 3.499e-05
+  },
+  {
+    "timestep": 1950000,
+    "eval_mean_reward": 0.475,
+    "eval_std_reward": 0.3345,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 3.650051,
+    "epsilon": 0.3825,
+    "lr": 3.457e-05
+  },
+  {
+    "timestep": 1960000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.3631,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.8,
+    "loss": 4.787748,
+    "epsilon": 0.3793,
+    "lr": 3.415e-05
+  },
+  {
+    "timestep": 1970000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.3317,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.9,
+    "loss": 1.83314,
+    "epsilon": 0.3762,
+    "lr": 3.374e-05
+  },
+  {
+    "timestep": 1980000,
+    "eval_mean_reward": 0.625,
+    "eval_std_reward": 0.6098,
+    "eval_max_reward": 2.5,
+    "positive_rate": 0.8,
+    "loss": 0.788822,
+    "epsilon": 0.373,
+    "lr": 3.332e-05
+  },
+  {
+    "timestep": 1990000,
+    "eval_mean_reward": 0.55,
+    "eval_std_reward": 0.3841,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 0.575042,
+    "epsilon": 0.3698,
+    "lr": 3.291e-05
+  },
+  {
+    "timestep": 2000000,
+    "eval_mean_reward": 0.875,
+    "eval_std_reward": 0.4146,
+    "eval_max_reward": 2.0,
+    "positive_rate": 1.0,
+    "loss": 0.802112,
+    "epsilon": 0.3667,
+    "lr": 3.25e-05
+  },
+  {
+    "timestep": 2010000,
+    "eval_mean_reward": 0.675,
+    "eval_std_reward": 0.4548,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.85,
+    "loss": 3.408199,
+    "epsilon": 0.3635,
+    "lr": 3.209e-05
+  },
+  {
+    "timestep": 2020000,
+    "eval_mean_reward": 0.75,
+    "eval_std_reward": 0.2958,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.95,
+    "loss": 5.946087,
+    "epsilon": 0.3603,
+    "lr": 3.169e-05
+  },
+  {
+    "timestep": 2030000,
+    "eval_mean_reward": 0.675,
+    "eval_std_reward": 0.4548,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.8,
+    "loss": 0.945521,
+    "epsilon": 0.3572,
+    "lr": 3.129e-05
+  },
+  {
+    "timestep": 2040000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.3674,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.9,
+    "loss": 4.685071,
+    "epsilon": 0.354,
+    "lr": 3.089e-05
+  },
+  {
+    "timestep": 2050000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.4815,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.75,
+    "loss": 0.951976,
+    "epsilon": 0.3508,
+    "lr": 3.049e-05
+  },
+  {
+    "timestep": 2060000,
+    "eval_mean_reward": 0.475,
+    "eval_std_reward": 0.4603,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.6,
+    "loss": 0.894593,
+    "epsilon": 0.3477,
+    "lr": 3.01e-05
+  },
+  {
+    "timestep": 2070000,
+    "eval_mean_reward": 0.55,
+    "eval_std_reward": 0.4153,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.7,
+    "loss": 1.140772,
+    "epsilon": 0.3445,
+    "lr": 2.971e-05
+  },
+  {
+    "timestep": 2080000,
+    "eval_mean_reward": 0.75,
+    "eval_std_reward": 0.3354,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.9,
+    "loss": 0.845733,
+    "epsilon": 0.3413,
+    "lr": 2.932e-05
+  },
+  {
+    "timestep": 2090000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.3391,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 0.494604,
+    "epsilon": 0.3382,
+    "lr": 2.893e-05
+  },
+  {
+    "timestep": 2100000,
+    "eval_mean_reward": 0.225,
+    "eval_std_reward": 0.2487,
+    "eval_max_reward": 0.5,
+    "positive_rate": 0.45,
+    "loss": 0.407431,
+    "epsilon": 0.335,
+    "lr": 2.855e-05
+  },
+  {
+    "timestep": 2110000,
+    "eval_mean_reward": 0.45,
+    "eval_std_reward": 0.4153,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 1.533503,
+    "epsilon": 0.3318,
+    "lr": 2.817e-05
+  },
+  {
+    "timestep": 2120000,
+    "eval_mean_reward": 0.45,
+    "eval_std_reward": 0.3122,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 0.41358,
+    "epsilon": 0.3287,
+    "lr": 2.779e-05
+  },
+  {
+    "timestep": 2130000,
+    "eval_mean_reward": 0.625,
+    "eval_std_reward": 0.3491,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.85,
+    "loss": 0.345936,
+    "epsilon": 0.3255,
+    "lr": 2.742e-05
+  },
+  {
+    "timestep": 2140000,
+    "eval_mean_reward": 0.825,
+    "eval_std_reward": 0.3631,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.9,
+    "loss": 2.099236,
+    "epsilon": 0.3223,
+    "lr": 2.705e-05
+  },
+  {
+    "timestep": 2150000,
+    "eval_mean_reward": 0.45,
+    "eval_std_reward": 0.3122,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 2.423468,
+    "epsilon": 0.3192,
+    "lr": 2.668e-05
+  },
+  {
+    "timestep": 2160000,
+    "eval_mean_reward": 0.8,
+    "eval_std_reward": 0.6964,
+    "eval_max_reward": 2.5,
+    "positive_rate": 0.8,
+    "loss": 0.270078,
+    "epsilon": 0.316,
+    "lr": 2.632e-05
+  },
+  {
+    "timestep": 2170000,
+    "eval_mean_reward": 1.525,
+    "eval_std_reward": 5.3932,
+    "eval_max_reward": 25.0,
+    "positive_rate": 0.55,
+    "loss": 2.316278,
+    "epsilon": 0.3128,
+    "lr": 2.595e-05
+  },
+  {
+    "timestep": 2180000,
+    "eval_mean_reward": 0.5,
+    "eval_std_reward": 0.4183,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.75,
+    "loss": 0.592578,
+    "epsilon": 0.3097,
+    "lr": 2.56e-05
+  },
+  {
+    "timestep": 2190000,
+    "eval_mean_reward": 0.5,
+    "eval_std_reward": 0.3536,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 2.27796,
+    "epsilon": 0.3065,
+    "lr": 2.524e-05
+  },
+  {
+    "timestep": 2200000,
+    "eval_mean_reward": 0.6,
+    "eval_std_reward": 0.4062,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.8,
+    "loss": 2.669884,
+    "epsilon": 0.3033,
+    "lr": 2.489e-05
+  },
+  {
+    "timestep": 2210000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.5309,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.7,
+    "loss": 1.137482,
+    "epsilon": 0.3002,
+    "lr": 2.454e-05
+  },
+  {
+    "timestep": 2220000,
+    "eval_mean_reward": 1.75,
+    "eval_std_reward": 6.7166,
+    "eval_max_reward": 31.0,
+    "positive_rate": 0.4,
+    "loss": 1.293915,
+    "epsilon": 0.297,
+    "lr": 2.42e-05
+  },
+  {
+    "timestep": 2230000,
+    "eval_mean_reward": 0.75,
+    "eval_std_reward": 0.5809,
+    "eval_max_reward": 2.5,
+    "positive_rate": 0.85,
+    "loss": 1.024342,
+    "epsilon": 0.2938,
+    "lr": 2.385e-05
+  },
+  {
+    "timestep": 2240000,
+    "eval_mean_reward": 1.7,
+    "eval_std_reward": 5.3582,
+    "eval_max_reward": 25.0,
+    "positive_rate": 0.7,
+    "loss": 0.793499,
+    "epsilon": 0.2907,
+    "lr": 2.352e-05
+  },
+  {
+    "timestep": 2250000,
+    "eval_mean_reward": 0.475,
+    "eval_std_reward": 0.37,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.7,
+    "loss": 0.307669,
+    "epsilon": 0.2875,
+    "lr": 2.318e-05
+  },
+  {
+    "timestep": 2260000,
+    "eval_mean_reward": 0.45,
+    "eval_std_reward": 0.35,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.7,
+    "loss": 1.149113,
+    "epsilon": 0.2843,
+    "lr": 2.285e-05
+  },
+  {
+    "timestep": 2270000,
+    "eval_mean_reward": 0.65,
+    "eval_std_reward": 0.4213,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.8,
+    "loss": 0.434651,
+    "epsilon": 0.2812,
+    "lr": 2.252e-05
+  },
+  {
+    "timestep": 2280000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.3631,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 0.394811,
+    "epsilon": 0.278,
+    "lr": 2.22e-05
+  },
+  {
+    "timestep": 2290000,
+    "eval_mean_reward": 1.2,
+    "eval_std_reward": 2.5515,
+    "eval_max_reward": 12.0,
+    "positive_rate": 0.7,
+    "loss": 0.304814,
+    "epsilon": 0.2748,
+    "lr": 2.188e-05
+  },
+  {
+    "timestep": 2300000,
+    "eval_mean_reward": 0.8,
+    "eval_std_reward": 0.5339,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.8,
+    "loss": 0.337579,
+    "epsilon": 0.2717,
+    "lr": 2.156e-05
+  },
+  {
+    "timestep": 2310000,
+    "eval_mean_reward": 0.725,
+    "eval_std_reward": 0.5117,
+    "eval_max_reward": 2.5,
+    "positive_rate": 0.9,
+    "loss": 0.786471,
+    "epsilon": 0.2685,
+    "lr": 2.125e-05
+  },
+  {
+    "timestep": 2320000,
+    "eval_mean_reward": 0.55,
+    "eval_std_reward": 0.3122,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.85,
+    "loss": 0.228154,
+    "epsilon": 0.2653,
+    "lr": 2.094e-05
+  },
+  {
+    "timestep": 2330000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.3742,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 0.276802,
+    "epsilon": 0.2622,
+    "lr": 2.063e-05
+  },
+  {
+    "timestep": 2340000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.3571,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.55,
+    "loss": 0.314358,
+    "epsilon": 0.259,
+    "lr": 2.033e-05
+  },
+  {
+    "timestep": 2350000,
+    "eval_mean_reward": 1.725,
+    "eval_std_reward": 5.3537,
+    "eval_max_reward": 25.0,
+    "positive_rate": 0.75,
+    "loss": 0.704232,
+    "epsilon": 0.2558,
+    "lr": 2.003e-05
+  },
+  {
+    "timestep": 2360000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.4265,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.85,
+    "loss": 0.31158,
+    "epsilon": 0.2527,
+    "lr": 1.973e-05
+  },
+  {
+    "timestep": 2370000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.3317,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.9,
+    "loss": 0.636797,
+    "epsilon": 0.2495,
+    "lr": 1.944e-05
+  },
+  {
+    "timestep": 2380000,
+    "eval_mean_reward": 0.625,
+    "eval_std_reward": 0.4146,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 0.378666,
+    "epsilon": 0.2463,
+    "lr": 1.916e-05
+  },
+  {
+    "timestep": 2390000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.3571,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.55,
+    "loss": 0.271744,
+    "epsilon": 0.2432,
+    "lr": 1.887e-05
+  },
+  {
+    "timestep": 2400000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.3631,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 0.78642,
+    "epsilon": 0.24,
+    "lr": 1.859e-05
+  },
+  {
+    "timestep": 2410000,
+    "eval_mean_reward": 0.375,
+    "eval_std_reward": 0.3491,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 0.246876,
+    "epsilon": 0.2368,
+    "lr": 1.832e-05
+  },
+  {
+    "timestep": 2420000,
+    "eval_mean_reward": 0.475,
+    "eval_std_reward": 0.4867,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.6,
+    "loss": 0.506738,
+    "epsilon": 0.2337,
+    "lr": 1.805e-05
+  },
+  {
+    "timestep": 2430000,
+    "eval_mean_reward": 0.5,
+    "eval_std_reward": 0.3873,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.75,
+    "loss": 0.339448,
+    "epsilon": 0.2305,
+    "lr": 1.778e-05
+  },
+  {
+    "timestep": 2440000,
+    "eval_mean_reward": 0.55,
+    "eval_std_reward": 0.3841,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.8,
+    "loss": 0.186811,
+    "epsilon": 0.2273,
+    "lr": 1.752e-05
+  },
+  {
+    "timestep": 2450000,
+    "eval_mean_reward": 2.15,
+    "eval_std_reward": 6.6334,
+    "eval_max_reward": 31.0,
+    "positive_rate": 0.75,
+    "loss": 0.658584,
+    "epsilon": 0.2242,
+    "lr": 1.726e-05
+  },
+  {
+    "timestep": 2460000,
+    "eval_mean_reward": 0.725,
+    "eval_std_reward": 0.4867,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.85,
+    "loss": 0.309051,
+    "epsilon": 0.221,
+    "lr": 1.701e-05
+  },
+  {
+    "timestep": 2470000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.4359,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.55,
+    "loss": 0.902757,
+    "epsilon": 0.2178,
+    "lr": 1.675e-05
+  },
+  {
+    "timestep": 2480000,
+    "eval_mean_reward": 0.375,
+    "eval_std_reward": 0.3491,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 1.14321,
+    "epsilon": 0.2147,
+    "lr": 1.651e-05
+  },
+  {
+    "timestep": 2490000,
+    "eval_mean_reward": 0.475,
+    "eval_std_reward": 0.37,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.7,
+    "loss": 2.212805,
+    "epsilon": 0.2115,
+    "lr": 1.627e-05
+  },
+  {
+    "timestep": 2500000,
+    "eval_mean_reward": 0.2,
+    "eval_std_reward": 0.3674,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.3,
+    "loss": 0.605122,
+    "epsilon": 0.2083,
+    "lr": 1.603e-05
+  },
+  {
+    "timestep": 2510000,
+    "eval_mean_reward": 0.3,
+    "eval_std_reward": 0.3674,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.45,
+    "loss": 0.72828,
+    "epsilon": 0.2052,
+    "lr": 1.58e-05
+  },
+  {
+    "timestep": 2520000,
+    "eval_mean_reward": 0.225,
+    "eval_std_reward": 0.2947,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.4,
+    "loss": 0.489951,
+    "epsilon": 0.202,
+    "lr": 1.557e-05
+  },
+  {
+    "timestep": 2530000,
+    "eval_mean_reward": 0.15,
+    "eval_std_reward": 0.2784,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.25,
+    "loss": 0.334219,
+    "epsilon": 0.1988,
+    "lr": 1.534e-05
+  },
+  {
+    "timestep": 2540000,
+    "eval_mean_reward": 2.025,
+    "eval_std_reward": 6.6548,
+    "eval_max_reward": 31.0,
+    "positive_rate": 0.8,
+    "loss": 0.282267,
+    "epsilon": 0.1957,
+    "lr": 1.512e-05
+  },
+  {
+    "timestep": 2550000,
+    "eval_mean_reward": 0.5,
+    "eval_std_reward": 0.4183,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.7,
+    "loss": 0.368442,
+    "epsilon": 0.1925,
+    "lr": 1.49e-05
+  },
+  {
+    "timestep": 2560000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.4848,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.85,
+    "loss": 0.481605,
+    "epsilon": 0.1893,
+    "lr": 1.469e-05
+  },
+  {
+    "timestep": 2570000,
+    "eval_mean_reward": 0.5,
+    "eval_std_reward": 0.2739,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.85,
+    "loss": 1.047356,
+    "epsilon": 0.1862,
+    "lr": 1.449e-05
+  },
+  {
+    "timestep": 2580000,
+    "eval_mean_reward": 0.475,
+    "eval_std_reward": 0.3345,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 0.956009,
+    "epsilon": 0.183,
+    "lr": 1.428e-05
+  },
+  {
+    "timestep": 2590000,
+    "eval_mean_reward": 2.0,
+    "eval_std_reward": 6.4576,
+    "eval_max_reward": 30.0,
+    "positive_rate": 0.5,
+    "loss": 1.178389,
+    "epsilon": 0.1798,
+    "lr": 1.408e-05
+  },
+  {
+    "timestep": 2600000,
+    "eval_mean_reward": 1.6,
+    "eval_std_reward": 5.1493,
+    "eval_max_reward": 24.0,
+    "positive_rate": 0.7,
+    "loss": 0.219757,
+    "epsilon": 0.1767,
+    "lr": 1.389e-05
+  },
+  {
+    "timestep": 2610000,
+    "eval_mean_reward": 0.45,
+    "eval_std_reward": 0.3841,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 0.275839,
+    "epsilon": 0.1735,
+    "lr": 1.37e-05
+  },
+  {
+    "timestep": 2620000,
+    "eval_mean_reward": 0.625,
+    "eval_std_reward": 0.4146,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.8,
+    "loss": 0.30942,
+    "epsilon": 0.1703,
+    "lr": 1.352e-05
+  },
+  {
+    "timestep": 2630000,
+    "eval_mean_reward": 1.8,
+    "eval_std_reward": 5.3324,
+    "eval_max_reward": 25.0,
+    "positive_rate": 0.85,
+    "loss": 1.078248,
+    "epsilon": 0.1672,
+    "lr": 1.334e-05
+  },
+  {
+    "timestep": 2640000,
+    "eval_mean_reward": 0.675,
+    "eval_std_reward": 0.5974,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.65,
+    "loss": 0.958905,
+    "epsilon": 0.164,
+    "lr": 1.316e-05
+  },
+  {
+    "timestep": 2650000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.4899,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.5,
+    "loss": 7.176556,
+    "epsilon": 0.1608,
+    "lr": 1.299e-05
+  },
+  {
+    "timestep": 2660000,
+    "eval_mean_reward": 3.075,
+    "eval_std_reward": 8.0658,
+    "eval_max_reward": 27.5,
+    "positive_rate": 0.65,
+    "loss": 0.472004,
+    "epsilon": 0.1577,
+    "lr": 1.282e-05
+  },
+  {
+    "timestep": 2670000,
+    "eval_mean_reward": 0.375,
+    "eval_std_reward": 0.3491,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 1.506277,
+    "epsilon": 0.1545,
+    "lr": 1.266e-05
+  },
+  {
+    "timestep": 2680000,
+    "eval_mean_reward": 0.55,
+    "eval_std_reward": 0.3841,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.75,
+    "loss": 0.684842,
+    "epsilon": 0.1513,
+    "lr": 1.25e-05
+  },
+  {
+    "timestep": 2690000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.4548,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.65,
+    "loss": 0.507344,
+    "epsilon": 0.1482,
+    "lr": 1.235e-05
+  },
+  {
+    "timestep": 2700000,
+    "eval_mean_reward": 1.825,
+    "eval_std_reward": 6.6994,
+    "eval_max_reward": 31.0,
+    "positive_rate": 0.55,
+    "loss": 0.640759,
+    "epsilon": 0.145,
+    "lr": 1.22e-05
+  },
+  {
+    "timestep": 2710000,
+    "eval_mean_reward": 0.275,
+    "eval_std_reward": 0.4023,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.35,
+    "loss": 1.851579,
+    "epsilon": 0.1418,
+    "lr": 1.206e-05
+  },
+  {
+    "timestep": 2720000,
+    "eval_mean_reward": 2.1,
+    "eval_std_reward": 6.9868,
+    "eval_max_reward": 32.5,
+    "positive_rate": 0.7,
+    "loss": 0.781511,
+    "epsilon": 0.1387,
+    "lr": 1.192e-05
+  },
+  {
+    "timestep": 2730000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.3269,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.7,
+    "loss": 0.29423,
+    "epsilon": 0.1355,
+    "lr": 1.179e-05
+  },
+  {
+    "timestep": 2740000,
+    "eval_mean_reward": 3.1,
+    "eval_std_reward": 7.3086,
+    "eval_max_reward": 25.0,
+    "positive_rate": 0.85,
+    "loss": 3.012779,
+    "epsilon": 0.1323,
+    "lr": 1.166e-05
+  },
+  {
+    "timestep": 2750000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.3269,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.7,
+    "loss": 0.348666,
+    "epsilon": 0.1292,
+    "lr": 1.153e-05
+  },
+  {
+    "timestep": 2760000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.3391,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 0.820119,
+    "epsilon": 0.126,
+    "lr": 1.141e-05
+  },
+  {
+    "timestep": 2770000,
+    "eval_mean_reward": 0.5,
+    "eval_std_reward": 0.5701,
+    "eval_max_reward": 2.5,
+    "positive_rate": 0.65,
+    "loss": 0.835514,
+    "epsilon": 0.1228,
+    "lr": 1.13e-05
+  },
+  {
+    "timestep": 2780000,
+    "eval_mean_reward": 1.4,
+    "eval_std_reward": 4.4006,
+    "eval_max_reward": 20.5,
+    "positive_rate": 0.6,
+    "loss": 2.440559,
+    "epsilon": 0.1197,
+    "lr": 1.119e-05
+  },
+  {
+    "timestep": 2790000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.3905,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.5,
+    "loss": 0.137966,
+    "epsilon": 0.1165,
+    "lr": 1.108e-05
+  },
+  {
+    "timestep": 2800000,
+    "eval_mean_reward": 0.575,
+    "eval_std_reward": 0.5974,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.6,
+    "loss": 0.986741,
+    "epsilon": 0.1133,
+    "lr": 1.098e-05
+  },
+  {
+    "timestep": 2810000,
+    "eval_mean_reward": 0.825,
+    "eval_std_reward": 0.7949,
+    "eval_max_reward": 3.5,
+    "positive_rate": 0.75,
+    "loss": 0.476078,
+    "epsilon": 0.1102,
+    "lr": 1.089e-05
+  },
+  {
+    "timestep": 2820000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.3391,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.65,
+    "loss": 1.88251,
+    "epsilon": 0.107,
+    "lr": 1.08e-05
+  },
+  {
+    "timestep": 2830000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.3742,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.6,
+    "loss": 0.4552,
+    "epsilon": 0.1038,
+    "lr": 1.071e-05
+  },
+  {
+    "timestep": 2840000,
+    "eval_mean_reward": 0.475,
+    "eval_std_reward": 0.4023,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.7,
+    "loss": 0.330125,
+    "epsilon": 0.1007,
+    "lr": 1.063e-05
+  },
+  {
+    "timestep": 2850000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.3571,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.55,
+    "loss": 1.548271,
+    "epsilon": 0.0975,
+    "lr": 1.055e-05
+  },
+  {
+    "timestep": 2860000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.4062,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.6,
+    "loss": 1.026616,
+    "epsilon": 0.0943,
+    "lr": 1.048e-05
+  },
+  {
+    "timestep": 2870000,
+    "eval_mean_reward": 0.525,
+    "eval_std_reward": 0.4023,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.8,
+    "loss": 0.431236,
+    "epsilon": 0.0912,
+    "lr": 1.042e-05
+  },
+  {
+    "timestep": 2880000,
+    "eval_mean_reward": 0.425,
+    "eval_std_reward": 0.3269,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.7,
+    "loss": 4.873856,
+    "epsilon": 0.088,
+    "lr": 1.035e-05
+  },
+  {
+    "timestep": 2890000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.3905,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.5,
+    "loss": 0.232245,
+    "epsilon": 0.0848,
+    "lr": 1.03e-05
+  },
+  {
+    "timestep": 2900000,
+    "eval_mean_reward": 0.375,
+    "eval_std_reward": 0.3832,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.55,
+    "loss": 0.857726,
+    "epsilon": 0.0817,
+    "lr": 1.025e-05
+  },
+  {
+    "timestep": 2910000,
+    "eval_mean_reward": 0.45,
+    "eval_std_reward": 0.5679,
+    "eval_max_reward": 2.5,
+    "positive_rate": 0.6,
+    "loss": 0.611158,
+    "epsilon": 0.0785,
+    "lr": 1.02e-05
+  },
+  {
+    "timestep": 2920000,
+    "eval_mean_reward": 0.275,
+    "eval_std_reward": 0.3345,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.45,
+    "loss": 1.573891,
+    "epsilon": 0.0753,
+    "lr": 1.016e-05
+  },
+  {
+    "timestep": 2930000,
+    "eval_mean_reward": 0.475,
+    "eval_std_reward": 0.5804,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.5,
+    "loss": 0.945646,
+    "epsilon": 0.0722,
+    "lr": 1.012e-05
+  },
+  {
+    "timestep": 2940000,
+    "eval_mean_reward": 0.55,
+    "eval_std_reward": 0.2693,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.9,
+    "loss": 0.967243,
+    "epsilon": 0.069,
+    "lr": 1.009e-05
+  },
+  {
+    "timestep": 2950000,
+    "eval_mean_reward": 0.35,
+    "eval_std_reward": 0.3571,
+    "eval_max_reward": 1.0,
+    "positive_rate": 0.55,
+    "loss": 0.098476,
+    "epsilon": 0.0658,
+    "lr": 1.006e-05
+  },
+  {
+    "timestep": 2960000,
+    "eval_mean_reward": 0.525,
+    "eval_std_reward": 0.5117,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.7,
+    "loss": 0.276452,
+    "epsilon": 0.0627,
+    "lr": 1.004e-05
+  },
+  {
+    "timestep": 2970000,
+    "eval_mean_reward": 0.4,
+    "eval_std_reward": 0.3742,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.65,
+    "loss": 0.167777,
+    "epsilon": 0.0595,
+    "lr": 1.002e-05
+  },
+  {
+    "timestep": 2980000,
+    "eval_mean_reward": 0.7,
+    "eval_std_reward": 0.4301,
+    "eval_max_reward": 2.0,
+    "positive_rate": 0.9,
+    "loss": 0.293952,
+    "epsilon": 0.0563,
+    "lr": 1.001e-05
+  },
+  {
+    "timestep": 2990000,
+    "eval_mean_reward": 3.575,
+    "eval_std_reward": 9.6621,
+    "eval_max_reward": 34.0,
+    "positive_rate": 0.55,
+    "loss": 0.280878,
+    "epsilon": 0.0532,
+    "lr": 1e-05
+  },
+  {
+    "timestep": 3000000,
+    "eval_mean_reward": 0.475,
+    "eval_std_reward": 0.4603,
+    "eval_max_reward": 1.5,
+    "positive_rate": 0.6,
+    "loss": 0.182437,
+    "epsilon": 0.05,
+    "lr": 1e-05
+  }
+]
