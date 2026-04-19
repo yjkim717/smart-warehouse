@@ -1,10 +1,10 @@
-# HAPPO Training Configuration — 4-Agent Small Grid
+# HAPPO Training Configuration — 4-Agent Small Grid (rware-small-4ag-v2)
 # Use with: python3 scripts/train_happo.py --env-config configs/env_config_4ag.yaml --happo-config configs/happo_config_4ag.yaml
 
 happo:
   # ---- Network architecture ----
-  # obs_dim=71 is identical between tiny-2ag and small-4ag
-  hidden_dim: 128
+  hidden_dim: 256            # raised from 128 — 4-agent coordination on larger grid
+                              #   needs more capacity than 2-agent task
   n_layers: 2
 
   # ---- PPO hyperparameters ----
@@ -13,14 +13,15 @@ happo:
   gamma: 0.99
   gae_lambda: 0.95
 
-  # Clip epsilon decay — identical to 2-agent optimized config
+  # Clip epsilon decay
   clip_epsilon_start: 0.2
-  clip_epsilon_end:   0.1
+  clip_epsilon_end:   0.15   # raised from 0.1 — less aggressive decay; validated by 2-agent run
 
-  # Entropy annealing — slightly higher start for better early exploration
-  # with 4 agents on a larger grid (more coordination needed in early training)
-  entropy_coef_start: 0.02
-  entropy_coef_end:   0.003
+  # Entropy annealing — CRITICAL FIX: 0.02 start caused early collapse in 2-agent run.
+  # 4 independent actors each see 1/4 the data vs MAPPO shared actor — need even more
+  # exploration pressure, not less.
+  entropy_coef_start: 0.05   # raised from 0.02 — matches 2-agent fix
+  entropy_coef_end:   0.01   # raised from 0.003 — maintain exploration at end of run
 
   value_loss_coef: 0.5
   max_grad_norm: 0.5
@@ -30,14 +31,17 @@ happo:
   lr_min: 0.00001
 
   # ---- Rollout ----
-  # minibatch_size applies per-agent update (4 agents × 256 steps = 1024 total critic samples)
-  n_steps: 256
+  # n_steps=256 was < half an episode (500 steps) — very noisy GAE bootstrap estimates.
+  # 1000 spans ~2 full episodes per rollout for accurate return estimates.
+  # minibatch_size=128 gives ~8 minibatches per actor per epoch (vs 1 previously).
+  n_steps: 1000              # raised from 256
   n_epochs: 4
-  minibatch_size: 256
+  minibatch_size: 128        # reduced from 256 — more gradient steps per rollout
 
   # ---- Training schedule ----
-  # 5M steps: larger grid (20×10 vs 11×10) + 4 agents = harder coordination
-  total_timesteps: 5_000_000
+  # 4-agent coordination on a larger grid is strictly harder than 2-agent.
+  # 2-agent run was still improving at 5M and peaked later — use 10M here.
+  total_timesteps: 10_000_000  # raised from 5_000_000
   eval_episodes: 20
   eval_interval: 10000
   save_interval: 50000

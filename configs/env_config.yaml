@@ -16,13 +16,18 @@ env:
   # Reward shaping (dense intermediate rewards for training)
   reward_shaping:
     enabled: true
-    pickup_reward: 0.5        # bonus for picking up a shelf
-    delivery_bonus: 2.0       # bonus on top of rware's +1 for delivery (total = 3.0)
-    step_penalty: -0.005      # small cost per step (encourages speed)
+    pickup_reward: 0.1        # reduced from 0.5 — was teaching pickup as a terminal goal;
+                              #   agents picked up 1.68×/ep but only delivered 0.65× (39% rate)
+    delivery_bonus: 3.0       # raised from 2.0 — total rware+shaping = 4.0, makes delivery
+                              #   the unambiguous dominant signal vs picking up alone
+    step_penalty: -0.001      # reduced from -0.005 — old value created -2.5 baseline per episode
+                              #   (500 steps × 0.005), causing 33% of episodes to be deeply
+                              #   negative and swamping the delivery signal
     carry_toward_goal: 0.05   # bonus for moving closer to goal while carrying
     move_toward_shelf: 0.05   # bonus for moving closer to shelf when empty-handed
-    bad_drop_penalty: -0.6    # penalty for dropping shelf away from goal (must exceed pickup_reward)
-    linger_penalty: -0.05     # mild penalty per step for carrying on goal without dropping
+    bad_drop_penalty: -0.8    # raised from -0.6 — compensates for lower pickup_reward;
+                              #   net of bad pick+drop = 0.1 - 0.8 = -0.7 (strongly discourage)
+    linger_penalty: -0.02     # reduced from -0.05 — was too harsh on goal cell approach
     collision_penalty: 0.0    # disabled — catastrophic in tiny shared grid where agents are adjacent constantly
 
   # GIF recording

@@ -1,0 +1,102 @@
+
+================================================================
+  SMART WAREHOUSE — HAPPO vs Random Policy Comparison Report
+================================================================
+  Generated : 2026-04-19 10:26:04
+  Agents    : 4
+  Episodes  : 300 per policy
+  Max steps : 500 per episode
+  HAPPO     : greedy argmax, independent per-agent actors, WITH reward shaping
+  Random    : semi-greedy (auto-pickup/drop), raw rware reward (no shaping)
+
+  NOTE: reward scales differ — HAPPO shaping adds ~+0.5 per delivery,
+  +0.1 per pickup, −step_penalty. Use deliveries_per_ep for fair comparison.
+
+════════════════════════════════════════════════════════════════
+  1. Team Total Reward (per episode)
+════════════════════════════════════════════════════════════════
+  Metric                             HAPPO       Random
+────────────────────────────────────────────────────────────────
+  Mean                             32.3700       0.0500  ◀ better
+  Std Dev                          20.5274       0.2327  
+  Median                           30.3775       0.0000  ◀ better
+  Min                              -1.5050       0.0000  
+  Max                              79.1650       2.0000  ◀ better
+  25th pctile                      15.2400       0.0000  ◀ better
+  75th pctile                      48.7450       0.0000  ◀ better
+
+  Positive episodes             292/300 (97.3%)   14/300 (4.7%)
+════════════════════════════════════════════════════════════════
+  2. Deliveries per Episode  [same raw scale for both]
+════════════════════════════════════════════════════════════════
+  Metric                             HAPPO       Random
+────────────────────────────────────────────────────────────────
+  Mean deliveries                   9.4367       0.0500  ◀ better
+  Std Dev                           5.9743       0.2327  ◀ better
+  Median                            9.0000       0.0000  ◀ better
+  Max in one episode               23.0000       2.0000  ◀ better
+
+  Episodes with ≥1 delivery            292           14
+  Delivery rate                      97.3%         4.7%
+════════════════════════════════════════════════════════════════
+  3. Pickups per Episode
+════════════════════════════════════════════════════════════════
+  Metric                             HAPPO       Random
+────────────────────────────────────────────────────────────────
+  Mean pickups                     10.9900       4.0000  ◀ better
+  Std Dev                           5.6134       0.0000  ◀ better
+  Max                              24.0000       4.0000  ◀ better
+════════════════════════════════════════════════════════════════
+  4. Episode Length (steps)
+════════════════════════════════════════════════════════════════
+  Metric                             HAPPO       Random
+────────────────────────────────────────────────────────────────
+  Mean                            500.0000     500.0000  
+  Std Dev                           0.0000       0.0000  
+  Min                             500.0000     500.0000  
+  Max                             500.0000     500.0000  
+════════════════════════════════════════════════════════════════
+  5. Per-Agent Mean Reward  [HAPPO: independent actors]
+════════════════════════════════════════════════════════════════
+  Agent                              HAPPO       Random
+────────────────────────────────────────────────────────────────
+  Agent 0                           8.1801       0.0133  ◀ better
+  Agent 1                           9.7588       0.0100  ◀ better
+  Agent 2                           5.8271       0.0267  ◀ better
+  Agent 3                           8.6041       0.0000  ◀ better
+════════════════════════════════════════════════════════════════
+  6. Statistical Significance
+════════════════════════════════════════════════════════════════
+  Welch's t-test (reward):
+    t-statistic : 27.2235
+    p-value     : 6.12e-83
+    Significant : YES (p < 0.001)
+  Cohen's d    : 2.2265  (large effect)
+
+  Interpretation: HAPPO's reward distribution is statistically
+  different from random (p=6.12e-83). Effect size is large.
+════════════════════════════════════════════════════════════════
+  7. HAPPO Training Curve Summary
+════════════════════════════════════════════════════════════════
+  Eval checkpoints   : 1000
+  Timesteps trained  : 10,000,000
+  Reward (first 5 ck): -1.9997
+  Reward (last 5 ck) : 30.4488
+  Best eval reward   : 44.2652  at t=9,650,000
+  Positive evals     : 553/1000
+  Start entropy      : 1.5240
+  End entropy        : 0.5582  (lower = more decisive)
+════════════════════════════════════════════════════════════════
+  8. Verdict
+════════════════════════════════════════════════════════════════
+  HAPPO (4 agents) vs Random over 300 episodes each:
+
+  Mean reward lift    : +32.320 (shaped vs raw — not directly comparable)
+  Positive rate       : 97.3% vs 4.7%
+  Delivery rate       : 97.3% vs 4.7% (eps with ≥1 delivery)
+  Avg deliveries/ep   : 9.437 vs 0.050  (+9.387)
+  Statistical test    : YES (p < 0.001)
+
+  CONCLUSION: HAPPO significantly outperforms the random baseline.
+  Use 'deliveries_per_ep' as the primary fair metric (same scale for both).
+════════════════════════════════════════════════════════════════

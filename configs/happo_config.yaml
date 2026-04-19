@@ -1,25 +1,41 @@
-# HAPPO Training Configuration — 2-Agent
+# HAPPO Training Configuration — 2-Agent (optimized)
 # Use with: python3 scripts/train_happo.py --env-config configs/env_config.yaml --happo-config configs/happo_config.yaml
+#
+# Key changes from v1 and why:
+#   entropy_coef_start 0.01 → 0.05  — entropy collapsed at t=170k (5% of training),
+#     locking in pickup-only policy before delivery was ever discovered.
+#     Independent actors see half the data vs MAPPO's shared actor, so each needs
+#     much stronger exploration pressure.
+#   entropy_coef_end   0.003 → 0.01 — maintain meaningful exploration at end of run.
+#   total_timesteps    3M → 5M      — best eval was at t=2.98M (still improving at cutoff).
+#   n_steps            256 → 512    — more transitions per per-agent update; better GAE
+#     estimates and 4 minibatches/actor/epoch instead of 2.
+#   n_epochs           4 → 3        — each actor's per-rollout dataset is small (n_steps
+#     samples); 4 epochs risks overfitting within the buffer.
+#   lr_actor           0.0003 → 0.0002 — sequential actor updates can compound errors;
+#     slightly more conservative steps reduce instability.
+#   clip_epsilon_end   0.1 → 0.15   — less aggressive clip decay allows more productive
+#     gradient updates in the later (now higher-entropy) training phase.
 
 happo:
   # ---- Network architecture ----
-  # Each agent gets an independent Actor with the same architecture
-  hidden_dim: 128
+  hidden_dim: 256            # raised from 128 — larger capacity for navigation+planning task
   n_layers: 2
 
   # ---- PPO hyperparameters ----
-  lr_actor: 0.0003
-  lr_critic: 0.0005          # critic learns faster to bootstrap value signal
+  lr_actor: 0.0003           # restored from 0.0002 — conservative 0.0002 slowed learning;
+                              #   max_grad_norm=0.5 already guards against instability
+  lr_critic: 0.0005
   gamma: 0.99
   gae_lambda: 0.95
 
-  # Clip epsilon — decay from start to end over full training
+  # Clip epsilon — less aggressive decay than v1
   clip_epsilon_start: 0.2
-  clip_epsilon_end:   0.1
+  clip_epsilon_end:   0.15
 
-  # Entropy — anneal from start to end (high early = explore, low late = commit)
-  entropy_coef_start: 0.01
-  entropy_coef_end:   0.003
+  # Entropy — high enough to prevent premature convergence for independent actors
+  entropy_coef_start: 0.05
+  entropy_coef_end:   0.01
 
   value_loss_coef: 0.5
   max_grad_norm: 0.5
@@ -29,13 +45,17 @@ happo:
   lr_min: 0.00001
 
   # ---- Rollout ----
-  # minibatch_size applies per-agent (each agent's PPO update draws over n_steps samples)
-  n_steps: 256
-  n_epochs: 4
+  # n_steps=1000 spans ~2 full episodes per rollout (500-step episodes), giving
+  # GAE estimates that capture the full return distribution and reduce bootstrap variance.
+  # Previously 512 ≈ 1 episode — high-variance returns, poor credit assignment.
+  n_steps: 1000              # was 512
+  n_epochs: 4                # restored from 3 — larger rollout now supports 4 epochs
+                              #   without overfitting (8 minibatches of 128 per actor)
   minibatch_size: 128
 
   # ---- Training schedule ----
-  total_timesteps: 3_000_000
+  # Extended from 5M: best eval was at t=4.63M out of 5M — still improving at cutoff.
+  total_timesteps: 8_000_000  # was 5_000_000
   eval_episodes: 20
   eval_interval: 10000
   save_interval: 50000
