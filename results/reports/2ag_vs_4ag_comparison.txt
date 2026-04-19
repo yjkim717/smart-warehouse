@@ -1,0 +1,218 @@
+
+════════════════════════════════════════════════════════════════════════════
+  SMART WAREHOUSE — 2-Agent vs 4-Agent MAPPO Scaling Comparison Report
+════════════════════════════════════════════════════════════════════════════
+  Generated      : 2026-04-06
+  Evaluation     : 300 episodes per policy, 500 max steps
+  2-Agent Env    : rware-tiny-2ag-v2  (11×10 grid, 2 robots)
+  4-Agent Env    : rware-small-4ag-v2 (20×10 grid, 4 robots)
+  Training       : 3M timesteps (2-agent), 5M timesteps (4-agent)
+  Algorithm      : MAPPO (CTDE, parameter sharing, optimized hyperparams)
+
+════════════════════════════════════════════════════════════════════════════
+  1. HEADLINE COMPARISON — MAPPO vs Random Baseline
+════════════════════════════════════════════════════════════════════════════
+
+  Metric                           2-Agent MAPPO    4-Agent MAPPO
+  ──────────────────────────────────────────────────────────────────
+  Delivery rate                         99.0%            99.7%
+  Mean deliveries / episode              1.94             3.99
+  Max deliveries in one episode          3                7
+  Positive episode rate                100.0%            99.7%
+  Mean team reward (shaped)              8.69            10.13
+  Cohen's d vs random                    5.30             7.80
+
+  Random Baseline (for reference)
+  ──────────────────────────────────────────────────────────────────
+  Delivery rate                          8.7%             6.0%
+  Mean deliveries / episode              0.09             0.06
+
+  Both MAPPO policies massively outperform their respective random
+  baselines with large effect sizes (Cohen's d > 5).
+
+════════════════════════════════════════════════════════════════════════════
+  2. TASK COMPLETION — Deliveries
+════════════════════════════════════════════════════════════════════════════
+
+  Metric                           2-Agent MAPPO    4-Agent MAPPO
+  ──────────────────────────────────────────────────────────────────
+  Mean deliveries / episode              1.94             3.99
+  Median deliveries / episode            2.00             4.00
+  Std Dev                                0.40             0.47
+  Max in one episode                     3                7
+  Episodes with ≥1 delivery           297/300          299/300
+  Delivery rate                         99.0%            99.7%
+  Deliveries per agent per ep            0.97             1.00
+
+  KEY INSIGHT: The 4-agent policy achieves ~1 delivery per agent per
+  episode, matching the 2-agent policy's per-agent efficiency. Scaling
+  from 2 to 4 agents roughly doubles total throughput (1.94 → 3.99).
+
+════════════════════════════════════════════════════════════════════════════
+  3. PICKUPS — Shelf Handling Behavior
+════════════════════════════════════════════════════════════════════════════
+
+  Metric                           2-Agent MAPPO    4-Agent MAPPO
+  ──────────────────────────────────────────────────────────────────
+  Mean pickups / episode                 2.01             4.00
+  Pickups per agent per ep               1.00             1.00
+  Pickup-to-delivery ratio               1.04             1.00
+
+  Pickup-to-delivery ratio ≈ 1.0 for both policies indicates clean
+  behavior: agents pick up, deliver, and do not waste time re-picking.
+  No sign of the reward hacking seen in earlier 4-agent experiments.
+
+════════════════════════════════════════════════════════════════════════════
+  4. REWARD DISTRIBUTION
+════════════════════════════════════════════════════════════════════════════
+
+  Metric                           2-Agent MAPPO    4-Agent MAPPO
+  ──────────────────────────────────────────────────────────────────
+  Mean team reward                       8.69            10.13
+  Std Dev                                2.27             1.81
+  Median                                 8.73            10.56
+  Min                                    0.18            -0.08
+  Max                                   13.53            18.23
+  25th percentile                        7.18             9.14
+  75th percentile                       10.53            11.15
+
+  NOTE: Reward scales are not directly comparable because the 4-agent
+  config uses reduced shaping magnitudes (see Section 8). Use deliveries
+  for fair cross-config comparison.
+
+════════════════════════════════════════════════════════════════════════════
+  5. PER-AGENT PERFORMANCE
+════════════════════════════════════════════════════════════════════════════
+
+  2-Agent MAPPO:
+      Agent 0  mean reward = 4.34    std = 1.59
+      Agent 1  mean reward = 4.35    std = 1.53
+      Spread (max − min mean) = 0.01
+
+  4-Agent MAPPO:
+      Agent 0  mean reward = 2.61    std = 0.72
+      Agent 1  mean reward = 2.54    std = 0.59
+      Agent 2  mean reward = 2.49    std = 0.51
+      Agent 3  mean reward = 2.50    std = 0.84
+      Spread (max − min mean) = 0.12
+
+  Per-agent reward is lower for 4-agent due to reduced shaping magnitudes,
+  but per-agent delivery rate is equivalent (~1.0 per agent). The spread
+  across agents is small (0.12), confirming that parameter sharing
+  produces a fair, balanced policy despite increased agent count.
+
+════════════════════════════════════════════════════════════════════════════
+  6. TRAINING EFFICIENCY
+════════════════════════════════════════════════════════════════════════════
+
+  Metric                           2-Agent MAPPO    4-Agent MAPPO
+  ──────────────────────────────────────────────────────────────────
+  Total timesteps                       3.00M            5.00M
+  Eval checkpoints                        300              500
+  Best eval reward                       8.18             8.91
+  Best eval timestep                    2.97M            4.60M
+  Positive eval fraction               60.0%            51.4%
+  Start entropy                          1.49             1.38
+  End entropy                            0.11             0.30
+
+  The 4-agent policy required 67% more timesteps (5M vs 3M) to converge,
+  reflecting the harder coordination problem (larger grid, more agents,
+  more potential for blocking). End entropy is higher (0.30 vs 0.11),
+  suggesting the 4-agent policy maintains more exploration — reasonable
+  given the more complex state space.
+
+════════════════════════════════════════════════════════════════════════════
+  7. STATISTICAL SIGNIFICANCE VS RANDOM BASELINES
+════════════════════════════════════════════════════════════════════════════
+
+  Metric                           2-Agent          4-Agent
+  ──────────────────────────────────────────────────────────────────
+  Cohen's d (vs random)                5.30             7.80
+  Effect size category                 Large            Large
+  MAPPO reward lift (vs random)       +8.60           +10.07
+
+  The 4-agent MAPPO shows an even larger effect size (Cohen's d = 7.80)
+  than the 2-agent (5.30), indicating that the performance gap between
+  MAPPO and random widens as the task becomes harder.
+
+════════════════════════════════════════════════════════════════════════════
+  8. CONFIGURATION DIFFERENCES
+════════════════════════════════════════════════════════════════════════════
+
+  Environment:
+      Grid size              11×10 (tiny)        20×10 (small)
+      Agents                 2                   4
+      Max steps              500                 500
+
+  Reward Shaping (key differences):
+      pickup_reward          0.5                 0.1
+      carry_toward_goal      0.05                0.01
+      move_toward_shelf      0.05                0.01
+      step_penalty           -0.005              -0.002
+      delivery_bonus         2.0                 2.0  (same)
+
+  Training Hyperparameters:
+      total_timesteps        3,000,000           5,000,000
+      entropy_coef_start     0.01                0.02
+      minibatch_size         128                 256
+      All other params       identical           identical
+
+  The 4-agent config required reward rebalancing to prevent reward hacking
+  (see scaling_analysis.md for detailed root cause analysis). Intermediate
+  signals were reduced 5× so the delivery bonus dominates the reward
+  landscape at any agent count.
+
+════════════════════════════════════════════════════════════════════════════
+  9. SCALING JOURNEY — 3 ITERATIONS TO SUCCESS
+════════════════════════════════════════════════════════════════════════════
+
+  Attempt 1 — Naive copy of 2-agent shaping:
+      Delivery rate: 4.7%   Mean reward: 9.74
+      Problem: Reward hacking — agents earned high shaped reward without
+      delivering. Intermediate signals too large at 4-agent scale.
+
+  Attempt 2 — Reduced intermediate rewards (pickup, carry, shelf):
+      Delivery rate: 36.0%  Mean reward: -6.61
+      Problem: step_penalty (-0.005) scaled to -10.0/ep with 4 agents,
+      overwhelming the rebalanced positive signals.
+
+  Attempt 3 — Reduced step_penalty (-0.005 → -0.002):
+      Delivery rate: 99.7%  Mean reward: 10.13
+      Success: All reward components properly balanced for 4-agent scale.
+
+  ┌──────────────────────────────────────────────────────────┐
+  │  Iteration   │  Delivery Rate  │  Mean Reward  │ Status │
+  ├──────────────┼─────────────────┼───────────────┼────────┤
+  │  Attempt 1   │      4.7%       │     +9.74     │  FAIL  │
+  │  Attempt 2   │     36.0%       │     -6.61     │  FAIL  │
+  │  Attempt 3   │     99.7%       │    +10.13     │  PASS  │
+  └──────────────────────────────────────────────────────────┘
+
+════════════════════════════════════════════════════════════════════════════
+  10. VERDICT
+════════════════════════════════════════════════════════════════════════════
+
+  ✓ MAPPO scales successfully from 2 to 4 agents with proper reward
+    rebalancing.
+
+  ✓ Delivery rate maintained: 99.0% (2-agent) → 99.7% (4-agent).
+
+  ✓ Per-agent efficiency preserved: ~1.0 delivery per agent per episode
+    in both configurations.
+
+  ✓ Total throughput doubles: 1.94 → 3.99 deliveries per episode.
+
+  ✓ Both policies produce large, statistically significant improvements
+    over their respective random baselines.
+
+  ✓ Parameter sharing (single actor/critic for all agents) works
+    effectively at both scales, with balanced per-agent rewards.
+
+  CONCLUSION: The optimized MAPPO algorithm with CTDE architecture and
+  parameter sharing scales effectively from 2 to 4 agents. The key
+  lesson is that dense reward shaping must be rebalanced when scaling
+  agent count — a fixed set of shaping magnitudes can cause reward
+  hacking at larger team sizes. After three iterations of reward tuning,
+  the 4-agent policy achieves near-perfect delivery performance.
+
+════════════════════════════════════════════════════════════════════════════

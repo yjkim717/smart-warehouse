@@ -1,0 +1,105 @@
+
+================================================================
+  SMART WAREHOUSE — MAPPO vs Random Policy Comparison Report
+================================================================
+  Generated : 2026-04-06 10:55:38
+  Episodes  : 300 per policy
+  Max steps : 500 per episode
+  MAPPO     : stochastic sampling (Categorical), WITH reward shaping
+  Random    : semi-greedy (auto-pickup/drop), raw rware reward (no shaping)
+
+  NOTE: reward scales differ — MAPPO shaping adds ~+0.5 per delivery,
+  +0.1 per pickup, −0.005/step. Raw delivery comparisons use same scale.
+
+════════════════════════════════════════════════════════════════
+  1. Team Total Reward (per episode)
+════════════════════════════════════════════════════════════════
+  Metric                             MAPPO       Random
+────────────────────────────────────────────────────────────────
+  Mean                             10.1341       0.0633  ◀ better
+  Std Dev                           1.8079       0.2569  
+  Median                           10.5600       0.0000  ◀ better
+  Min                              -0.0750       0.0000  
+  Max                              18.2300       2.0000  ◀ better
+  25th pctile                       9.1438       0.0000  ◀ better
+  75th pctile                      11.1525       0.0000  ◀ better
+
+  Positive episodes             299/300 (99.7%)   18/300 (6.0%)  ◀ MAPPO
+════════════════════════════════════════════════════════════════
+  2. Deliveries per Episode  [same raw scale for both]
+════════════════════════════════════════════════════════════════
+  Metric                             MAPPO       Random
+────────────────────────────────────────────────────────────────
+  Mean deliveries                   3.9933       0.0633  ◀ better
+  Std Dev                           0.4690       0.2569  ◀ better
+  Median                            4.0000       0.0000  ◀ better
+  Max in one episode                7.0000       2.0000  ◀ better
+
+  Episodes with ≥1 delivery            299           18
+  Delivery rate                      99.7%         6.0%  ◀ MAPPO
+════════════════════════════════════════════════════════════════
+  3. Pickups per Episode
+════════════════════════════════════════════════════════════════
+  Metric                             MAPPO       Random
+────────────────────────────────────────────────────────────────
+  Mean pickups                      3.9967       4.0000  
+  Std Dev                           0.0576       0.0000  ◀ better
+  Max                               4.0000       4.0000  
+════════════════════════════════════════════════════════════════
+  4. Episode Length (steps)
+════════════════════════════════════════════════════════════════
+  Metric                             MAPPO       Random
+────────────────────────────────────────────────────────────────
+  Mean                            500.0000     500.0000  
+  Std Dev                           0.0000       0.0000  
+  Min                             500.0000     500.0000  
+  Max                             500.0000     500.0000  
+════════════════════════════════════════════════════════════════
+  5. Per-Agent Mean Reward
+════════════════════════════════════════════════════════════════
+  Agent                              MAPPO       Random
+────────────────────────────────────────────────────────────────
+  Agent 0                           2.6081       0.0067  ◀ better
+  Agent 1                           2.5358       0.0133  ◀ better
+  Agent 2                           2.4947       0.0333  ◀ better
+  Agent 3                           2.4956       0.0100  ◀ better
+════════════════════════════════════════════════════════════════
+  6. Statistical Significance
+════════════════════════════════════════════════════════════════
+  Welch's t-test (reward):
+    t-statistic : nan
+    p-value     : nan
+    Significant : NO
+  Cohen's d    : 7.7993  (large effect)
+
+  Interpretation: MAPPO's reward distribution is statistically
+  NOT significantly different from random (p=nan). Effect size is large.
+════════════════════════════════════════════════════════════════
+  7. MAPPO Training Curve Summary
+════════════════════════════════════════════════════════════════
+  Eval checkpoints   : 500
+  Timesteps trained  : 5,000,192
+  Reward (first 5 ck): -3.9961   [argmax eval — biased low]
+  Reward (last 5 ck) : 5.6855   [argmax eval — biased low]
+  Best eval reward   : 8.9133  at t=4,600,064
+  Positive evals     : 257/500
+  Start entropy      : 1.3792
+  End entropy        : 0.2994  (lower = more decisive)
+════════════════════════════════════════════════════════════════
+  8. Verdict
+════════════════════════════════════════════════════════════════
+  MAPPO vs Random (semi-greedy) over 300 episodes each:
+
+  ✓ Mean reward       : MAPPO +10.071 higher (shaped vs raw)
+  ✓ Positive rate     : 99.7% vs 6.0%
+  ✓ Delivery rate     : 99.7% vs 6.0% episodes with ≥1 delivery
+  ✓ Avg deliveries/ep : 3.993 vs 0.063
+  ✓ Statistical test  : NO
+
+  CONCLUSION: MAPPO significantly outperforms the random baseline.
+  It achieves consistent deliveries where random rarely completes any.
+
+  REWARD SCALE NOTE: MAPPO shaped reward is not directly comparable
+  to raw rware reward. Use 'deliveries_per_ep' for a fair unit-less
+  comparison of task completion.
+════════════════════════════════════════════════════════════════

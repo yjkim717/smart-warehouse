@@ -1,0 +1,48 @@
+# MAPPO Training Configuration — 4-Agent Small Grid
+# Use with: python3 scripts/train_mappo.py --env-config configs/env_config_4ag.yaml --mappo-config configs/mappo_config_4ag.yaml
+
+mappo:
+  # ---- Network architecture ----
+  # Same as 2-agent — obs_dim=71 is identical between tiny-2ag and small-4ag
+  hidden_dim: 128
+  n_layers: 2
+  use_gru: false
+
+  # ---- PPO hyperparameters ----
+  lr_actor: 0.0003
+  lr_critic: 0.0005
+  gamma: 0.99
+  gae_lambda: 0.95
+
+  # Clip epsilon decay — identical to 2-agent optimized config
+  clip_epsilon_start: 0.2
+  clip_epsilon_end:   0.1
+
+  # Entropy annealing — slightly higher start for better early exploration
+  # with 4 agents on a larger grid (more coordination needed in early training)
+  entropy_coef_start: 0.02
+  entropy_coef_end:   0.003
+
+  value_loss_coef: 0.5
+  max_grad_norm: 0.5
+
+  # ---- LR decay (cosine schedule) ----
+  lr_decay: true
+  lr_min: 0.00001
+
+  # ---- Rollout ----
+  n_steps: 256
+  n_epochs: 4
+  minibatch_size: 256         # doubled from 2-agent (4 agents × 256 steps = 1024 total, bigger batches ok)
+
+  # ---- Training schedule ----
+  # 5M steps: larger grid (20×10 vs 11×10) + 4 agents = significantly harder coordination
+  total_timesteps: 5_000_000
+  eval_episodes: 20
+  eval_interval: 10000
+  save_interval: 50000
+  log_interval: 2000
+
+  # ---- Paths — separate from 2-agent results ----
+  checkpoint_dir: "results/checkpoints_4ag"
+  log_dir: "results/logs_4ag"
