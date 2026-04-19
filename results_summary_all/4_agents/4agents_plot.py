@@ -31,6 +31,12 @@ methods_files = {
 # Load Eval data
 mappo_eval = pd.read_json('mappo_eval_curve.json')
 happo_eval = pd.read_json('happo_eval_curve.json')
+# QMIX data has 300 points which correspond to 10M episodes
+with open('qmix_evaluation_rewards.json', 'r') as f:
+    qmix_data = json.load(f)
+qmix_rewards = qmix_data['_rewards']
+# Generate x-axis for 10,000,000 episodes
+qmix_x = np.linspace(0, 10000000, len(qmix_rewards))
 qmix_per_eval = pd.read_json('qmix_per_eval_curve.json')
 
 # 1. Reward Plot (5 Methods)
@@ -55,7 +61,10 @@ plt.savefig('reward_comparison.png')
 plt.figure(figsize=(10, 6))
 plt.plot(mappo_eval['timestep'], mappo_eval['eval_mean_reward'], label='MAPPO')
 plt.plot(happo_eval['timestep'], happo_eval['eval_mean_reward'], label='HAPPO')
+# Plot standard QMIX on the 10M episode scale
+plt.plot(qmix_x, qmix_rewards, label='QMIX', linewidth=2, color='grey')
 plt.plot(qmix_per_eval['timestep'], qmix_per_eval['eval_mean_reward'], label='QMIX+PER')
+
 
 # Greedy mean as a reference baseline
 greedy_rew = load_rewards('greedy_baseline_rewards.json')
